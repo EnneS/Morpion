@@ -5,7 +5,6 @@
  */
 package main;
 
-import java.util.ArrayList;
 
 /**
  *
@@ -13,21 +12,22 @@ import java.util.ArrayList;
  */
 public class Grille {
     private int n; // Grille de n*n cases
-    private ArrayList<Case>cases = new ArrayList<>();
+    private Case cases[][];
     
     public Grille(int n){
         setN(n);
         // Création des cases constituant la grille
+        cases = new Case[getN()][getN()];
         for (int y = 0; y < n; y++){
             for(int x = 0; x < n; x++){
                 Case carreau = new Case(x,y);
-                cases.add(carreau);
+                cases[x][y]=carreau;
             }
         }
     }
 
     /**
-     * @return the nbLignes
+     * @return the n
      */
     public int getN() {
         return n;
@@ -43,7 +43,7 @@ public class Grille {
     /**
      * @return the cases
      */
-    public ArrayList<Case> getCases() {
+    public Case[][] getCases() {
         return cases;
     }
 }

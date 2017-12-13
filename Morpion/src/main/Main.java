@@ -16,6 +16,9 @@ public class Main {
      */
     public static void main(String[] args) {
         VueMenu vueMenu = new VueMenu();
+        VueRegle vueRegle = new VueRegle();
+        vueRegle.afficher();
+        
     }
     
 }

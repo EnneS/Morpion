@@ -13,9 +13,9 @@ import java.util.ArrayList;
  */
 public class Joueur {
     private String nom;
-    private int score;
+    //private int score = 0;
     private Symbole symbole;
-    private ArrayList<Case>casesCochées = new ArrayList<>();
+    ArrayList <Case>casesCochées = new ArrayList<>();
     
     public Joueur(String nom, Symbole symbole){
         setNom(nom);
@@ -39,14 +39,14 @@ public class Joueur {
     /**
      * @return the score
      */
-    public int getScore() {
+   /* public int getScore() {
         return score;
     }
 
     /**
      * @param score the score to set
      */
-    public void setScore(int score) {
+   /* public void setScore(int score) {
         this.score = score;
     }
 

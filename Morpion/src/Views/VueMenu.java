@@ -45,12 +45,12 @@ public class VueMenu {
                             panelTitre.add(titreVue);
 
                         } else {
-                            panelTitre.add(new JLabel(""));
+                            panelTitre.add(new JLabel());
                         }
                     }
                 } else if (i == 4){
                     GridLayout gridBoutons = new GridLayout(3, 2);
-                    gridBoutons.setHgap(50);
+                    gridBoutons.setHgap(35);
                     JPanel panelBoutons = new JPanel(gridBoutons);
                     centrePanel.add(panelBoutons);
                     for (int j = 0; j < 6; j++){
@@ -61,7 +61,7 @@ public class VueMenu {
                                 panelBoutons.add(new JButton("Tournoi"));
                             }
                         } else {
-                            panelBoutons.add(new JLabel(""));
+                            panelBoutons.add(new JLabel());
                         }
                     }
                 } else if (i == 6){
@@ -76,11 +76,24 @@ public class VueMenu {
                             panelQuitter.add(new JLabel());
                         }
                     }
+                } else if (i == 8) {
+                    GridLayout gridQuitter = new GridLayout(4, 3);
+                    gridQuitter.setHgap(-200);
+                    JPanel panelQuitter = new JPanel(gridQuitter);
+                    centrePanel.add(panelQuitter);
+                    for (int j = 0; j < 12; j++) {
+                        if (j == 7) {
+                            panelQuitter.add(new JButton("Règles"));
+                        } else {
+                            panelQuitter.add(new JLabel());
+                        }
+                    }
                 }
             } else {
                 centrePanel.add(new JLabel());
             }
         }
+
     }
 
 

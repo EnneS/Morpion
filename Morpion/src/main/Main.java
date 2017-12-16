@@ -5,6 +5,9 @@
  */
 package main;
 
+import Views.VueMenu;
+import Views.VueRegle;
+
 /**
  *
  * @author souliern

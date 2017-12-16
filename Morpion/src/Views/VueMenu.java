@@ -41,6 +41,8 @@ public class VueMenu {
                     for (int j = 0; j < 4; j++) {
                         if (j == 3) {
                             JLabel titreVue = new JLabel("Jeu du Morpion", SwingConstants.CENTER);
+                            titreVue.setFont(new Font("Euphemia UCAS", titreVue.getFont().getStyle(), titreVue.getFont().getSize()));
+
                             titreVue.setFont(new Font(titreVue.getFont().getName(), titreVue.getFont().getStyle(), (int) (titreVue.getFont().getSize() * 3)));
                             panelTitre.add(titreVue);
 
@@ -56,9 +58,13 @@ public class VueMenu {
                     for (int j = 0; j < 6; j++){
                         if (j ==2 || j == 3) {
                             if (j ==2) {
-                                panelBoutons.add(new JButton("Partie Rapide"));
+                                JButton btnPartieRapide = new JButton("Partie Rapide");
+                                btnPartieRapide.setFont(new Font("Euphemia UCAS", btnPartieRapide.getFont().getStyle(), btnPartieRapide.getFont().getSize()));
+                                panelBoutons.add(btnPartieRapide);
                             } else {
-                                panelBoutons.add(new JButton("Tournoi"));
+                                JButton btnTournoi = new JButton("Tournoi");
+                                btnTournoi.setFont(new Font("Euphemia UCAS", btnTournoi.getFont().getStyle(), btnTournoi.getFont().getSize()));
+                                panelBoutons.add(btnTournoi);
                             }
                         } else {
                             panelBoutons.add(new JLabel());
@@ -71,7 +77,9 @@ public class VueMenu {
                     centrePanel.add(panelQuitter);
                     for (int j = 0; j < 12; j++){
                         if(j == 7){
-                            panelQuitter.add(new JButton("Quitter"));
+                            JButton btnQuitter = new JButton("Quitter");
+                            btnQuitter.setFont(new Font("Euphemia UCAS", btnQuitter.getFont().getStyle(), btnQuitter.getFont().getSize()));
+                            panelQuitter.add(btnQuitter);
                         } else {
                             panelQuitter.add(new JLabel());
                         }
@@ -83,7 +91,9 @@ public class VueMenu {
                     centrePanel.add(panelQuitter);
                     for (int j = 0; j < 12; j++) {
                         if (j == 7) {
-                            panelQuitter.add(new JButton("Règles"));
+                            JButton btnRegle = new JButton("Règles");
+                            btnRegle.setFont(new Font("Euphemia UCAS", btnRegle.getFont().getStyle(), btnRegle.getFont().getSize()));
+                            panelQuitter.add(btnRegle);
                         } else {
                             panelQuitter.add(new JLabel());
                         }

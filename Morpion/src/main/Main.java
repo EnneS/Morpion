@@ -20,8 +20,11 @@ public class Main {
      */
     public static void main(String[] args) {
         VueGrille vueGrille = new VueGrille();
-        VueRegle vueMenu = new VueRegle();
-        vueGrille.afficher();
+        VueRegle vueRegle = new VueRegle();
+        VueMenu vueMenu = new VueMenu();
+
+
+        vueMenu.afficher();
 
         
     }

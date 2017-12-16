@@ -61,7 +61,7 @@ public class VueGrille {
             infoJoueurDroite.add(symboleJoueurDroite);
 
             JLabel nomJoueurDroite = new JLabel("Théophile",SwingConstants.CENTER);
-            nomJoueurDroite.setFont(new Font("Euphemia UCASt", nomJoueurDroite.getFont().getStyle(), nomJoueurDroite.getFont().getSize()*2));
+            nomJoueurDroite.setFont(new Font("Euphemia UCAS", nomJoueurDroite.getFont().getStyle(), nomJoueurDroite.getFont().getSize()*2));
             infoJoueurDroite.add(nomJoueurDroite);
 
             //Construction panel grille (centre de panel principal)

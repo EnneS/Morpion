@@ -36,6 +36,7 @@ public class VueRegle {
 
         boutonPanel.setPreferredSize(new Dimension(window.getWidth(), 50));
         JButton boutonMorpion = new JButton("Règle du jeu");
+        boutonMorpion.setFont(new Font("Euphemia UCAS", boutonMorpion.getFont().getStyle(), boutonMorpion.getFont().getSize()));
         boutonMorpion.setPreferredSize(new Dimension(300, 35));
         boutonMorpion.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
@@ -45,6 +46,7 @@ public class VueRegle {
 
 
         JButton boutonTournoi = new JButton("Règle d'un tournoi");
+        boutonTournoi.setFont(new Font("Euphemia UCAS", boutonTournoi.getFont().getStyle(), boutonTournoi.getFont().getSize()));
         boutonTournoi.setPreferredSize(new Dimension(300, 35));
         boutonTournoi.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
@@ -68,6 +70,7 @@ public class VueRegle {
         for (int i = 0; i < 3; i++){
             if( i == 1){
                 JButton boutonRetour = new JButton("Retour");
+                boutonRetour.setFont(new Font("Euphemia UCAS", boutonRetour.getFont().getStyle(), boutonRetour.getFont().getSize()));
                 panelBtnRetour.add(boutonRetour);
                 boutonRetour.setPreferredSize(new Dimension(0 /*La longueur ne change pas quoiqu'il arrive. Swing, tu es incroyable.*/,40));
             } else {
@@ -78,7 +81,7 @@ public class VueRegle {
         // ------------------------------------
         // Onglet Règle d'une partie de Morpion
         JLabel titreRegleM = new JLabel("Règle du jeu", SwingConstants.CENTER);
-        titreRegleM.setFont(new Font("Comic Sans MS", titreRegleM.getFont().getStyle(), (titreRegleM.getFont().getSize() * 2)));
+        titreRegleM.setFont(new Font("Euphemia UCAS", titreRegleM.getFont().getStyle(), titreRegleM.getFont().getSize()*2));
         regleMorpion.add(titreRegleM, BorderLayout.NORTH);
 
         JPanel descRegleM = new JPanel(new GridLayout(1,3));
@@ -97,7 +100,7 @@ public class VueRegle {
         // ------------------------------------
         // Onglet Règle d'un Tournoi
         JLabel titreRegleT = new JLabel("Règle d'un Tournoi", SwingConstants.CENTER);
-        titreRegleT.setFont(new Font(titreRegleT.getFont().getName(), titreRegleT.getFont().getStyle(), (titreRegleT.getFont().getSize() * 2)));
+        titreRegleT.setFont(new Font("Euphemia UCAS", titreRegleT.getFont().getStyle(), titreRegleT.getFont().getSize()*2));
         regleTournoi.add(titreRegleT, BorderLayout.NORTH);
 
         JPanel descRegleT = new JPanel(new GridLayout(1,3));

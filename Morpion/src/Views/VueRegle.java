@@ -15,9 +15,12 @@ import java.awt.event.ActionListener;
  * @author souliern
  */
 public class VueRegle {
-    
+
     private final JFrame window;
-    
+    CardLayout cl = new CardLayout();
+    JPanel onglet = new JPanel();
+    //Liste des onglets avec un nom associé
+    String[] listeOnglets = {"RegleMorpion", "RegleTournoi"};
     public VueRegle() {
 
         window = new JFrame();
@@ -25,44 +28,58 @@ public class VueRegle {
         window.setSize(1280,720);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
+        window.setTitle("Règles");
 
-        /* public void paintComponent(Graphics graphics){
-            graphics.drawString("Jeu de morpion",10,20);
-        } */
-        JPanel mainPanel = new JPanel(new BorderLayout());
-        window.add(mainPanel);
-        
-        JPanel hautPanel = new JPanel();
-        mainPanel.add(hautPanel, BorderLayout.NORTH);
-     
-        JLabel titreVue = new JLabel("Règles de jeu");
-        titreVue.setFont(new Font(titreVue.getFont().getName(), titreVue.getFont().getStyle(), (int) (titreVue.getFont().getSize() * 2)));
-        hautPanel.add(titreVue);
-        
-        JPanel centrePanel = new JPanel(new GridLayout(3,3));
-        mainPanel.add(centrePanel, BorderLayout.CENTER);
-        
-        for(int i = 0; i<9; i++){
-            if (i == 4){
-                JPanel panelBouton = new JPanel(new GridLayout(4,1));
-                centrePanel.add(panelBouton);
-                for(int j = 0; j<4; j++){
-                    if (j == 0){
-                        JButton btnRapide = new JButton("Partie rapide");
-                        panelBouton.add(btnRapide);
-                    } else {
-                        JLabel label = new JLabel() ;
-                        panelBouton.add(label);
-                    }
-                }
-            } else {
-                JLabel label = new JLabel() ;
-                centrePanel.add(label);
-            }   
-        }
+        JPanel regleMorpion = new JPanel(new BorderLayout());
+        JPanel regleTournoi = new JPanel(new BorderLayout());
+        JPanel boutonPanel = new JPanel();
+
+        boutonPanel.setPreferredSize(new Dimension(window.getWidth(), 40));
+        JButton boutonMorpion = new JButton("Règle d'une partie de morpion");
+        boutonMorpion.setPreferredSize(new Dimension(300, 35));
+        boutonMorpion.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                cl.show(onglet, listeOnglets[0]); // 0 = Onglet Règle d'une partie de morpion
+            }
+        });
+
+
+        JButton boutonTournoi = new JButton("Règle d'un tournoi");
+        boutonTournoi.setPreferredSize(new Dimension(300, 35));
+        boutonTournoi.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent event){
+                cl.show(onglet, listeOnglets[1]); // 1 = Onglet Règle d'un tournoi
+            }
+        });
+
+        boutonPanel.add(boutonMorpion);
+        boutonPanel.add(boutonTournoi);
+
+        onglet.setLayout(cl);
+        onglet.add(regleMorpion, listeOnglets[0]);
+        onglet.add(regleTournoi, listeOnglets[1]);
+
+        window.add(boutonPanel, BorderLayout.NORTH);
+        window.add(onglet, BorderLayout.CENTER);
+
+        JButton boutonRetour = new JButton("Retour");
+        boutonRetour.setPreferredSize(new Dimension(window.getWidth(),50));
+        window.getContentPane().add(boutonRetour, BorderLayout.SOUTH);
+
+        // ------------------------------------
+        // Onglet Règle d'une partie de Morpion
+        JLabel titreRegleM = new JLabel("Règle d'une partie de Morpion", SwingConstants.CENTER);
+        titreRegleM.setFont(new Font("Comic Sans MS", titreRegleM.getFont().getStyle(), (titreRegleM.getFont().getSize() * 2)));
+        regleMorpion.add(titreRegleM, BorderLayout.NORTH);
+
+        // ------------------------------------
+        // Onglet Règle d'un Tournoi
+        JLabel titreRegleT = new JLabel("Règle d'un Tournoi", SwingConstants.CENTER);
+        titreRegleT.setFont(new Font(titreRegleT.getFont().getName(), titreRegleT.getFont().getStyle(), (titreRegleT.getFont().getSize() * 2)));
+        regleTournoi.add(titreRegleT, BorderLayout.NORTH);
 
     }
-    
+
     public void afficher(){
         this.window.setVisible(true);
     }

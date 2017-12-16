@@ -47,7 +47,7 @@ public class VueGrille {
             hautPanel.add(infoJoueurGauche);
 
             JLabel symboleJoueurGauche = new JLabel("X",SwingConstants.CENTER);
-            symboleJoueurGauche.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurGauche.getFont().getSize()*3));
+            symboleJoueurGauche.setFont(new Font("Impact", Font.BOLD, symboleJoueurGauche.getFont().getSize()*3));
             infoJoueurGauche.add(symboleJoueurGauche);
 
             JLabel nomJoueurGauche = new JLabel("Nathan",SwingConstants.CENTER);
@@ -62,7 +62,7 @@ public class VueGrille {
             hautPanel.add(infoJoueurDroite);
 
             JLabel symboleJoueurDroite = new JLabel("O",SwingConstants.CENTER);
-            symboleJoueurDroite.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurDroite.getFont().getSize()*3));
+            symboleJoueurDroite.setFont(new Font("Impact", Font.BOLD, symboleJoueurDroite.getFont().getSize()*3));
             infoJoueurDroite.add(symboleJoueurDroite);
 
             JLabel nomJoueurDroite = new JLabel("Théophile",SwingConstants.CENTER);
@@ -74,36 +74,52 @@ public class VueGrille {
             JPanel grillePanel = new JPanel(new BorderLayout());
             centrePanel.add(grillePanel);
 
+            JPanel HautGrillePanel = new JPanel();
+            grillePanel.add(HautGrillePanel, BorderLayout.NORTH);
+            HautGrillePanel.setBackground(Color.WHITE);
+
             JLabel hautGrilleLabel = new JLabel("C'est à Théophile de jouer !", SwingConstants.CENTER);
-            hautGrilleLabel.setFont(new Font("Euphemia UCAS", Font.ITALIC, hautGrilleLabel.getFont().getSize()*2));
-            grillePanel.add(hautGrilleLabel, BorderLayout.NORTH);
+            hautGrilleLabel.setFont(new Font("Euphemia UCAS", Font.ITALIC, hautGrilleLabel.getFont().getSize()));
+            HautGrillePanel.add(hautGrilleLabel);
 
             JPanel centreGrillePanel = new JPanel(new GridLayout(9,9));
             grillePanel.add(centreGrillePanel, BorderLayout.CENTER);
+            centreGrillePanel.setBackground(Color.WHITE);
 
             for (int i = 0; i < 81 ; i++){
                 JButton btn = new  JButton("X");
-                btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*3));
+                btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*2));
                 btn.setPreferredSize(new Dimension(55,55));
                 centreGrillePanel.add(btn);
             }
 
             JPanel basGrillePanel = new JPanel();
             grillePanel.add(basGrillePanel, BorderLayout.SOUTH);
+            basGrillePanel.setBackground(Color.WHITE);
+
+            //Bouton quitter
+
+            JButton btnQuitter = new JButton("Quitter la partie");
+            btnQuitter.setFont(new Font("Euphemia UCAS", btnQuitter.getFont().getStyle(), btnQuitter.getFont().getSize()));
+            btnQuitter.setPreferredSize(new Dimension(200,35));
+            basGrillePanel.add(btnQuitter, BorderLayout.SOUTH);
+
+            //Bouton annuler
 
             JButton btnAnnuler = new JButton("Revenir en arrière");
             btnAnnuler.setFont(new Font("Euphemia UCAS", btnAnnuler.getFont().getStyle(), btnAnnuler.getFont().getSize()));
-            btnAnnuler.setPreferredSize(new Dimension(600,35));
+            btnAnnuler.setPreferredSize(new Dimension(200,35));
             basGrillePanel.add(btnAnnuler);
 
             window.setVisible(true);
 
-            //Bouton quitter
+            //Bouton information
 
-            JPanel borderGauche = new JPanel(new BorderLayout());
-            JButton btnQuitter = new JButton("Quitter la partie");
-            basGrillePanel.add(btnQuitter, BorderLayout.SOUTH);
-            gauchePanel.add(borderGauche);
+            JButton btnInformation = new JButton("Information");
+            btnInformation.setFont(new Font("Euphemia UCAS", btnInformation.getFont().getStyle(), btnInformation.getFont().getSize()));
+            btnInformation.setPreferredSize(new Dimension(200,35));
+            basGrillePanel.add(btnInformation, BorderLayout.SOUTH);
+
 
             
 

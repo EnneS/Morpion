@@ -5,6 +5,7 @@
  */
 package main;
 
+import Views.VueGrille;
 import Views.VueMenu;
 import Views.VueRegle;
 
@@ -18,9 +19,9 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        VueMenu vueMenu = new VueMenu();
-        VueRegle vueRegle = new VueRegle();
-        vueRegle.afficher();
+        VueGrille vueGrille = new VueGrille();
+        vueGrille.afficher();
+
         
     }
     

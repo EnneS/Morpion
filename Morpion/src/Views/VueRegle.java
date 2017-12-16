@@ -34,8 +34,8 @@ public class VueRegle {
         JPanel regleTournoi = new JPanel(new BorderLayout());
         JPanel boutonPanel = new JPanel();
 
-        boutonPanel.setPreferredSize(new Dimension(window.getWidth(), 40));
-        JButton boutonMorpion = new JButton("Règle d'une partie de morpion");
+        boutonPanel.setPreferredSize(new Dimension(window.getWidth(), 50));
+        JButton boutonMorpion = new JButton("Règle du jeu");
         boutonMorpion.setPreferredSize(new Dimension(300, 35));
         boutonMorpion.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){
@@ -68,9 +68,22 @@ public class VueRegle {
 
         // ------------------------------------
         // Onglet Règle d'une partie de Morpion
-        JLabel titreRegleM = new JLabel("Règle d'une partie de Morpion", SwingConstants.CENTER);
+        JLabel titreRegleM = new JLabel("Règle du jeu", SwingConstants.CENTER);
         titreRegleM.setFont(new Font("Comic Sans MS", titreRegleM.getFont().getStyle(), (titreRegleM.getFont().getSize() * 2)));
         regleMorpion.add(titreRegleM, BorderLayout.NORTH);
+
+        JPanel descRegleM = new JPanel(new GridLayout(1,3));
+        regleMorpion.add(descRegleM, BorderLayout.CENTER);
+        for(int i = 0; i < 3; i++){
+            if(i == 1){
+                JLabel desc = new JLabel("<html> Le morpion est un jeu de réflexion se pratiquant à deux joueurs au tour par tour et dont le but est de créer le premier un alignement (horizontal, vertical, diagonal) sur une grille. Les joueurs inscrivent tour à tour leurs symboles (O ou X) sur une grille de taille comprise entre 5x5 et 9x9. Le premier qui parvient à aligner cinq de ses symboles gagne la partie. Alternativement, on peut aussi jouer la partie aux points : les joueurs jouent jusqu'à avoir rempli l'ensemble de la grille et celui qui a le plus de point est déclaré gagnant. </html>");
+                desc.setVerticalAlignment(1);
+                desc.setFont(new Font("Euphemia UCAS", desc.getFont().getStyle(), desc.getFont().getSize()));
+                descRegleM.add(desc);
+            } else {
+                descRegleM.add(new JLabel());
+            }
+        }
 
         // ------------------------------------
         // Onglet Règle d'un Tournoi
@@ -78,6 +91,19 @@ public class VueRegle {
         titreRegleT.setFont(new Font(titreRegleT.getFont().getName(), titreRegleT.getFont().getStyle(), (titreRegleT.getFont().getSize() * 2)));
         regleTournoi.add(titreRegleT, BorderLayout.NORTH);
 
+        JPanel descRegleT = new JPanel(new GridLayout(1,3));
+        regleTournoi.add(descRegleT, BorderLayout.CENTER);
+        for(int i = 0; i < 3; i++){
+            if(i == 1){
+                JLabel desc = new JLabel("<html> Le morpion est un jeu de réflexion se pratiquant à deux joueurs au tour par tour et dont le but est de créer le premier un alignement (horizontal, vertical, diagonal) sur une grille. Les joueurs inscrivent tour à tour leurs symboles (O ou X) sur une grille de taille comprise entre 5x5 et 9x9. Le premier qui parvient à aligner cinq de ses symboles gagne la partie. Alternativement, on peut aussi jouer la partie aux points : les joueurs jouent jusqu'à avoir rempli l'ensemble de la grille et celui qui a le plus de point est déclaré gagnant. </html>");
+                desc.setVerticalAlignment(1);
+                desc.setFont(new Font("Euphemia UCAS", desc.getFont().getStyle(), desc.getFont().getSize()));
+                desc.setSize(500,300);
+                descRegleT.add(desc);
+            } else {
+                descRegleT.add(new JLabel());
+            }
+        }
     }
 
     public void afficher(){

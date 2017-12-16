@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         VueGrille vueGrille = new VueGrille();
         VueRegle vueMenu = new VueRegle();
-        vueMenu.afficher();
+        vueGrille.afficher();
 
         
     }

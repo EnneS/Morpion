@@ -1,10 +1,12 @@
 package Views;
+import com.sun.deploy.panel.JavaPanel;
 import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
 import sun.jvm.hotspot.ui.JavaStackTracePanel;
 import sun.tools.jps.Jps;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.Border;
 
 public class VueGrille {
 
@@ -20,15 +22,7 @@ public class VueGrille {
             window.setTitle("Jeu du Morpion");
 
             window.setLayout(new BorderLayout());
-
-            /*window.getContentPane().add(new JButton("Center"),BorderLayout.CENTER);
-            window.getContentPane().add(new JButton("North"),BorderLayout.NORTH);
-            window.getContentPane().add(new JButton("South"),BorderLayout.SOUTH);
-            window.getContentPane().add(new JButton("East"),BorderLayout.EAST);
-            window.getContentPane().add(new JButton("West"),BorderLayout.WEST);
-
-            window.getContentPane().setPreferredSize(new Dimension(100,100 )); */
-
+            
             JPanel mainPanel = new JPanel(new BorderLayout());
             window.add(mainPanel);
 
@@ -52,20 +46,36 @@ public class VueGrille {
             JPanel infoJoueurGauche = new JPanel(new GridLayout(2,1));
             hautPanel.add(infoJoueurGauche);
 
+            JLabel symboleJoueurGauche = new JLabel("X",SwingConstants.CENTER);
+            symboleJoueurGauche.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurGauche.getFont().getSize()*3));
+            infoJoueurGauche.add(symboleJoueurGauche);
+
+            JLabel nomJoueurGauche = new JLabel("Nathan",SwingConstants.CENTER);
+            nomJoueurGauche.setFont(new Font("Euphemia UCAS", nomJoueurGauche.getFont().getStyle(), nomJoueurGauche.getFont().getSize()*2));
+            infoJoueurGauche.add(nomJoueurGauche);
+
             JLabel infoCentre = new JLabel("VS",SwingConstants.CENTER);
-            infoCentre.setFont(new Font("Impact", infoCentre.getFont().getStyle(), infoCentre.getFont().getSize()*4));
+            infoCentre.setFont(new Font("Impact", infoCentre.getFont().getStyle(), infoCentre.getFont().getSize()*5));
             hautPanel.add(infoCentre);
 
             JPanel infoJoueurDroite = new JPanel(new GridLayout(2,1));
             hautPanel.add(infoJoueurDroite);
 
+            JLabel symboleJoueurDroite = new JLabel("O",SwingConstants.CENTER);
+            symboleJoueurDroite.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurDroite.getFont().getSize()*3));
+            infoJoueurDroite.add(symboleJoueurDroite);
+
+            JLabel nomJoueurDroite = new JLabel("Théophile",SwingConstants.CENTER);
+            nomJoueurDroite.setFont(new Font("Euphemia UCASt", nomJoueurDroite.getFont().getStyle(), nomJoueurDroite.getFont().getSize()*2));
+            infoJoueurDroite.add(nomJoueurDroite);
 
             //Construction panel grille (centre de panel principal)
 
             JPanel grillePanel = new JPanel(new BorderLayout());
             centrePanel.add(grillePanel);
 
-            JLabel hautGrilleLabel = new JLabel("C'est à Théophile de joué !", SwingConstants.CENTER);
+            JLabel hautGrilleLabel = new JLabel("C'est à Théophile de jouer !", SwingConstants.CENTER);
+            hautGrilleLabel.setFont(new Font("Euphemia UCAS", Font.ITALIC, hautGrilleLabel.getFont().getSize()*2));
             grillePanel.add(hautGrilleLabel, BorderLayout.NORTH);
 
             JPanel centreGrillePanel = new JPanel(new GridLayout(9,9));
@@ -73,22 +83,29 @@ public class VueGrille {
 
             for (int i = 0; i < 81 ; i++){
                 JButton btn = new  JButton("X");
-                btn.setPreferredSize(new Dimension(60,60));
+                btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*3));
+                btn.setPreferredSize(new Dimension(55,55));
                 centreGrillePanel.add(btn);
             }
 
             JPanel basGrillePanel = new JPanel();
             grillePanel.add(basGrillePanel, BorderLayout.SOUTH);
 
-            JButton btnAnnuler = new JButton("Annuler");
-            btnAnnuler.setPreferredSize(new Dimension(600,40));
+            JButton btnAnnuler = new JButton("Revenir en arrière");
+            btnAnnuler.setFont(new Font("Euphemia UCAS", btnAnnuler.getFont().getStyle(), btnAnnuler.getFont().getSize()));
+            btnAnnuler.setPreferredSize(new Dimension(600,35));
             basGrillePanel.add(btnAnnuler);
 
-
-
-
-
             window.setVisible(true);
+
+            //Bouton quitter
+
+            JPanel borderGauche = new JPanel(new BorderLayout());
+            JButton btnQuitter = new JButton("Quitter la partie");
+            basGrillePanel.add(btnQuitter, BorderLayout.SOUTH);
+            gauchePanel.add(borderGauche);
+
+            
 
         }
 

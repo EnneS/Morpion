@@ -28,13 +28,13 @@ public class VueRegle {
         window.setSize(1280,720);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
-        window.setTitle("Règles");
+        window.setTitle("Règles du Morpion");
 
-        JPanel regleMorpion = new JPanel(new BorderLayout());
-        JPanel regleTournoi = new JPanel(new BorderLayout());
+        // ----------------------------------
+        // Panel des onglets disponibles (2 boutons)
         JPanel boutonPanel = new JPanel();
-
         boutonPanel.setPreferredSize(new Dimension(window.getWidth(), 50));
+
         JButton boutonMorpion = new JButton("Règle du jeu");
         boutonMorpion.setFont(new Font("Euphemia UCAS", boutonMorpion.getFont().getStyle(), boutonMorpion.getFont().getSize()));
         boutonMorpion.setPreferredSize(new Dimension(300, 35));
@@ -43,7 +43,6 @@ public class VueRegle {
                 cl.show(onglet, listeOnglets[0]); // 0 = Onglet Règle d'une partie de morpion
             }
         });
-
 
         JButton boutonTournoi = new JButton("Règle d'un tournoi");
         boutonTournoi.setFont(new Font("Euphemia UCAS", boutonTournoi.getFont().getStyle(), boutonTournoi.getFont().getSize()));
@@ -57,6 +56,11 @@ public class VueRegle {
         boutonPanel.add(boutonMorpion);
         boutonPanel.add(boutonTournoi);
 
+        // -----------------------------------
+        // Initialisation des onglets
+        JPanel regleMorpion = new JPanel(new BorderLayout());
+        JPanel regleTournoi = new JPanel(new BorderLayout());
+
         onglet.setLayout(cl);
         onglet.add(regleMorpion, listeOnglets[0]);
         onglet.add(regleTournoi, listeOnglets[1]);
@@ -64,19 +68,6 @@ public class VueRegle {
         window.add(boutonPanel, BorderLayout.NORTH);
         window.add(onglet, BorderLayout.CENTER);
 
-        JPanel panelBtnRetour = new JPanel(new GridLayout(1,3));
-        window.add(panelBtnRetour, BorderLayout.SOUTH);
-
-        for (int i = 0; i < 3; i++){
-            if( i == 1){
-                JButton boutonRetour = new JButton("Retour");
-                boutonRetour.setFont(new Font("Euphemia UCAS", boutonRetour.getFont().getStyle(), boutonRetour.getFont().getSize()));
-                panelBtnRetour.add(boutonRetour);
-                boutonRetour.setPreferredSize(new Dimension(0 /*La longueur ne change pas quoiqu'il arrive. Swing, tu es incroyable.*/,40));
-            } else {
-                panelBtnRetour.add(new JLabel());
-            }
-        }
 
         // ------------------------------------
         // Onglet Règle d'une partie de Morpion
@@ -115,6 +106,23 @@ public class VueRegle {
                 descRegleT.add(new JLabel());
             }
         }
+
+        // -------------------------------------
+        // Bouton Retour
+        JPanel panelBtnRetour = new JPanel(new GridLayout(1,3));
+        window.add(panelBtnRetour, BorderLayout.SOUTH);
+
+        for (int i = 0; i < 3; i++){
+            if( i == 1){
+                JButton boutonRetour = new JButton("Retour");
+                boutonRetour.setFont(new Font("Euphemia UCAS", boutonRetour.getFont().getStyle(), boutonRetour.getFont().getSize()));
+                panelBtnRetour.add(boutonRetour);
+                boutonRetour.setPreferredSize(new Dimension(0 /*La longueur ne change pas quoiqu'il arrive. Swing, tu es incroyable.*/,40));
+            } else {
+                panelBtnRetour.add(new JLabel());
+            }
+        }
+
     }
 
     public void afficher(){

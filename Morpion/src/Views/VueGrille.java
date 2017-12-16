@@ -82,7 +82,7 @@ public class VueGrille {
             centreGrillePanel.setBackground(Color.WHITE);
 
             for (int i = 0; i < 81 ; i++){
-                JButton btn = new  JButton("X");
+                JButton btn = new  JButton("");
                 btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*2));
                 btn.setPreferredSize(new Dimension(55,55));
                 centreGrillePanel.add(btn);

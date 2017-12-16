@@ -35,6 +35,9 @@ public class VueMenu {
 
         for(int i = 0; i<9; i++){
             if(i == 1 || i == 4 || i == 6 || i == 8){
+                // GridLayout utilisé plus tard pour les boutons Quitter et Règles
+                GridLayout gridQuitterRegles = new GridLayout(4, 3);
+                gridQuitterRegles.setHgap(-200);
                 if(i == 1) {
                     JPanel panelTitre = new JPanel(new GridLayout(4, 1));
                     centrePanel.add(panelTitre);
@@ -71,9 +74,7 @@ public class VueMenu {
                         }
                     }
                 } else if (i == 6){
-                    GridLayout gridQuitter = new GridLayout(4, 3);
-                    gridQuitter.setHgap(-200);
-                    JPanel panelQuitter = new JPanel(gridQuitter);
+                    JPanel panelQuitter = new JPanel(gridQuitterRegles);
                     centrePanel.add(panelQuitter);
                     for (int j = 0; j < 12; j++){
                         if(j == 7){
@@ -85,9 +86,7 @@ public class VueMenu {
                         }
                     }
                 } else if (i == 8) {
-                    GridLayout gridQuitter = new GridLayout(4, 3);
-                    gridQuitter.setHgap(-200);
-                    JPanel panelQuitter = new JPanel(gridQuitter);
+                    JPanel panelQuitter = new JPanel(gridQuitterRegles);
                     centrePanel.add(panelQuitter);
                     for (int j = 0; j < 12; j++) {
                         if (j == 7) {

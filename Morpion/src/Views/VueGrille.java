@@ -1,5 +1,7 @@
 package Views;
 import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
+import sun.jvm.hotspot.ui.JavaStackTracePanel;
+import sun.tools.jps.Jps;
 
 import java.awt.*;
 import javax.swing.*;
@@ -30,46 +32,56 @@ public class VueGrille {
             JPanel mainPanel = new JPanel(new BorderLayout());
             window.add(mainPanel);
 
-            JButton boutton1 = new JButton("Nord");
-            boutton1.setPreferredSize(new Dimension(100,100));
 
             //Construction panel principal
 
-            JPanel hautPanel = new JPanel();
+            JPanel hautPanel = new JPanel(new GridLayout(1,3));
             mainPanel.add(hautPanel, BorderLayout.NORTH);
-            hautPanel.add(boutton1);
-
-            JPanel basPanel = new JPanel();
-            mainPanel.add(basPanel, BorderLayout.SOUTH);
-            basPanel.add(new JLabel("bas"));
 
             JPanel droitPanel = new JPanel();
             mainPanel.add(droitPanel, BorderLayout.EAST);
-            droitPanel.add(new JButton("droit"));
 
             JPanel gauchePanel = new JPanel();
             mainPanel.add(gauchePanel, BorderLayout.WEST);
-            gauchePanel.add(new JLabel("gauche"));
 
             JPanel centrePanel = new JPanel();
             mainPanel.add(centrePanel, BorderLayout.CENTER);
 
-            //Construction panel grille (dans centre de panel principal)
+            //Construction panel information (haut de panel principal)
+
+            JPanel infoJoueurGauche = new JPanel(new GridLayout(2,1));
+            hautPanel.add(infoJoueurGauche);
+
+            JLabel infoCentre = new JLabel("VS",SwingConstants.CENTER);
+            infoCentre.setFont(new Font("Impact", infoCentre.getFont().getStyle(), infoCentre.getFont().getSize()*4));
+            hautPanel.add(infoCentre);
+
+            JPanel infoJoueurDroite = new JPanel(new GridLayout(2,1));
+            hautPanel.add(infoJoueurDroite);
+
+
+            //Construction panel grille (centre de panel principal)
 
             JPanel grillePanel = new JPanel(new BorderLayout());
             centrePanel.add(grillePanel);
 
-            JPanel centreGrillePanel = new JPanel(new GridLayout(3,3));
+            JLabel hautGrilleLabel = new JLabel("C'est à Théophile de joué !", SwingConstants.CENTER);
+            grillePanel.add(hautGrilleLabel, BorderLayout.NORTH);
+
+            JPanel centreGrillePanel = new JPanel(new GridLayout(9,9));
             grillePanel.add(centreGrillePanel, BorderLayout.CENTER);
 
-            for (int i = 0; i < 9 ; i++){
-                centreGrillePanel.add(new JButton("lol"));
+            for (int i = 0; i < 81 ; i++){
+                JButton btn = new  JButton("X");
+                btn.setPreferredSize(new Dimension(60,60));
+                centreGrillePanel.add(btn);
             }
 
             JPanel basGrillePanel = new JPanel();
             grillePanel.add(basGrillePanel, BorderLayout.SOUTH);
 
             JButton btnAnnuler = new JButton("Annuler");
+            btnAnnuler.setPreferredSize(new Dimension(600,40));
             basGrillePanel.add(btnAnnuler);
 
 

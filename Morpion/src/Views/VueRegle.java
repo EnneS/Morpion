@@ -26,9 +26,6 @@ public class VueRegle {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
 
-        /* public void paintComponent(Graphics graphics){
-            graphics.drawString("Jeu de morpion",10,20);
-        } */
         JPanel mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel);
         

@@ -42,7 +42,7 @@ public class VueGrille {
             hautPanel.add(infoJoueurGauche);
 
             JLabel symboleJoueurGauche = new JLabel("X",SwingConstants.CENTER);
-            symboleJoueurGauche.setFont(new Font("Impact", Font.BOLD, symboleJoueurGauche.getFont().getSize()*3));
+            symboleJoueurGauche.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurGauche.getFont().getSize()*3));
             infoJoueurGauche.add(symboleJoueurGauche);
 
             JLabel nomJoueurGauche = new JLabel("Nathan",SwingConstants.CENTER);
@@ -57,7 +57,7 @@ public class VueGrille {
             hautPanel.add(infoJoueurDroite);
 
             JLabel symboleJoueurDroite = new JLabel("O",SwingConstants.CENTER);
-            symboleJoueurDroite.setFont(new Font("Impact", Font.BOLD, symboleJoueurDroite.getFont().getSize()*3));
+            symboleJoueurDroite.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurDroite.getFont().getSize()*3));
             infoJoueurDroite.add(symboleJoueurDroite);
 
             JLabel nomJoueurDroite = new JLabel("Théophile",SwingConstants.CENTER);
@@ -71,7 +71,7 @@ public class VueGrille {
 
             JPanel HautGrillePanel = new JPanel();
             grillePanel.add(HautGrillePanel, BorderLayout.NORTH);
-            HautGrillePanel.setBackground(Color.WHITE);
+            //HautGrillePanel.setBackground(Color.WHITE);
 
             JLabel hautGrilleLabel = new JLabel("C'est à Théophile de jouer !", SwingConstants.CENTER);
             hautGrilleLabel.setFont(new Font("Euphemia UCAS", Font.ITALIC, hautGrilleLabel.getFont().getSize()));
@@ -79,7 +79,7 @@ public class VueGrille {
 
             JPanel centreGrillePanel = new JPanel(new GridLayout(9,9));
             grillePanel.add(centreGrillePanel, BorderLayout.CENTER);
-            centreGrillePanel.setBackground(Color.WHITE);
+            //centreGrillePanel.setBackground(Color.WHITE);
 
             for (int i = 0; i < 81 ; i++){
                 JButton btn = new  JButton("X");
@@ -90,7 +90,7 @@ public class VueGrille {
 
             JPanel basGrillePanel = new JPanel();
             grillePanel.add(basGrillePanel, BorderLayout.SOUTH);
-            basGrillePanel.setBackground(Color.WHITE);
+            //basGrillePanel.setBackground(Color.WHITE);
 
             //Bouton quitter
 

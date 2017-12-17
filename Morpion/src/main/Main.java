@@ -5,10 +5,7 @@
  */
 package main;
 
-import Views.VueGrille;
-import Views.VueMenu;
-import Views.VueOptionTournoi;
-import Views.VueRegle;
+import Views.*;
 
 /**
  *
@@ -22,10 +19,10 @@ public class Main {
     public static void main(String[] args) {
         //VueGrille vueGrille = new VueGrille();
         //VueRegle vueRegle = new VueRegle();
-        VueOptionTournoi vueOptionTournoi = new VueOptionTournoi();
+        VueOptionPartieRapide vueOptionPartieRapide= new VueOptionPartieRapide();
         //vueRegle.afficher();
         //vueGrille.afficher();
-        vueOptionTournoi.afficher();
+        vueOptionPartieRapide.afficher();
 
         
     }

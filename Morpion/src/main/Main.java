@@ -7,6 +7,7 @@ package main;
 
 import Views.VueGrille;
 import Views.VueMenu;
+import Views.VueOptionTournoi;
 import Views.VueRegle;
 
 /**
@@ -19,12 +20,12 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        VueGrille vueGrille = new VueGrille();
-        VueRegle vueRegle = new VueRegle();
-        VueMenu vueMenu = new VueMenu();
-
-
-        vueMenu.afficher();
+        //VueGrille vueGrille = new VueGrille();
+        //VueRegle vueRegle = new VueRegle();
+        VueOptionTournoi vueOptionTournoi = new VueOptionTournoi();
+        //vueRegle.afficher();
+        //vueGrille.afficher();
+        vueOptionTournoi.afficher();
 
         
     }

@@ -1,11 +1,14 @@
 package Views;
 
+import Enum.Messages;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observer;
 
-public class VueMenu {
+public class VueMenu extends Vue {
 
     private final JFrame window;
     JButton btnPartieRapide;
@@ -19,6 +22,8 @@ public class VueMenu {
         window.setSize(1280,720);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
+        window.setTitle("Jeu du Morpion");
+        window.setResizable(false);
 
         /* public void paintComponent(Graphics graphics){
             graphics.drawString("Jeu de morpion",10,20);
@@ -44,11 +49,8 @@ public class VueMenu {
                     for (int j = 0; j < 4; j++) {
                         if (j == 3) {
                             JLabel titreVue = new JLabel("Jeu du Morpion", SwingConstants.CENTER);
-                            titreVue.setFont(new Font("Euphemia UCAS", titreVue.getFont().getStyle(), titreVue.getFont().getSize()));
-
-                            titreVue.setFont(new Font(titreVue.getFont().getName(), titreVue.getFont().getStyle(), (int) (titreVue.getFont().getSize() * 3)));
+                            titreVue.setFont(new Font("Euphemia UCAS", Font.BOLD, titreVue.getFont().getSize()*3));
                             panelTitre.add(titreVue);
-
                         } else {
                             panelTitre.add(new JLabel());
                         }
@@ -64,10 +66,29 @@ public class VueMenu {
                                 JButton btnPartieRapide = new JButton("Partie Rapide");
                                 btnPartieRapide.setFont(new Font("Euphemia UCAS", btnPartieRapide.getFont().getStyle(), btnPartieRapide.getFont().getSize()));
                                 panelBoutons.add(btnPartieRapide);
+
+                                btnPartieRapide.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        setChanged();
+                                        notifyObservers(Messages.PARTIERAPIDE);
+                                        clearChanged();
+                                    }
+                                });
+
                             } else {
                                 JButton btnTournoi = new JButton("Tournoi");
                                 btnTournoi.setFont(new Font("Euphemia UCAS", btnTournoi.getFont().getStyle(), btnTournoi.getFont().getSize()));
                                 panelBoutons.add(btnTournoi);
+
+                                btnTournoi.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        setChanged();
+                                        notifyObservers(Messages.TOURNOI);
+                                        clearChanged();
+                                    }
+                                });
                             }
                         } else {
                             panelBoutons.add(new JLabel());
@@ -81,6 +102,15 @@ public class VueMenu {
                             JButton btnQuitter = new JButton("Quitter");
                             btnQuitter.setFont(new Font("Euphemia UCAS", btnQuitter.getFont().getStyle(), btnQuitter.getFont().getSize()));
                             panelQuitter.add(btnQuitter);
+
+                            btnQuitter.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    setChanged();
+                                    notifyObservers(Messages.QUITTER);
+                                    clearChanged();
+                                }
+                            });
                         } else {
                             panelQuitter.add(new JLabel());
                         }
@@ -93,6 +123,15 @@ public class VueMenu {
                             JButton btnRegle = new JButton("Règles");
                             btnRegle.setFont(new Font("Euphemia UCAS", btnRegle.getFont().getStyle(), btnRegle.getFont().getSize()));
                             panelQuitter.add(btnRegle);
+
+                            btnRegle.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    setChanged();
+                                    notifyObservers(Messages.REGLES);
+                                    clearChanged();
+                                }
+                            });
                         } else {
                             panelQuitter.add(new JLabel());
                         }
@@ -105,11 +144,7 @@ public class VueMenu {
 
     }
 
-
-    public void afficher(){
-        this.window.setVisible(true);
+    public void setVisible(Boolean b){
+        this.window.setVisible(b);
     }
-
-
-
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package Modele;
 
 import java.util.ArrayList;
 
@@ -77,4 +77,5 @@ public class Joueur {
     public void setCasesCochées(ArrayList<Case> casesCochées) {
         this.casesCochées = casesCochées;
     }
+
 }

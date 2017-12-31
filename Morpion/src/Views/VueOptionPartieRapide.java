@@ -1,9 +1,12 @@
 package Views;
 
+import Enum.Messages;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class VueOptionPartieRapide {
+public class VueOptionPartieRapide extends Vue{
 
     private final JFrame window;
     private final JComboBox combo = new JComboBox();
@@ -17,6 +20,7 @@ public class VueOptionPartieRapide {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
         window.setTitle("Jeu du Morpion");
+        window.setResizable(false);
 
         //Construction panel principal
 
@@ -131,9 +135,18 @@ public class VueOptionPartieRapide {
             sortiePanel.add(panel9);
         }
 
-        JButton btnFermer = new JButton("Fermer");
+        JButton btnFermer = new JButton("Revenir au menu");
         btnFermer.setFont(new Font("Euphemia UCAS", btnFermer.getFont().getStyle(), btnFermer.getFont().getSize()));
         sortiePanel.add(btnFermer);
+
+        btnFermer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(Messages.QUITTER);
+                clearChanged();
+            }
+        });
 
         for (int i = 0; i<3; i++){
             JPanel panel10 = new JPanel();
@@ -143,6 +156,15 @@ public class VueOptionPartieRapide {
         JButton btnLancerPartie = new JButton("Lancer la partie");
         btnLancerPartie.setFont(new Font("Euphemia UCAS", btnLancerPartie.getFont().getStyle(), btnLancerPartie.getFont().getSize()));
         sortiePanel.add(btnLancerPartie);
+
+        btnLancerPartie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(Messages.LANCER_PARTIE);
+                clearChanged();
+            }
+        });
 
         for (int i = 0; i<8; i++){
             JPanel panel11 = new JPanel();
@@ -154,7 +176,7 @@ public class VueOptionPartieRapide {
 
     }
 
-    public void afficher(){
-        this.window.setVisible(true);
+    public void setVisible(Boolean b) {
+        window.setVisible(b);
     }
 }

@@ -3,7 +3,7 @@ package Views;
 import java.awt.*;
 import javax.swing.*;
 
-public class VueGrille {
+public class VueGrille extends Vue {
 
         private final JFrame window;
 
@@ -41,8 +41,9 @@ public class VueGrille {
             JPanel infoJoueurGauche = new JPanel(new GridLayout(2,1));
             hautPanel.add(infoJoueurGauche);
 
+            //Font lol = new Font("Euphemia UCAS", Font.BOLD, lol.getSize()*3);
             JLabel symboleJoueurGauche = new JLabel("X",SwingConstants.CENTER);
-            symboleJoueurGauche.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleJoueurGauche.getFont().getSize()*3));
+            //symboleJoueurGauche.setFont(lol);
             infoJoueurGauche.add(symboleJoueurGauche);
 
             JLabel nomJoueurGauche = new JLabel("Nathan",SwingConstants.CENTER);
@@ -79,6 +80,7 @@ public class VueGrille {
 
             JPanel centreGrillePanel = new JPanel(new GridLayout(9,9));
             grillePanel.add(centreGrillePanel, BorderLayout.CENTER);
+
             //centreGrillePanel.setBackground(Color.WHITE);
 
             for (int i = 0; i < 81 ; i++){
@@ -90,7 +92,7 @@ public class VueGrille {
 
             JPanel basGrillePanel = new JPanel();
             grillePanel.add(basGrillePanel, BorderLayout.SOUTH);
-            //basGrillePanel.setBackground(Color.WHITE);
+            basGrillePanel.setBackground(Color.WHITE);
 
             //Bouton quitter
 
@@ -106,7 +108,6 @@ public class VueGrille {
             btnAnnuler.setPreferredSize(new Dimension(200,35));
             basGrillePanel.add(btnAnnuler);
 
-            window.setVisible(true);
 
             //Bouton information
 
@@ -120,8 +121,8 @@ public class VueGrille {
 
         }
 
-    public void afficher(){
-        this.window.setVisible(true);
+    public void setVisible(Boolean b) {
+        window.setVisible(b);
     }
 
 }

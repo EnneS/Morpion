@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package Modele;
+
+import java.util.ArrayList;
 
 /**
  *
  * @author souliern
  */
-public class Case {
+public class Case extends ArrayList<Case> {
     private int x;
     private int y;
     private Symbole etat = Symbole.VIDE;

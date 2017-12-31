@@ -1,11 +1,12 @@
 package Views;
 
-import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
-
+import Enum.Messages;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class VueOptionTournoi {
+public class VueOptionTournoi extends Vue {
 
     private final JFrame window;
     private final JComboBox combo = new JComboBox();
@@ -15,9 +16,9 @@ public class VueOptionTournoi {
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1280,720);
-        window.setResizable(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
+        window.setResizable(false);
         window.setTitle("Jeu du Morpion");
 
         //Construction panel principal
@@ -123,9 +124,18 @@ public class VueOptionTournoi {
             sortiePanel.add(panel9);
         }
 
-        JButton btnFermer = new JButton("Fermer");
+        JButton btnFermer = new JButton("Revenir au menu");
         btnFermer.setFont(new Font("Euphemia UCAS", btnFermer.getFont().getStyle(), btnFermer.getFont().getSize()));
         sortiePanel.add(btnFermer);
+
+        btnFermer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(Messages.QUITTER);
+                clearChanged();
+            }
+        });
 
         for (int i = 0; i<3; i++){
             JPanel panel10 = new JPanel();
@@ -135,6 +145,15 @@ public class VueOptionTournoi {
         JButton btnLancerPartie = new JButton("Lancer la partie");
         btnLancerPartie.setFont(new Font("Euphemia UCAS", btnLancerPartie.getFont().getStyle(), btnLancerPartie.getFont().getSize()));
         sortiePanel.add(btnLancerPartie);
+
+        btnLancerPartie.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(Messages.LANCER_PARTIE);
+                clearChanged();
+            }
+        });
 
         for (int i = 0; i<8; i++){
             JPanel panel11 = new JPanel();
@@ -146,7 +165,9 @@ public class VueOptionTournoi {
 
     }
 
-    public void afficher(){
-        this.window.setVisible(true);
+    @Override
+    public void setVisible(Boolean b) {
+        window.setVisible(b);
     }
+
 }

@@ -5,11 +5,12 @@
  */
 package main;
 
+import Controleur.*;
 import Views.*;
 
 /**
  *
- * @author souliern
+ * @author gilett
  */
 public class Main {
 
@@ -17,14 +18,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        //VueGrille vueGrille = new VueGrille();
-        //VueRegle vueRegle = new VueRegle();
-        VueOptionPartieRapide vueOptionPartieRapide= new VueOptionPartieRapide();
-        //vueRegle.afficher();
-        //vueGrille.afficher();
-        vueOptionPartieRapide.afficher();
-
-        
+        ControleurPrincipale controleurPrincipale = new ControleurPrincipale();
     }
     
 }

@@ -6,6 +6,7 @@
 package Modele;
 
 import java.util.ArrayList;
+import Enum.SYMBOLES;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 public class Case extends ArrayList<Case> {
     private int x;
     private int y;
-    private Symbole etat = Symbole.VIDE;
+    private SYMBOLES etat = SYMBOLES.VIDE;
     
     public Case(int x, int y){
         setX(x);
@@ -52,14 +53,14 @@ public class Case extends ArrayList<Case> {
     /**
      * @return the etat
      */
-    public Symbole getEtat() {
+    public SYMBOLES getEtat() {
         return etat;
     }
 
     /**
      * @param etat the etat to set
      */
-    public void setEtat(Symbole etat) {
+    public void setEtat(SYMBOLES etat) {
         this.etat = etat;
     }
 }

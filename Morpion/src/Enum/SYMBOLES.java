@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Modele;
+package Enum;
 
 /**
  *
  * @author souliern
  */
-public enum Symbole {
+public enum SYMBOLES {
     ROND("O"),
     CROIX("X"),
     VIDE(""),
@@ -17,7 +17,7 @@ public enum Symbole {
     
     private String name;
     
-    Symbole(String name){
+    SYMBOLES(String name){
         this.name = name;
     }
     

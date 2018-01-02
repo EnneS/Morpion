@@ -1,10 +1,10 @@
 package Views;
 
-import Enum.Messages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Enum.MESSAGES;
 
 public class VueOptionTournoi extends Vue {
 
@@ -132,7 +132,7 @@ public class VueOptionTournoi extends Vue {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                notifyObservers(Messages.QUITTER);
+                notifyObservers(MESSAGES.QUITTER);
                 clearChanged();
             }
         });
@@ -150,7 +150,7 @@ public class VueOptionTournoi extends Vue {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                notifyObservers(Messages.LANCER_PARTIE);
+                notifyObservers(MESSAGES.LANCER_PARTIE);
                 clearChanged();
             }
         });

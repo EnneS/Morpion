@@ -1,8 +1,8 @@
 package Controleur;
 
-import Enum.Messages;
 import Views.*;
 import java.util.Observable;
+import Enum.MESSAGES;
 
 public class ControleurPrincipale extends Controleur {
 
@@ -27,14 +27,14 @@ public class ControleurPrincipale extends Controleur {
 
         //redirection vers controleurs secondaires
 
-        if (arg == Messages.PARTIERAPIDE) {
+        if (arg == MESSAGES.PARTIERAPIDE) {
             ouvrirVue(getVueOptionPartieRapide());
             fermerVue(getVueMenu());
             ControleurPartieRapide controleurPartieRapide = new ControleurPartieRapide(this, getVueOptionPartieRapide(), getVueGrille());
 
         }
 
-        if (arg == Messages.TOURNOI) {
+        if (arg == MESSAGES.TOURNOI) {
             ouvrirVue(getVueOptionTournoi());
             fermerVue(getVueMenu());
             ControleurTournoi controleurTournoi = new ControleurTournoi(this, getVueOptionTournoi(), getVueGrille());
@@ -43,15 +43,15 @@ public class ControleurPrincipale extends Controleur {
 
         //traitement des autres boutons du menu
 
-        if (arg == Messages.REGLES) {
+        if (arg == MESSAGES.REGLES) {
             ouvrirVue(getVueRegle());
         }
 
-        if (arg == Messages.FERMER_REGLES) {
+        if (arg == MESSAGES.FERMER_REGLES) {
             fermerVue(getVueRegle());
         }
 
-        if (arg == Messages.QUITTER) {
+        if (arg == MESSAGES.QUITTER) {
             fermerVue(getVueMenu());
         }
 

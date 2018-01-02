@@ -6,6 +6,7 @@
 package Modele;
 
 import java.util.ArrayList;
+import Enum.SYMBOLES;
 
 /**
  *
@@ -14,12 +15,12 @@ import java.util.ArrayList;
 public class Joueur {
     private String nom;
     //private int score = 0;
-    private Symbole symbole;
+    private SYMBOLES symboles;
     ArrayList <Case>casesCochées = new ArrayList<>();
     
-    public Joueur(String nom, Symbole symbole){
+    public Joueur(String nom, SYMBOLES symboles){
         setNom(nom);
-        setSymbole(symbole);
+        setSYMBOLES(symboles);
     }
 
     /**
@@ -51,17 +52,14 @@ public class Joueur {
     }
 
     /**
-     * @return the symbole
+     * @return the SYMBOLES
      */
-    public Symbole getSymbole() {
-        return symbole;
-    }
 
     /**
-     * @param symbole the symbole to set
+     * @param SYMBOLES the SYMBOLES to set
      */
-    public void setSymbole(Symbole symbole) {
-        this.symbole = symbole;
+    public void setSYMBOLES(SYMBOLES symboles) {
+        this.symboles = symboles;
     }
 
     /**

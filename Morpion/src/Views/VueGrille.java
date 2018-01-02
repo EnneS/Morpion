@@ -125,5 +125,6 @@ public class VueGrille extends Vue {
         window.setVisible(b);
     }
 
+
 }
 

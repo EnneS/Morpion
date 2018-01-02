@@ -1,18 +1,34 @@
 package Views;
 
-import Enum.Messages;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Enum.*;
+import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
 
 public class VueOptionPartieRapide extends Vue{
 
     private final JFrame window;
-    private final JComboBox combo = new JComboBox();
+    private final JComboBox taillesGrille = new JComboBox(TAILLE_GRILLE.values());
+    private final JComboBox longeurAlignement = new JComboBox();
+    private Boolean etat = true;
+    private JButton memoire;
+    private Boolean btn3x3Selectionne = true;
+    private Boolean btn6x6Selectionne = false;
+    private Boolean btn9X9Selectionne = false;
+    private JButton btn3, btn6, btn9;
+
+    //Fonts
+    private Font regular = new Font("Euphemia UCAS",0,14);
+    private Font bold = new Font("Euphemia UCAS", 1, 26);
+    private Font semiBold = new Font("Euphemia UCAS", 1, 20);
+    private Font semiBold2 = new Font("Euphemia UCAS",1,14);
+    private Font italic = new Font("Euphemia UCAS", 2,13);
 
     public VueOptionPartieRapide(){
 
+        //paramètres fenêtre
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1280,720);
@@ -22,21 +38,21 @@ public class VueOptionPartieRapide extends Vue{
         window.setTitle("Jeu du Morpion");
         window.setResizable(false);
 
-        //Construction panel principal
-
+        //construction panel principal
         JPanel mainPanel = new JPanel(new GridLayout(5,1));
         window.add(mainPanel);
 
-        //Construction panel titre
-
+        //construction panel titre
         JPanel titrePanel = new JPanel(new GridLayout(3,1));
         mainPanel.add(titrePanel);
+
         for (int i = 0; i<1 ; i++){
             JPanel panel = new JPanel();
             titrePanel.add(panel);
         }
+
         JLabel titreLabel = new JLabel("Option de la partie");
-        titreLabel.setFont(new Font("Euphemia UCAS", Font.BOLD, titreLabel.getFont().getSize()*2));
+        titreLabel.setFont(bold);
         titreLabel.setHorizontalAlignment(0);
         titrePanel.add(titreLabel);
 
@@ -45,89 +61,213 @@ public class VueOptionPartieRapide extends Vue{
             titrePanel.add(panel);
         }
 
-        //Construction panel choixGrille
-
+        //construction panel choixGrille
         JPanel choixGrillePanel = new JPanel(new GridLayout(3,1));
         mainPanel.add(choixGrillePanel);
 
-        JLabel texteChoixGrilleLabel = new JLabel("                           Veuillez séléctionner la taille de votre grille");
-        texteChoixGrilleLabel.setFont(new Font("Euphemia UCAS", texteChoixGrilleLabel.getFont().getStyle(), texteChoixGrilleLabel.getFont().getSize()));
-        choixGrillePanel.add(texteChoixGrilleLabel);
+        JPanel gb = new JPanel(new GridBagLayout());
+        choixGrillePanel.add(gb);
+
+        JLabel texteChoixGrilleLabel = new JLabel("Veuillez séléctionner la taille de votre grille");
+        texteChoixGrilleLabel.setFont(regular);
+
+        GridBagConstraints gc = new GridBagConstraints();
+        gc.insets = new Insets(0,0,0,666);
+        gb.add(texteChoixGrilleLabel,gc);
 
         JPanel selectionChoixGrillePanel = new JPanel(new GridLayout(1,7));
         JPanel panel1 = new JPanel();
         selectionChoixGrillePanel.add(panel1);
-        JButton btn5 = new JButton("5 X 5");
-        btn5.setFont(new Font("Euphemia UCAS", btn5.getFont().getStyle(), btn5.getFont().getSize()));
-        selectionChoixGrillePanel.add(btn5);
-        JButton btn7 = new JButton("7 X 7");
-        btn7.setFont(new Font("Euphemia UCAS", btn7.getFont().getStyle(), btn7.getFont().getSize()));
-        selectionChoixGrillePanel.add(btn7);
-        JButton btn9 = new JButton("9 X 9");
-        btn9.setFont(new Font("Euphemia UCAS", btn9.getFont().getStyle(), btn9.getFont().getSize()));
+
+        btn3 = new JButton("3 X 3");
+        btn3.setFont(regular);
+        btn3.isDefaultButton();
+        selectionChoixGrillePanel.add(btn3);
+
+        btn3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                boutonSelectionne(btn3);
+                btn3x3Selectionne = true;
+                //maj alignement possible
+                setLongeurAlignementPossibles();
+                clearChanged();
+            }
+        });
+
+        btn6 = new JButton("6 X 6");
+        btn6.setFont(regular);
+        selectionChoixGrillePanel.add(btn6);
+
+        btn6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                boutonSelectionne(btn6);
+                btn6x6Selectionne = true;
+                //maj alignement possible
+                setLongeurAlignementPossibles();
+                clearChanged();
+            }
+        });
+
+        btn9 = new JButton("9 X 9");
+        btn9.setFont(regular);
         selectionChoixGrillePanel.add(btn9);
+
+        btn9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                boutonSelectionne(btn9);
+                btn9X9Selectionne = true;
+                //maj alignement possible
+                setLongeurAlignementPossibles();
+                clearChanged();
+            }
+        });
+
+        JButton btnPerso = new JButton("Personnalisé");
+        btnPerso.setFont(regular);
+        selectionChoixGrillePanel.add(btnPerso);
+
+        btnPerso.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                if(etat){
+                    //enregistre le dernier choix effecuté
+                    memoire = btn3;
+                    if (btn6x6Selectionne) {
+                        memoire = btn6;
+                    } else if (btn9X9Selectionne) {
+                        memoire = btn9;
+                    }
+                    //affichage des tailles personnalisés uniquement
+                    getTaillesGrille().setVisible(true);
+                    btn3.setEnabled(false); btn6.setEnabled(false); btn9.setEnabled(false);
+                    etat = false;
+                    //maj choix bouton
+                    boutonSelectionne(btnPerso);
+                } else {
+                    //affichage des tailles rapides uniquement
+                    getTaillesGrille().setVisible(false);
+                    btn3.setEnabled(true); btn6.setEnabled(true); btn9.setEnabled(true);
+                    etat = true;
+                    //restaure le dernier choix rapide
+                    btnPerso.setFont(regular);
+                    boutonSelectionne(memoire);
+                }
+            }
+        });
+
+        selectionChoixGrillePanel.add(getTaillesGrille());
+        getTaillesGrille().setVisible(false);
+
         JPanel panel2 = new JPanel();
         selectionChoixGrillePanel.add(panel2);
-        selectionChoixGrillePanel.add(combo);
-        JPanel panel3 = new JPanel();
-        selectionChoixGrillePanel.add(panel3);
+
         choixGrillePanel.add(selectionChoixGrillePanel);
 
-        JPanel panel = new JPanel();
-        choixGrillePanel.add(panel);
+        JPanel panel3 = new JPanel();
+        choixGrillePanel.add(panel3);
 
 
-        //Construction nombreJoueur
-
+        //Construction panel nombreJoueur
         JPanel joueurInfoPanel = new JPanel(new GridLayout(3,6));
         mainPanel.add(joueurInfoPanel);
 
-        JLabel texteNomJoueurLabel = new JLabel("                           Veuillez entrez les noms des joueurs");
-        texteNomJoueurLabel.setFont(new Font("Euphemia UCAS", texteNomJoueurLabel.getFont().getStyle(), texteNomJoueurLabel.getFont().getSize()));
+        JLabel texteNomJoueurLabel = new JLabel("Veuillez entrez les pseudos des joueurs");
+        texteNomJoueurLabel.setFont(regular);
         joueurInfoPanel.add(texteNomJoueurLabel);
 
+        JPanel gb1 = new JPanel(new GridBagLayout());
+        joueurInfoPanel.add(gb1);
+
+        GridBagConstraints gc1 = new GridBagConstraints();
+        gc1.insets = new Insets(0,0,0,66);
+        gb1.add(texteNomJoueurLabel,gc1);
+
         JLabel texteSymboleJoueurLabel = new JLabel("Symbole associé");
-        texteSymboleJoueurLabel.setFont(new Font("Euphemia UCAS", texteSymboleJoueurLabel.getFont().getStyle(), texteSymboleJoueurLabel.getFont().getSize()));
+        texteSymboleJoueurLabel.setFont(regular);
         joueurInfoPanel.add(texteSymboleJoueurLabel);
 
         JPanel inputPanel1 = new JPanel(new GridLayout(1,3));
         JPanel label4 = new JPanel();
         inputPanel1.add(label4);
         JTextField nomJoueur1 = new JTextField();
-        nomJoueur1.setFont(new Font("Euphemia UCAS", nomJoueur1.getFont().getStyle(), nomJoueur1.getFont().getSize()));
+        nomJoueur1.setFont(italic);
         nomJoueur1.setText("Nom du joueur n°1");
         inputPanel1.add(nomJoueur1);
+
+        nomJoueur1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
         JPanel label5 = new JPanel();
         inputPanel1.add(label5);
         joueurInfoPanel.add(inputPanel1);
 
-        JLabel symboleX = new JLabel("X");
-        symboleX.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleX.getFont().getSize()*2));
+        JLabel symboleX = new JLabel(String.valueOf(SYMBOLES.CROIX));
+        symboleX.setFont(semiBold);
         joueurInfoPanel.add(symboleX);
 
         JPanel inputPanel2 = new JPanel(new GridLayout(1,3));
         JPanel label6 = new JPanel();
         inputPanel2.add(label6);
         JTextField nomJoueur2 = new JTextField();
-        nomJoueur2.setFont(new Font("Euphemia UCAS", nomJoueur2.getFont().getStyle(), nomJoueur2.getFont().getSize()));
+        nomJoueur2.setFont(italic);
         nomJoueur2.setText("Nom du joueur n°2");
         inputPanel2.add(nomJoueur2);
         JPanel label7 = new JPanel();
         inputPanel2.add(label7);
         joueurInfoPanel.add(inputPanel2);
 
-        JLabel symboleO = new JLabel("O");
-        symboleO.setFont(new Font("Euphemia UCAS", Font.BOLD, symboleO.getFont().getSize()*2));
+        JLabel symboleO = new JLabel(String.valueOf(SYMBOLES.ROND));
+        symboleO.setFont(semiBold);
         joueurInfoPanel.add(symboleO);
 
-        //Remplissage panel principale
+        //construction panel choix alignement
+        JPanel choixAlignementPanel = new JPanel(new GridLayout(3,1));
+        mainPanel.add(choixAlignementPanel);
 
-        JPanel panel8 = new JPanel();
-        mainPanel.add(panel8);
+        JPanel panel14 = new JPanel();
+        choixAlignementPanel.add(panel14);
 
+        JPanel gb3 = new JPanel(new GridBagLayout());
+        choixAlignementPanel.add(gb3);
 
-        //Construction panel sortie
+        JLabel texteAlignementLabel = new JLabel("Veuillez séléctionner le nombre de symbole à aligner pour gagner");
+        texteAlignementLabel.setFont(regular);
 
+        GridBagConstraints gc3 = new GridBagConstraints();
+        gc3.insets = new Insets(0,0,0,522);
+        gb3.add(texteAlignementLabel,gc3);
+
+        JPanel choixAlignementGrille = new JPanel(new GridLayout(1,7));
+        choixAlignementPanel.add(choixAlignementGrille);
+
+        JPanel panel70 = new JPanel();
+        choixAlignementGrille.add(panel70);
+
+        choixAlignementGrille.add(getLongeurAlignement());
+        getTaillesGrille().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setLongeurAlignementPossibles();
+            }
+        });
+
+        for (int i = 0; i<5; i++){
+            JPanel panel8 = new JPanel();
+            choixAlignementGrille.add(panel8);
+        }
+
+        //construction panel sortie
         JPanel sortiePanel = new JPanel(new GridLayout(3,7));
 
         for (int i = 0; i<8; i++){
@@ -136,14 +276,15 @@ public class VueOptionPartieRapide extends Vue{
         }
 
         JButton btnFermer = new JButton("Revenir au menu");
-        btnFermer.setFont(new Font("Euphemia UCAS", btnFermer.getFont().getStyle(), btnFermer.getFont().getSize()));
+        btnFermer.setFont(regular);
         sortiePanel.add(btnFermer);
 
         btnFermer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                notifyObservers(Messages.QUITTER);
+                notifyObservers(MESSAGES.QUITTER);
+                System.out.println(getTailleGrilleSelectionne());
                 clearChanged();
             }
         });
@@ -154,14 +295,14 @@ public class VueOptionPartieRapide extends Vue{
         }
 
         JButton btnLancerPartie = new JButton("Lancer la partie");
-        btnLancerPartie.setFont(new Font("Euphemia UCAS", btnLancerPartie.getFont().getStyle(), btnLancerPartie.getFont().getSize()));
+        btnLancerPartie.setFont(regular);
         sortiePanel.add(btnLancerPartie);
 
         btnLancerPartie.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                notifyObservers(Messages.LANCER_PARTIE);
+                notifyObservers(MESSAGES.LANCER_PARTIE);
                 clearChanged();
             }
         });
@@ -172,11 +313,62 @@ public class VueOptionPartieRapide extends Vue{
         }
 
         mainPanel.add(sortiePanel);
-
-
     }
 
     public void setVisible(Boolean b) {
         window.setVisible(b);
+    }
+
+    public int getTailleGrilleSelectionne(){
+        int taille = 0;
+        System.out.println("lol");
+        if (etat){
+            if (btn3x3Selectionne){
+                taille = 3;
+            } else if (btn6x6Selectionne){
+                taille = 6;
+            } else {
+                taille = 9;
+            }
+        } else {
+            if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.QUATRE){
+                taille = 4;
+            } else if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.CINQ){
+                taille = 5;
+            } else if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.SEPT){
+                taille = 7;
+            } else if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.HUIT){
+                taille = 8;
+            }
+        }
+        return taille;
+
+    }
+
+    public void boutonSelectionne(JButton btn) {
+        //maj du bouton selectionne
+        btn.setFont(semiBold2);
+        if (btn3 != btn) { btn3.setFont(regular); btn3x3Selectionne = false;}
+        if (btn6 != btn) { btn6.setFont(regular); btn6x6Selectionne = false;}
+        if (btn9 != btn) { btn9.setFont(regular); btn9X9Selectionne = false;}
+
+    }
+
+    public JComboBox getTaillesGrille() {
+        return taillesGrille;
+    }
+
+    public JComboBox getLongeurAlignement() {
+        return longeurAlignement;
+    }
+
+    public void setLongeurAlignementPossibles() {
+        longeurAlignement.setPreferredSize(new Dimension(100,50));
+        longeurAlignement.removeAllItems();
+        int tailleGrille = getTailleGrilleSelectionne();
+        for (int i = 3; i <= tailleGrille;i++) {
+            longeurAlignement.addItem(i);
+        }
+        longeurAlignement.setFont(regular);
     }
 }

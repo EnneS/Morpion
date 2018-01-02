@@ -1,6 +1,6 @@
 package Enum;
 
-public enum Direction {
+public enum DIRECTION {
 
     HORIZONTAL,
     VERTICAL,

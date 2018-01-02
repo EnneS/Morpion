@@ -1,12 +1,10 @@
 package Views;
 
-import Enum.Messages;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Observer;
+import Enum.MESSAGES;
 
 public class VueMenu extends Vue {
 
@@ -71,7 +69,7 @@ public class VueMenu extends Vue {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
                                         setChanged();
-                                        notifyObservers(Messages.PARTIERAPIDE);
+                                        notifyObservers(MESSAGES.PARTIERAPIDE);
                                         clearChanged();
                                     }
                                 });
@@ -85,7 +83,7 @@ public class VueMenu extends Vue {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
                                         setChanged();
-                                        notifyObservers(Messages.TOURNOI);
+                                        notifyObservers(MESSAGES.TOURNOI);
                                         clearChanged();
                                     }
                                 });
@@ -107,7 +105,7 @@ public class VueMenu extends Vue {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     setChanged();
-                                    notifyObservers(Messages.QUITTER);
+                                    notifyObservers(MESSAGES.QUITTER);
                                     clearChanged();
                                 }
                             });
@@ -128,7 +126,7 @@ public class VueMenu extends Vue {
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
                                     setChanged();
-                                    notifyObservers(Messages.REGLES);
+                                    notifyObservers(MESSAGES.REGLES);
                                     clearChanged();
                                 }
                             });

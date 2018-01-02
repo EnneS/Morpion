@@ -1,6 +1,6 @@
 package Enum;
 
-public enum Messages {
+public enum MESSAGES {
     PARTIERAPIDE,
     TOURNOI,
     REGLES,

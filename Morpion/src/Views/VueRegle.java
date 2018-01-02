@@ -5,12 +5,11 @@
  */
 package Views;
 
-import Enum.Messages;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Enum.MESSAGES;
 
 /**
  *
@@ -125,7 +124,7 @@ public class VueRegle extends Vue{
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         setChanged();
-                        notifyObservers(Messages.FERMER_REGLES);
+                        notifyObservers(MESSAGES.FERMER_REGLES);
                         clearChanged();
                     }
                 });

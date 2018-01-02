@@ -1,8 +1,7 @@
 package Controleur;
-import Enum.Messages;
 import Views.VueGrille;
 import Views.VueOptionPartieRapide;
-
+import Enum.MESSAGES;
 import java.util.Observable;
 
 public class ControleurPartieRapide extends Controleur {
@@ -26,12 +25,12 @@ public class ControleurPartieRapide extends Controleur {
     @Override
     public void update(Observable o, Object arg) {
 
-        if (arg == Messages.LANCER_PARTIE){
+        if (arg == MESSAGES.LANCER_PARTIE){
             ouvrirVue(vueGrille);
             fermerVue(vueOptionPartieRapide);
         }
 
-        if (arg == Messages.QUITTER){
+        if (arg == MESSAGES.QUITTER){
             ouvrirVue(controleurPrincipale.getVueMenu());
             fermerVue(getVueOptionPartieRapide());
             this.finalize();

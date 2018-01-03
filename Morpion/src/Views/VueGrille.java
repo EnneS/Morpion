@@ -2,6 +2,7 @@ package Views;
 
 import Enum.MESSAGES;
 import Enum.SYMBOLES;
+import Enum.MESSAGE_COCHE;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -94,11 +95,31 @@ public class VueGrille extends Vue {
             JPanel centreGrillePanel = new JPanel(new GridLayout(tailleGrille,tailleGrille));
             grillePanel.add(centreGrillePanel, BorderLayout.CENTER);
 
+            // ========================================
+            // Création de la grille
+            int j = 0; // Nous sert à créer le message correspndant au bouton avec j étant le n° de la ligne
+
             for (int i = 0; i < tailleGrille*tailleGrille ; i++){
+
+                if(i%tailleGrille == 0 && i != 0){
+                    j++;
+                }
+
                 JButton btn = new  JButton(SYMBOLES.NULL.toString());
                 btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*5));
                 btn.setPreferredSize(new Dimension(500/tailleGrille,500/tailleGrille));
                 centreGrillePanel.add(btn);
+
+                // On créé le message correspondant au bouton avec i%tailleGrille le n° de la colonne et j le n° de la ligne
+                MESSAGE_COCHE m = new MESSAGE_COCHE(i%tailleGrille,j);
+                btn.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        setChanged();
+                        notifyObservers(m);
+                        clearChanged();
+                    }
+                });
             }
 
             JPanel basGrillePanel = new JPanel();

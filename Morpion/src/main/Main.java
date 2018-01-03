@@ -6,7 +6,6 @@
 package main;
 
 import Controleur.*;
-import Views.*;
 
 /**
  *
@@ -18,7 +17,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        ControleurPrincipale controleurPrincipale = new ControleurPrincipale();
+        Controleur.ControleurPrincipale controleurPrincipale = new Controleur.ControleurPrincipale();
     }
     
 }

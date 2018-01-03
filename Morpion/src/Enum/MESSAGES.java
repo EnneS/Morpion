@@ -7,5 +7,6 @@ public enum MESSAGES {
     LANCER_PARTIE,
     QUITTER_PARTIE,
     FERMER_REGLES,
-    QUITTER;
+    QUITTER,
+    COCHER
 }

@@ -7,7 +7,7 @@ import java.util.Observable;
 
 public class ControleurPartieRapide extends Controleur {
 
-    private ControleurPrincipale controleurPrincipale;
+    private Controleur.ControleurPrincipale controleurPrincipale;
     private VueOptionPartieRapide vueOptionPartieRapide;
     private VueGrille vueGrille;
 
@@ -17,7 +17,7 @@ public class ControleurPartieRapide extends Controleur {
     private ArrayList<String> pseudos;
 
 
-    public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
+    public ControleurPartieRapide(Controleur.ControleurPrincipale controleurPrincipale) {
         setControleurPrincipale(controleurPrincipale);
 
         setVueOptionPartieRapide(controleurPrincipale.getVueOptionPartieRapide());
@@ -68,11 +68,11 @@ public class ControleurPartieRapide extends Controleur {
         this.vueOptionPartieRapide = vueOptionPartieRapide;
     }
 
-    public ControleurPrincipale getControleurPrincipale() {
+    public Controleur.ControleurPrincipale getControleurPrincipale() {
         return controleurPrincipale;
     }
 
-    public void setControleurPrincipale(ControleurPrincipale controleurPrincipale) {
+    public void setControleurPrincipale(Controleur.ControleurPrincipale controleurPrincipale) {
         this.controleurPrincipale = controleurPrincipale;
     }
 

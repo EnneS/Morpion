@@ -9,7 +9,7 @@ import Enum.MESSAGES;
 
 public class ControleurTournoi extends Controleur{
 
-    private ControleurPrincipale controleurPrincipale;
+    private Controleur.ControleurPrincipale controleurPrincipale;
     private VueOptionTournoi vueOptionTournoi;
     private VueGrille vueGrille;
 
@@ -19,7 +19,7 @@ public class ControleurTournoi extends Controleur{
     private ArrayList<String> pseudos;
     private int nombreJoueur;
 
-    public ControleurTournoi(ControleurPrincipale controleurPrincipale){
+    public ControleurTournoi(Controleur.ControleurPrincipale controleurPrincipale){
         setControleurPrincipale(controleurPrincipale);
 
         setVueOptionTournoi(controleurPrincipale.getVueOptionTournoi());
@@ -64,11 +64,11 @@ public class ControleurTournoi extends Controleur{
         // déroulement tournoi à implémenter
     }
 
-    public ControleurPrincipale getControleurPrincipale() {
+    public Controleur.ControleurPrincipale getControleurPrincipale() {
         return controleurPrincipale;
     }
 
-    public void setControleurPrincipale(ControleurPrincipale controleurPrincipale) {
+    public void setControleurPrincipale(Controleur.ControleurPrincipale controleurPrincipale) {
         this.controleurPrincipale = controleurPrincipale;
     }
 

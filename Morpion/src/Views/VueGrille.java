@@ -192,11 +192,24 @@ public class VueGrille extends Vue {
     }
 
     public void highlightGagnant(ArrayList<Integer> casesGagnantes){
-            int i = 0;
-            System.out.println(casesGagnantes.size());
-            while(i<casesGagnantes.size()){
-                cases[casesGagnantes.get(i)][casesGagnantes.get(i+1)].setBackground(Color.RED);
-                i += 2;
+            if(!casesGagnantes.isEmpty()) {
+                // Mise en surbrillance
+                int i = 0;
+                System.out.println(casesGagnantes.size());
+                while (i < casesGagnantes.size()) {
+                    cases[casesGagnantes.get(i)][casesGagnantes.get(i + 1)].setBackground(Color.RED);
+                    i += 2;
+                }
+
+                // Gagner est irréversible
+                for (i = 0; i < cases.length; i++) {
+                    for (int j = 0; j < cases.length; j++) {
+                        cases[i][j].setEnabled(false);
+                    }
+                }
+
+                // On ne peut pas non plus revenir en arrière !
+                getBtnAnnuler().setEnabled(false);
             }
     }
 

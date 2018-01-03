@@ -7,17 +7,15 @@ import Enum.MESSAGES;
 public class ControleurPrincipale extends Controleur {
 
     private VueMenu vueMenu = new VueMenu();
-    private VueOptionPartieRapide vueOptionPartieRapide = new VueOptionPartieRapide();
-    private VueOptionTournoi vueOptionTournoi = new VueOptionTournoi();
-    private VueRegle vueRegle = new VueRegle();
-    private VueInformation vueInformation = new VueInformation();
+    private VueRegle vueRegle;
 
     private Boolean controleurPartieRapideExiste = false;
     private Boolean controleurTournoiExiste = false;
 
+    private Boolean vueRegleExiste = false;
+
     public ControleurPrincipale() {
         getVueMenu().ajouterObservateur(this);
-        getVueRegle().ajouterObservateur(this);
         ouvrirVue(getVueMenu());
 
     }
@@ -28,8 +26,7 @@ public class ControleurPrincipale extends Controleur {
         //redirection vers controleurs secondaires
 
         if (arg == MESSAGES.PARTIERAPIDE) {
-            ouvrirVue(getVueOptionPartieRapide());
-            fermerVue(getVueMenu());
+
             if (!controleurPartieRapideExiste){
                 ControleurPartieRapide controleurPartieRapide = new ControleurPartieRapide(this);
                 controleurPartieRapideExiste = true;
@@ -37,8 +34,7 @@ public class ControleurPrincipale extends Controleur {
         }
 
         if (arg == MESSAGES.TOURNOI) {
-            ouvrirVue(getVueOptionTournoi());
-            fermerVue(getVueMenu());
+
             if (!controleurTournoiExiste){
                 ControleurTournoi controleurTournoi = new ControleurTournoi(this);
                 controleurTournoiExiste = true;
@@ -48,6 +44,11 @@ public class ControleurPrincipale extends Controleur {
         //traitement des autres boutons du menu
 
         if (arg == MESSAGES.REGLES) {
+            if (!vueRegleExiste){
+                vueRegle = new VueRegle();
+                getVueRegle().ajouterObservateur(this);
+                vueRegleExiste = true;
+            }
             ouvrirVue(getVueRegle());
         }
 
@@ -70,22 +71,6 @@ public class ControleurPrincipale extends Controleur {
         this.vueMenu = vueMenu;
     }
 
-    public VueOptionPartieRapide getVueOptionPartieRapide() {
-        return vueOptionPartieRapide;
-    }
-
-    public void setVueOptionPartieRapide(VueOptionPartieRapide vueOptionPartieRapide) {
-        this.vueOptionPartieRapide = vueOptionPartieRapide;
-    }
-
-    public VueOptionTournoi getVueOptionTournoi() {
-        return vueOptionTournoi;
-    }
-
-    public void setVueOptionTournoi(VueOptionTournoi vueOptionTournoi) {
-        this.vueOptionTournoi = vueOptionTournoi;
-    }
-
     public VueRegle getVueRegle() {
         return vueRegle;
     }
@@ -94,13 +79,6 @@ public class ControleurPrincipale extends Controleur {
         this.vueRegle = vueRegle;
     }
 
-    public VueInformation getVueInformation() {
-        return vueInformation;
-    }
-
-    public void setVueInformation(VueInformation vueInformation) {
-        this.vueInformation = vueInformation;
-    }
 }
 
 

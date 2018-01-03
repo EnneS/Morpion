@@ -20,8 +20,11 @@ public class ControleurPartieRapide extends Controleur {
     public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
         setControleurPrincipale(controleurPrincipale);
 
-        setVueOptionPartieRapide(controleurPrincipale.getVueOptionPartieRapide());
+        setVueOptionPartieRapide(new VueOptionPartieRapide());
         getVueOptionPartieRapide().ajouterObservateur(this);
+
+        ouvrirVue(getVueOptionPartieRapide());
+        fermerVue(controleurPrincipale.getVueMenu());
     }
 
     @Override

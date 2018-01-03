@@ -62,6 +62,9 @@ public class ControleurPartieRapide extends Controleur {
             ouvrirVue(controleurPrincipale.getVueMenu());
             fermerVue(getVueGrille());
             getVueGrille().finalize();
+            resetPartie();
+
+
         }
 
         // ===================
@@ -70,14 +73,14 @@ public class ControleurPartieRapide extends Controleur {
         // On vérifie si le message reçu est bien de type MESSAGE_COCHE
         if(arg instanceof MESSAGE_COCHE) {
             MESSAGE_COCHE m = (MESSAGE_COCHE)arg;
-            System.out.println(m.getJ() + " | " + m.getI());
 
-            grille.getCases()[m.getJ()][m.getI()].setEtat(joueurs.get(joueurActif%joueurs.size()).getSymbole());
-
+            // Update Vue Grille
             vueGrille.updateVue(m.getJ(), m.getI(), joueurs.get(joueurActif%joueurs.size()).getSymbole(), joueurActif%joueurs.size());
 
-            joueurActif++;
+            // Update modèle grille
+            grille.getCases()[m.getJ()][m.getI()].setEtat(joueurs.get(joueurActif%joueurs.size()).getSymbole());
 
+            joueurActif++;
             // =====
             // DEBUG CONSOLE ETAT GRILLE
             for(int i = 0; i < grille.getN(); i++){
@@ -101,6 +104,12 @@ public class ControleurPartieRapide extends Controleur {
         joueurs.add(new Joueur(pseudos.get(1), SYMBOLES.ROND));
         ouvrirVue(vueGrille);
         fermerVue(vueOptionPartieRapide);
+    }
+
+    public void resetPartie(){
+        joueurs.clear();
+        pseudos.clear();
+        joueurActif = 0;
     }
 
     public VueOptionPartieRapide getVueOptionPartieRapide() {

@@ -26,7 +26,6 @@ public class VueGrille extends Vue {
         private JLabel hautGrilleLabel;
         private ArrayList<String> pseudos = new ArrayList<>();
         public VueGrille(int tailleGrille, ArrayList<String> pseudos){
-
             // Stockage des pseudos
             this.pseudos = pseudos;
 
@@ -94,7 +93,7 @@ public class VueGrille extends Vue {
             grillePanel.add(HautGrillePanel, BorderLayout.NORTH);
             //HautGrillePanel.setBackground(Color.WHITE);
 
-            hautGrilleLabel = new JLabel("C'est à" + pseudos.get(0) + " de jouer !", SwingConstants.CENTER);
+            hautGrilleLabel = new JLabel("C'est à " + pseudos.get(0) + " de jouer !", SwingConstants.CENTER);
             hautGrilleLabel.setFont(italic);
             HautGrillePanel.add(hautGrilleLabel);
 
@@ -168,7 +167,7 @@ public class VueGrille extends Vue {
     public void updateVue(int j, int i, SYMBOLES symbole, int joueurActif){
             cases[j][i].setText(symbole.toString());
             cases[j][i].setEnabled(false);
-            hautGrilleLabel.setText("C'est à " + pseudos.get(joueurActif));
+            hautGrilleLabel.setText("C'est à " + pseudos.get((joueurActif+1)%pseudos.size()) + " de jouer !");
     }
 
     public void finalize(){};

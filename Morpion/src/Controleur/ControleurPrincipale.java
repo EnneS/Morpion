@@ -9,18 +9,18 @@ public class ControleurPrincipale extends Controleur {
     private VueMenu vueMenu = new VueMenu();
     private VueOptionPartieRapide vueOptionPartieRapide = new VueOptionPartieRapide();
     private VueOptionTournoi vueOptionTournoi = new VueOptionTournoi();
-    private VueGrille vueGrille = new VueGrille();
     private VueRegle vueRegle = new VueRegle();
     private VueInformation vueInformation = new VueInformation();
 
-    public ControleurPrincipale() {
+    private Boolean controleurPartieRapideExiste = false;
+    private Boolean controleurTournoiExiste = false;
 
+    public ControleurPrincipale() {
         getVueMenu().ajouterObservateur(this);
         getVueRegle().ajouterObservateur(this);
         ouvrirVue(getVueMenu());
 
     }
-
 
     @Override
     public void update(Observable o, Object arg) {
@@ -30,15 +30,19 @@ public class ControleurPrincipale extends Controleur {
         if (arg == MESSAGES.PARTIERAPIDE) {
             ouvrirVue(getVueOptionPartieRapide());
             fermerVue(getVueMenu());
-            ControleurPartieRapide controleurPartieRapide = new ControleurPartieRapide(this, getVueOptionPartieRapide(), getVueGrille());
-
+            if (!controleurPartieRapideExiste){
+                ControleurPartieRapide controleurPartieRapide = new ControleurPartieRapide(this);
+                controleurPartieRapideExiste = true;
+            }
         }
 
         if (arg == MESSAGES.TOURNOI) {
             ouvrirVue(getVueOptionTournoi());
             fermerVue(getVueMenu());
-            ControleurTournoi controleurTournoi = new ControleurTournoi(this, getVueOptionTournoi(), getVueGrille());
-
+            if (!controleurTournoiExiste){
+                ControleurTournoi controleurTournoi = new ControleurTournoi(this);
+                controleurTournoiExiste = true;
+            }
         }
 
         //traitement des autres boutons du menu
@@ -80,14 +84,6 @@ public class ControleurPrincipale extends Controleur {
 
     public void setVueOptionTournoi(VueOptionTournoi vueOptionTournoi) {
         this.vueOptionTournoi = vueOptionTournoi;
-    }
-
-    public VueGrille getVueGrille() {
-        return vueGrille;
-    }
-
-    public void setVueGrille(VueGrille vueGrille) {
-        this.vueGrille = vueGrille;
     }
 
     public VueRegle getVueRegle() {

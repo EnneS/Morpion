@@ -12,15 +12,12 @@ public class ControleurTournoi extends Controleur{
     private VueOptionTournoi vueOptionTournoi;
     private VueGrille vueGrille;
 
-    public ControleurTournoi(ControleurPrincipale controleurPrincipale, VueOptionTournoi vueOptionTournoi, VueGrille vueGrille){
+    public ControleurTournoi(ControleurPrincipale controleurPrincipale){
         setControleurPrincipale(controleurPrincipale);
-        setVueOptionTournoi(vueOptionTournoi);
-        vueOptionTournoi.ajouterObservateur(this);
-        setVueGrille(vueGrille);
-        getVueGrille().ajouterObservateur(this);
-    }
 
-    public void finalize(){}
+        setVueOptionTournoi(controleurPrincipale.getVueOptionTournoi());
+        getVueOptionTournoi().ajouterObservateur(this);
+    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -33,8 +30,9 @@ public class ControleurTournoi extends Controleur{
         if (arg == MESSAGES.QUITTER){
             ouvrirVue(controleurPrincipale.getVueMenu());
             fermerVue(getVueOptionTournoi());
-            this.finalize();
         }
+
+
 
     }
 

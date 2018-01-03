@@ -14,6 +14,9 @@ public class VueMenu extends Vue {
     private final JButton btnFermer;
     private final JButton btnRegles; */
 
+    //Font
+    private Font regular = new Font("Euphemia UCAS",0,15);
+
     public VueMenu() {
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -62,7 +65,7 @@ public class VueMenu extends Vue {
                         if (j ==2 || j == 3) {
                             if (j ==2) {
                                 JButton btnPartieRapide = new JButton("Partie Rapide");
-                                btnPartieRapide.setFont(new Font("Euphemia UCAS", btnPartieRapide.getFont().getStyle(), btnPartieRapide.getFont().getSize()));
+                                btnPartieRapide.setFont(regular);
                                 panelBoutons.add(btnPartieRapide);
 
                                 btnPartieRapide.addActionListener(new ActionListener() {
@@ -76,7 +79,7 @@ public class VueMenu extends Vue {
 
                             } else {
                                 JButton btnTournoi = new JButton("Tournoi");
-                                btnTournoi.setFont(new Font("Euphemia UCAS", btnTournoi.getFont().getStyle(), btnTournoi.getFont().getSize()));
+                                btnTournoi.setFont(regular);
                                 panelBoutons.add(btnTournoi);
 
                                 btnTournoi.addActionListener(new ActionListener() {
@@ -98,7 +101,7 @@ public class VueMenu extends Vue {
                     for (int j = 0; j < 12; j++){
                         if(j == 7){
                             JButton btnQuitter = new JButton("Quitter");
-                            btnQuitter.setFont(new Font("Euphemia UCAS", btnQuitter.getFont().getStyle(), btnQuitter.getFont().getSize()));
+                            btnQuitter.setFont(regular);
                             panelQuitter.add(btnQuitter);
 
                             btnQuitter.addActionListener(new ActionListener() {
@@ -119,7 +122,7 @@ public class VueMenu extends Vue {
                     for (int j = 0; j < 12; j++) {
                         if (j == 7) {
                             JButton btnRegle = new JButton("Règles");
-                            btnRegle.setFont(new Font("Euphemia UCAS", btnRegle.getFont().getStyle(), btnRegle.getFont().getSize()));
+                            btnRegle.setFont(regular);
                             panelQuitter.add(btnRegle);
 
                             btnRegle.addActionListener(new ActionListener() {

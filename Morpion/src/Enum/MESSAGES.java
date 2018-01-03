@@ -5,6 +5,7 @@ public enum MESSAGES {
     TOURNOI,
     REGLES,
     LANCER_PARTIE,
+    QUITTER_PARTIE,
     FERMER_REGLES,
     QUITTER;
 }

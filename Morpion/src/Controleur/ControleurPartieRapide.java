@@ -1,6 +1,5 @@
 package Controleur;
-import Views.VueGrille;
-import Views.VueOptionPartieRapide;
+import Views.*;
 import Enum.MESSAGES;
 import java.util.Observable;
 
@@ -10,30 +9,44 @@ public class ControleurPartieRapide extends Controleur {
     private VueOptionPartieRapide vueOptionPartieRapide;
     private VueGrille vueGrille;
 
+    //options de jeu
+    private int tailleGrille;
+    private int alignementGagnant;
 
-    public ControleurPartieRapide(ControleurPrincipale controleurPrincipale, VueOptionPartieRapide vueOptionPartieRapide, VueGrille vueGrille) {
+
+    public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
         setControleurPrincipale(controleurPrincipale);
-        setVueOptionPartieRapide(vueOptionPartieRapide);
-        getVueOptionPartieRapide().ajouterObservateur(this);
-        setVueGrille(vueGrille);
-        getVueGrille().ajouterObservateur(this);
-    }
 
-    //destructeur
-    public void finalize(){}
+        setVueOptionPartieRapide(controleurPrincipale.getVueOptionPartieRapide());
+        getVueOptionPartieRapide().ajouterObservateur(this);
+    }
 
     @Override
     public void update(Observable o, Object arg) {
 
         if (arg == MESSAGES.LANCER_PARTIE){
+
+            //récupérations options
+            tailleGrille = ((VueOptionPartieRapide) o).getTailleGrilleSelectionne();
+            alignementGagnant = ((VueOptionPartieRapide) o ).getLongeurAlignementSelectionnee();
+
+            setVueGrille(new VueGrille(tailleGrille));
+            getVueGrille().ajouterObservateur(this);
+
             ouvrirVue(vueGrille);
             fermerVue(vueOptionPartieRapide);
+
         }
 
         if (arg == MESSAGES.QUITTER){
             ouvrirVue(controleurPrincipale.getVueMenu());
             fermerVue(getVueOptionPartieRapide());
-            this.finalize();
+        }
+
+        if (arg == MESSAGES.QUITTER_PARTIE){
+            ouvrirVue(controleurPrincipale.getVueMenu());
+            fermerVue(getVueGrille());
+            getVueGrille().finalize();
         }
 
     }

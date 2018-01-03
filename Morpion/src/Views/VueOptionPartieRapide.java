@@ -5,13 +5,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Enum.*;
-import com.sun.org.apache.xml.internal.security.utils.JDKXPathAPI;
 
 public class VueOptionPartieRapide extends Vue{
 
     private final JFrame window;
     private final JComboBox taillesGrille = new JComboBox(TAILLE_GRILLE.values());
-    private final JComboBox longeurAlignement = new JComboBox();
+    private final JComboBox longeurAlignementPossible = new JComboBox();
     private Boolean etat = true;
     private JButton memoire;
     private Boolean btn3x3Selectionne = true;
@@ -254,7 +253,7 @@ public class VueOptionPartieRapide extends Vue{
         JPanel panel70 = new JPanel();
         choixAlignementGrille.add(panel70);
 
-        choixAlignementGrille.add(getLongeurAlignement());
+        choixAlignementGrille.add(getLongeurAlignementPossible());
         getTaillesGrille().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -358,17 +357,22 @@ public class VueOptionPartieRapide extends Vue{
         return taillesGrille;
     }
 
-    public JComboBox getLongeurAlignement() {
-        return longeurAlignement;
+    public JComboBox getLongeurAlignementPossible() {
+        return longeurAlignementPossible;
     }
 
     public void setLongeurAlignementPossibles() {
-        longeurAlignement.setPreferredSize(new Dimension(100,50));
-        longeurAlignement.removeAllItems();
+        longeurAlignementPossible.setPreferredSize(new Dimension(100,50));
+        longeurAlignementPossible.removeAllItems();
         int tailleGrille = getTailleGrilleSelectionne();
         for (int i = 3; i <= tailleGrille;i++) {
-            longeurAlignement.addItem(i);
+            longeurAlignementPossible.addItem(i);
         }
-        longeurAlignement.setFont(regular);
+        longeurAlignementPossible.setFont(regular);
     }
+
+    public int getLongeurAlignementSelectionnee(){
+        return longeurAlignementPossible.getSelectedIndex()+3;
+    }
+
 }

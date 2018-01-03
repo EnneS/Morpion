@@ -104,10 +104,8 @@ public class ControleurPartieRapide extends Controleur {
             // Il est désormais possible d'annuler le coup
             vueGrille.getBtnAnnuler().setEnabled(true);
 
-            // On vérifie que le coup est gagnant
-            if (!getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant).isEmpty()){
-                System.out.println("GAGNANT");
-            }
+            // Si le coup est gagnant alors on le met en évidence
+            vueGrille.highlightGagnant(getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant));
 
 
 

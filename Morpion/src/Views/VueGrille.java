@@ -195,8 +195,8 @@ public class VueGrille extends Vue {
             int i = 0;
             System.out.println(casesGagnantes.size());
             while(i<casesGagnantes.size()){
-                System.out.println(casesGagnantes.get(i));
-                i++;
+                cases[casesGagnantes.get(i)][casesGagnantes.get(i+1)].setBackground(Color.RED);
+                i += 2;
             }
     }
 

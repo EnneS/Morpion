@@ -79,6 +79,7 @@ public class VueOptionTournoi extends Vue {
         gb.add(texteChoixGrilleLabel,gc);
 
         JPanel selectionChoixGrillePanel = new JPanel(new GridLayout(1,7));
+
         JPanel panel1 = new JPanel();
         selectionChoixGrillePanel.add(panel1);
 
@@ -181,14 +182,21 @@ public class VueOptionTournoi extends Vue {
         JPanel choixJoueurPanel = new JPanel(new GridLayout(3,1));
         mainPanel.add(choixJoueurPanel);
 
-        JLabel texteChoixJoueurLabel = new JLabel("                           Veuillez entrez le nombre de joueur");
-        texteChoixJoueurLabel.setFont(new Font("Euphemia UCAS", texteChoixJoueurLabel.getFont().getStyle(), texteChoixJoueurLabel.getFont().getSize()));
+        JLabel texteChoixJoueurLabel = new JLabel(" Veuillez selectionner le nombre de joueur");
+        texteChoixJoueurLabel.setFont(regular);
         choixJoueurPanel.add(texteChoixJoueurLabel);
+
+        JPanel gb1 = new JPanel(new GridBagLayout());
+        choixJoueurPanel.add(gb1);
+
+        GridBagConstraints gc1 = new GridBagConstraints();
+        gc1.insets = new Insets(0,0,0,680);
+        gb1.add(texteChoixJoueurLabel,gc1);
 
         JPanel selectionChoixJoueurPanel = new JPanel(new GridLayout(1,7));
 
-        JPanel panel5 = new JPanel();
-        selectionChoixJoueurPanel.add(panel5);
+        JPanel panel4 = new JPanel();
+        selectionChoixJoueurPanel.add(panel4);
 
         btn4 = new JButton("4");
         btn4.setFont(regular);
@@ -199,8 +207,8 @@ public class VueOptionTournoi extends Vue {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                //boutonSelectionne(btn4);
-                //btn4Selectionne = true;
+                boutonSelectionneJoueur(btn4);
+                btn4Selectionne = true;
                 clearChanged();
             }
         });
@@ -214,8 +222,8 @@ public class VueOptionTournoi extends Vue {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                //boutonSelectionne(btn8);
-                //btn8Selectionne = true;
+                boutonSelectionneJoueur(btn8);
+                btn8Selectionne = true;
                 clearChanged();
             }
         });
@@ -228,8 +236,8 @@ public class VueOptionTournoi extends Vue {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                //boutonSelectionne(btn16);
-                //btn16Selectionne = true;
+                boutonSelectionneJoueur(btn16);
+                btn16Selectionne = true;
                 clearChanged();
             }
         });
@@ -242,21 +250,21 @@ public class VueOptionTournoi extends Vue {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setChanged();
-                //boutonSelectionne(btn32);
-                //btn32Selectionne = true;
+                boutonSelectionneJoueur(btn32);
+                btn32Selectionne = true;
                 clearChanged();
             }
         });
 
+        for (int i = 0; i<2; i++){
+            JPanel panel = new JPanel();
+            selectionChoixJoueurPanel.add(panel);
+        }
 
-        JPanel panel6 = new JPanel();
-        selectionChoixJoueurPanel.add(panel6);
-        JPanel panel7 = new JPanel();
-        selectionChoixJoueurPanel.add(panel7);
         choixJoueurPanel.add(selectionChoixJoueurPanel);
 
-        JPanel panel4 = new JPanel();
-        choixJoueurPanel.add(panel4);
+        JPanel panel5 = new JPanel();
+        choixJoueurPanel.add(panel5);
 
 
         //construction panel choix alignement
@@ -270,14 +278,14 @@ public class VueOptionTournoi extends Vue {
         texteAlignementLabel.setFont(regular);
 
         GridBagConstraints gc3 = new GridBagConstraints();
-        gc3.insets = new Insets(0,0,0,522);
+        gc3.insets = new Insets(0,0,0,505);
         gb3.add(texteAlignementLabel,gc3);
 
         JPanel choixAlignementGrille = new JPanel(new GridLayout(1,7));
         choixAlignementPanel.add(choixAlignementGrille);
 
-        JPanel panel70 = new JPanel();
-        choixAlignementGrille.add(panel70);
+        JPanel panel6 = new JPanel();
+        choixAlignementGrille.add(panel6);
 
         choixAlignementGrille.add(getLongeurAlignementPossible());
         setLongeurAlignementPossibles();
@@ -290,8 +298,8 @@ public class VueOptionTournoi extends Vue {
         });
 
         for (int i = 0; i<5; i++){
-            JPanel panel8 = new JPanel();
-            choixAlignementGrille.add(panel8);
+            JPanel panel = new JPanel();
+            choixAlignementGrille.add(panel);
         }
 
 
@@ -299,8 +307,8 @@ public class VueOptionTournoi extends Vue {
         JPanel sortiePanel = new JPanel(new GridLayout(3,7));
 
         for (int i = 0; i<8; i++){
-            JPanel panel9 = new JPanel();
-            sortiePanel.add(panel9);
+            JPanel panel = new JPanel();
+            sortiePanel.add(panel);
         }
 
         JButton btnFermer = new JButton("Revenir au menu");
@@ -318,8 +326,8 @@ public class VueOptionTournoi extends Vue {
         });
 
         for (int i = 0; i<3; i++){
-            JPanel panel10 = new JPanel();
-            sortiePanel.add(panel10);
+            JPanel panel = new JPanel();
+            sortiePanel.add(panel);
         }
 
         JButton btnLancerPartie = new JButton("Lancer la partie");
@@ -336,8 +344,8 @@ public class VueOptionTournoi extends Vue {
         });
 
         for (int i = 0; i<8; i++){
-            JPanel panel11 = new JPanel();
-            sortiePanel.add(panel11);
+            JPanel panel = new JPanel();
+            sortiePanel.add(panel);
         }
 
         mainPanel.add(sortiePanel);
@@ -349,12 +357,21 @@ public class VueOptionTournoi extends Vue {
     }
 
     public void boutonSelectionne(JButton btn) {
-        //permet de maj et d'enregistrer le dernier bouton séléctionné
+        //permet de maj et d'enregistrer le dernier bouton séléctionné pour la taille de la grille
         btn.setFont(semiBold2);
         if (btn3 != btn) { btn3.setFont(regular); btn3x3Selectionne = false;}
         if (btn6 != btn) { btn6.setFont(regular); btn6x6Selectionne = false;}
         if (btn9 != btn) { btn9.setFont(regular); btn9X9Selectionne = false;}
 
+    }
+
+    public void boutonSelectionneJoueur(JButton btn){
+        //permet de maj et d'enregistrer le dernier bouton séléctionné pour le nombre de joueur
+        btn.setFont(semiBold2);
+        if (btn4 != btn) { btn4.setFont(regular); btn4Selectionne = false;}
+        if (btn8 != btn) { btn8.setFont(regular); btn8Selectionne = false;}
+        if (btn16 != btn) { btn16.setFont(regular); btn16Selectionne = false;}
+        if (btn32 != btn) { btn32.setFont(regular); btn32Selectionne = false;}
     }
 
     public JComboBox getTaillesGrillePossible() {
@@ -413,6 +430,16 @@ public class VueOptionTournoi extends Vue {
     }
 
     public int getNombreJoueur() {
-        return 0;
+        int nombreJoueur = 0;
+        if (btn4Selectionne) {
+            nombreJoueur = 4;
+        } else if (btn8Selectionne){
+            nombreJoueur = 8;
+        } else if (btn16Selectionne){
+            nombreJoueur = 16;
+        } else {
+            nombreJoueur = 32;
+        }
+        return nombreJoueur;
     }
 }

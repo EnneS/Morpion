@@ -34,6 +34,7 @@ public class ControleurTournoi extends Controleur{
             //récupérations options
             tailleGrille = ((VueOptionTournoi) o).getTailleGrilleSelectionne();
             alignementGagnant = ((VueOptionTournoi) o).getLongeurAlignementSelectionnee();
+            pseudos = ((VueOptionTournoi) o).getPseudos();
             nombreJoueur = ((VueOptionTournoi) o).getNombreJoueur();
 
             setVueGrille(new VueGrille(tailleGrille, pseudos));

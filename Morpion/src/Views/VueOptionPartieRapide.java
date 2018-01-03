@@ -177,7 +177,7 @@ public class VueOptionPartieRapide extends Vue{
         choixGrillePanel.add(panel3);
 
 
-        //construction panel nombreJoueur
+        //construction panel pseudosJoueurs (utilisation gridbaglayout pour les marges)
         JPanel joueurInfoPanel = new JPanel(new GridLayout(3,6));
         mainPanel.add(joueurInfoPanel);
 
@@ -197,8 +197,10 @@ public class VueOptionPartieRapide extends Vue{
         joueurInfoPanel.add(texteSymboleJoueurLabel);
 
         JPanel inputPanel1 = new JPanel(new GridLayout(1,3));
+
         JPanel label4 = new JPanel();
         inputPanel1.add(label4);
+
         pseudo1 = new JTextField();
         pseudo1.setFont(italic);
         pseudo1.setText("Joueur 1");
@@ -206,6 +208,7 @@ public class VueOptionPartieRapide extends Vue{
 
         JPanel label5 = new JPanel();
         inputPanel1.add(label5);
+
         joueurInfoPanel.add(inputPanel1);
 
         JLabel symboleX = new JLabel(String.valueOf(SYMBOLES.CROIX));
@@ -213,8 +216,10 @@ public class VueOptionPartieRapide extends Vue{
         joueurInfoPanel.add(symboleX);
 
         JPanel inputPanel2 = new JPanel(new GridLayout(1,3));
+
         JPanel label6 = new JPanel();
         inputPanel2.add(label6);
+
         pseudo2 = new JTextField();
         pseudo2.setFont(italic);
         pseudo2.setText("Joueur 2");
@@ -222,6 +227,7 @@ public class VueOptionPartieRapide extends Vue{
 
         JPanel label7 = new JPanel();
         inputPanel2.add(label7);
+
         joueurInfoPanel.add(inputPanel2);
 
         JLabel symboleO = new JLabel(String.valueOf(SYMBOLES.ROND));
@@ -232,8 +238,8 @@ public class VueOptionPartieRapide extends Vue{
         JPanel choixAlignementPanel = new JPanel(new GridLayout(3,1));
         mainPanel.add(choixAlignementPanel);
 
-        JPanel panel14 = new JPanel();
-        choixAlignementPanel.add(panel14);
+        JPanel panel8 = new JPanel();
+        choixAlignementPanel.add(panel8);
 
         JPanel gb3 = new JPanel(new GridBagLayout());
         choixAlignementPanel.add(gb3);
@@ -248,8 +254,8 @@ public class VueOptionPartieRapide extends Vue{
         JPanel choixAlignementGrille = new JPanel(new GridLayout(1,7));
         choixAlignementPanel.add(choixAlignementGrille);
 
-        JPanel panel70 = new JPanel();
-        choixAlignementGrille.add(panel70);
+        JPanel panel9 = new JPanel();
+        choixAlignementGrille.add(panel9);
 
         choixAlignementGrille.add(getLongeurAlignementPossible());
         setLongeurAlignementPossibles();
@@ -261,8 +267,8 @@ public class VueOptionPartieRapide extends Vue{
         });
 
         for (int i = 0; i<5; i++){
-            JPanel panel8 = new JPanel();
-            choixAlignementGrille.add(panel8);
+            JPanel panel = new JPanel();
+            choixAlignementGrille.add(panel);
         }
 
 
@@ -270,8 +276,8 @@ public class VueOptionPartieRapide extends Vue{
         JPanel sortiePanel = new JPanel(new GridLayout(3,7));
 
         for (int i = 0; i<8; i++){
-            JPanel panel9 = new JPanel();
-            sortiePanel.add(panel9);
+            JPanel panel = new JPanel();
+            sortiePanel.add(panel);
         }
 
         JButton btnFermer = new JButton("Revenir au menu");
@@ -289,8 +295,8 @@ public class VueOptionPartieRapide extends Vue{
         });
 
         for (int i = 0; i<3; i++){
-            JPanel panel10 = new JPanel();
-            sortiePanel.add(panel10);
+            JPanel panel = new JPanel();
+            sortiePanel.add(panel);
         }
 
         JButton btnLancerPartie = new JButton("Lancer la partie");
@@ -307,8 +313,8 @@ public class VueOptionPartieRapide extends Vue{
         });
 
         for (int i = 0; i<8; i++){
-            JPanel panel11 = new JPanel();
-            sortiePanel.add(panel11);
+            JPanel panel = new JPanel();
+            sortiePanel.add(panel);
         }
 
         mainPanel.add(sortiePanel);

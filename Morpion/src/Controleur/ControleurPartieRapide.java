@@ -105,8 +105,8 @@ public class ControleurPartieRapide extends Controleur {
             vueGrille.getBtnAnnuler().setEnabled(true);
 
             // On vérifie que le coup est gagnant
-            if (!getGrille().casesGagnantes(alignementGagnant).isEmpty()){
-                System.out.print("GAGNANT !!!!!!!!!!!");
+            if (!getGrille().getCasesGagnantes(alignementGagnant).isEmpty()){
+                System.out.print("GAGNANT");
             }
 
 
@@ -117,14 +117,14 @@ public class ControleurPartieRapide extends Controleur {
             for(int i = 0; i < grille.getN(); i++){
                 for(int j = 0; j < grille.getN(); j++){
                     if(grille.getCases()[i][j].getEtat() == SYMBOLES.VIDE){
-                        System.out.print("-");
+                        //System.out.print("-");
                     } else {
-                        System.out.print(grille.getCases()[i][j].getEtat().toString());
+                        //System.out.print(grille.getCases()[i][j].getEtat().toString());
                     }
                 }
-                System.out.println();
+                //System.out.println();
             }
-            System.out.println("================");
+            //System.out.println("================");
         }
     }
 

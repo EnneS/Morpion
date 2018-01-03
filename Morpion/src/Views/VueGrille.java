@@ -22,7 +22,13 @@ public class VueGrille extends Vue {
         private Font italic = new Font("Euphemia UCAS", 2,15);
         private Font impact = new Font("Impact",1,60);
 
+        private JButton cases[][];
+        private JLabel hautGrilleLabel;
+        private ArrayList<String> pseudos = new ArrayList<>();
         public VueGrille(int tailleGrille, ArrayList<String> pseudos){
+
+            // Stockage des pseudos
+            this.pseudos = pseudos;
 
             //caracteristiques fenetre
             window = new JFrame();
@@ -88,7 +94,7 @@ public class VueGrille extends Vue {
             grillePanel.add(HautGrillePanel, BorderLayout.NORTH);
             //HautGrillePanel.setBackground(Color.WHITE);
 
-            JLabel hautGrilleLabel = new JLabel("C'est à Théophile de jouer !", SwingConstants.CENTER);
+            hautGrilleLabel = new JLabel("C'est à" + pseudos.get(0) + " de jouer !", SwingConstants.CENTER);
             hautGrilleLabel.setFont(italic);
             HautGrillePanel.add(hautGrilleLabel);
 
@@ -97,21 +103,22 @@ public class VueGrille extends Vue {
 
             // ========================================
             // Création de la grille
-            int j = 0; // Nous sert à créer le message correspndant au bouton avec j étant le n° de la ligne
+
+            cases = new JButton[tailleGrille][tailleGrille]; // Tableau de bouton servant à pouvoir les retrouver puis mettre à jour
 
             for (int i = 0; i < tailleGrille*tailleGrille ; i++){
 
-                if(i%tailleGrille == 0 && i != 0){
-                    j++;
-                }
-
                 JButton btn = new  JButton(SYMBOLES.NULL.toString());
+
+                // On ajoute le bouton au tableau de bouton
+                cases[i/tailleGrille][i%tailleGrille] = btn;
+
                 btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*5));
                 btn.setPreferredSize(new Dimension(500/tailleGrille,500/tailleGrille));
                 centreGrillePanel.add(btn);
 
-                // On créé le message correspondant au bouton avec i%tailleGrille le n° de la colonne et j le n° de la ligne
-                MESSAGE_COCHE m = new MESSAGE_COCHE(i%tailleGrille,j);
+                // On créé le message correspondant au bouton avec i%tailleGrille le n° de la colonne et i/tailleGrille le n° de la ligne
+                MESSAGE_COCHE m = new MESSAGE_COCHE(i%tailleGrille,i/tailleGrille);
                 btn.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -156,6 +163,12 @@ public class VueGrille extends Vue {
 
     public void setVisible(Boolean b) {
         window.setVisible(b);
+    }
+
+    public void updateVue(int j, int i, SYMBOLES symbole, int joueurActif){
+            cases[j][i].setText(symbole.toString());
+            cases[j][i].setEnabled(false);
+            hautGrilleLabel.setText("C'est à " + pseudos.get(joueurActif));
     }
 
     public void finalize(){};

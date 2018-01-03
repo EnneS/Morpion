@@ -15,7 +15,7 @@ import Enum.SYMBOLES;
 public class Joueur {
     private String nom;
     //private int score = 0;
-    private SYMBOLES symboles;
+    private SYMBOLES symbole;
     ArrayList <Case>casesCochées = new ArrayList<>();
     
     public Joueur(String nom, SYMBOLES symboles){
@@ -56,10 +56,14 @@ public class Joueur {
      */
 
     /**
-     * @param SYMBOLES the SYMBOLES to set
+     * @param symbole the SYMBOLES to set
      */
-    public void setSYMBOLES(SYMBOLES symboles) {
-        this.symboles = symboles;
+    public void setSYMBOLES(SYMBOLES symbole) {
+        this.symbole = symbole;
+    }
+
+    public SYMBOLES getSymbole() {
+        return symbole;
     }
 
     /**

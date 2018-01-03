@@ -1,6 +1,9 @@
 package Controleur;
+import Enum.SYMBOLES;
 import Views.*;
 import Enum.MESSAGES;
+import Enum.MESSAGE_COCHE;
+import Modele.*;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -16,6 +19,12 @@ public class ControleurPartieRapide extends Controleur {
     private int alignementGagnant;
     private ArrayList<String> pseudos;
 
+    // Modèles
+    private Grille grille;
+    private ArrayList<Joueur>joueurs = new ArrayList<>();
+
+    // Joueur Actif
+    private int joueurActif = 0;
 
     public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
         setControleurPrincipale(controleurPrincipale);
@@ -37,11 +46,9 @@ public class ControleurPartieRapide extends Controleur {
             alignementGagnant = ((VueOptionPartieRapide) o).getLongeurAlignementSelectionnee();
             pseudos = ((VueOptionPartieRapide) o).getPseudos();
 
+            // Création de la vue Grille
             setVueGrille(new VueGrille(tailleGrille, pseudos));
             getVueGrille().ajouterObservateur(this);
-
-            ouvrirVue(vueGrille);
-            fermerVue(vueOptionPartieRapide);
 
             lancerPartie();
         }
@@ -57,10 +64,43 @@ public class ControleurPartieRapide extends Controleur {
             getVueGrille().finalize();
         }
 
+        // ===================
+        // COCHE
+
+        // On vérifie si le message reçu est bien de type MESSAGE_COCHE
+        if(arg instanceof MESSAGE_COCHE) {
+            MESSAGE_COCHE m = (MESSAGE_COCHE)arg;
+            System.out.println(m.getJ() + " | " + m.getI());
+
+            grille.getCases()[m.getJ()][m.getI()].setEtat(joueurs.get(joueurActif%joueurs.size()).getSymbole());
+
+            vueGrille.updateVue(m.getJ(), m.getI(), joueurs.get(joueurActif%joueurs.size()).getSymbole(), joueurActif%joueurs.size());
+
+            joueurActif++;
+
+            // =====
+            // DEBUG CONSOLE ETAT GRILLE
+            for(int i = 0; i < grille.getN(); i++){
+                for(int j = 0; j < grille.getN(); j++){
+                    if(grille.getCases()[i][j].getEtat() == SYMBOLES.VIDE){
+                        System.out.print("-");
+                    } else {
+                        System.out.print(grille.getCases()[i][j].getEtat().toString());
+                    }
+                }
+                System.out.println();
+            }
+
+        }
     }
 
     public void lancerPartie(){
-        // déroulement partie à implémenter
+        // Initialisation des modèles
+        grille = new Grille(tailleGrille);
+        joueurs.add(new Joueur(pseudos.get(0), SYMBOLES.CROIX));
+        joueurs.add(new Joueur(pseudos.get(1), SYMBOLES.ROND));
+        ouvrirVue(vueGrille);
+        fermerVue(vueOptionPartieRapide);
     }
 
     public VueOptionPartieRapide getVueOptionPartieRapide() {
@@ -85,5 +125,9 @@ public class ControleurPartieRapide extends Controleur {
 
     public void setVueGrille(VueGrille vueGrille) {
         this.vueGrille = vueGrille;
+    }
+
+    public Grille getGrille(){
+        return grille;
     }
 }

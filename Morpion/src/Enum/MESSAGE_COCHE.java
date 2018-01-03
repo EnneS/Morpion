@@ -1,8 +1,6 @@
 package Enum;
 
 public class MESSAGE_COCHE {
-
-    private MESSAGES messageCoche = MESSAGES.COCHER;
     private int i;
     private int j;
 

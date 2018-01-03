@@ -9,8 +9,8 @@ public class ControleurPrincipale extends Controleur {
     private VueMenu vueMenu = new VueMenu();
     private VueRegle vueRegle;
 
-    protected ControleurPartieRapide controleurPartieRapide;
-    protected ControleurTournoi controleurTournoi;
+    private ControleurPartieRapide controleurPartieRapide;
+    private ControleurTournoi controleurTournoi;
 
     private Boolean controleurPartieRapideExiste = false;
     private Boolean controleurTournoiExiste = false;
@@ -31,20 +31,20 @@ public class ControleurPrincipale extends Controleur {
         if (arg == MESSAGES.PARTIERAPIDE) {
 
             if (!controleurPartieRapideExiste){
-                ControleurPartieRapide controleurPartieRapide = new ControleurPartieRapide(this);
+                controleurPartieRapide = new ControleurPartieRapide(this);
                 controleurPartieRapideExiste = true;
             } else {
-                ouvrirVue(controleurPartieRapide.getVueOptionPartieRapide());
+                ouvrirVue(getControleurPartieRapide().getVueOptionPartieRapide());
             }
         }
 
         if (arg == MESSAGES.TOURNOI) {
 
             if (!controleurTournoiExiste){
-                ControleurTournoi controleurTournoi = new ControleurTournoi(this);
+                controleurTournoi = new ControleurTournoi(this);
                 controleurTournoiExiste = true;
             } else {
-                ouvrirVue(controleurTournoi.getVueOptionTournoi());
+                ouvrirVue(getControleurTournoi().getVueOptionTournoi());
             }
         }
 
@@ -85,6 +85,21 @@ public class ControleurPrincipale extends Controleur {
         this.vueRegle = vueRegle;
     }
 
+    public ControleurPartieRapide getControleurPartieRapide() {
+        return controleurPartieRapide;
+    }
+
+    public void setControleurPartieRapide(ControleurPartieRapide controleurPartieRapide) {
+        this.controleurPartieRapide = controleurPartieRapide;
+    }
+
+    public ControleurTournoi getControleurTournoi() {
+        return controleurTournoi;
+    }
+
+    public void setControleurTournoi(ControleurTournoi controleurTournoi) {
+        this.controleurTournoi = controleurTournoi;
+    }
 }
 
 

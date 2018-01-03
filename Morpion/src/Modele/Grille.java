@@ -38,28 +38,26 @@ public class Grille {
     }
 
     public SYMBOLES getSymbole(int i, int j){
-        if (i<0 || i>getN() || j<0 || j>getN()){
+        if (i<0 || i>=getN() || j<0 || j>=getN()){
             return SYMBOLES.NULL;
         } else {
             return cases[i][j].getEtat();
         }
     }
 
-    public SYMBOLES gagnant(int nombreGagnant){
+    public ArrayList<Integer> casesGagnantes(int nombreGagnant){
 
-        Boolean gagnantTrouve = false;
+        ArrayList<Integer> casesGagnantes = new ArrayList<>();
         int i = 0;
-        int j = 0;
+        int j;
 
-        while (i < getN() && !gagnantTrouve){
-
-            j=0;
-            while(j < getN() && !gagnantTrouve){
-
+        while (i < getN()){
+            j = 0;
+            while(j < getN()){
                 if (cases[i][j].getEtat() != SYMBOLES.VIDE){
                     for (DIRECTION DIRECTION : DIRECTION.values()){
-                        if (verifierAlignement(i,j, DIRECTION,nombreGagnant) == true){
-                            gagnantTrouve = true;
+                        if (verifierAlignement(i,j, DIRECTION,nombreGagnant) != null){
+                            casesGagnantes.addAll(verifierAlignement(i,j, DIRECTION, nombreGagnant));
                         }
                     }
                 }
@@ -67,51 +65,68 @@ public class Grille {
             }
             i++;
         }
-        return getSymbole(i-1,j-1);
+        return casesGagnantes;
     }
 
 
-    public Boolean verifierAlignement(int i, int j, DIRECTION DIRECTION, int nombreGagnant){
+    public ArrayList<Integer> verifierAlignement(int i, int j, DIRECTION DIRECTION, int nombreGagnant){
 
-        int longeurAlignement = 1;
-        SYMBOLES SYMBOLESCaseDepart = cases[i][j].getEtat();
-        ArrayList<Case> casesGagnantes = new ArrayList<>();
+        int longueurAlignement = 0;
+        SYMBOLES symboleCaseDepart = cases[i][j].getEtat();
+        ArrayList<Integer> casesGagnantes = new ArrayList<>();
 
         switch (DIRECTION)
         {
             case VERTICAL:
-                while(!getSymbole(i-1,j).equals(SYMBOLES.NULL) && getSymbole(i-1,j).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    i--; longeurAlignement++;
+                while(!getSymbole(i-1,j).equals(SYMBOLES.NULL) && getSymbole(i-1,j).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i-1);
+                    casesGagnantes.add(j);
+                    i--; longueurAlignement++;
                 }
-                while(!getSymbole(i+1,j).equals(SYMBOLES.NULL) && getSymbole(i+1,j).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    i++; longeurAlignement++;
+                while(!getSymbole(i+1,j).equals(SYMBOLES.NULL) && getSymbole(i+1,j).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i+1);
+                    casesGagnantes.add(j);
+                    i++; longueurAlignement++;
                 }
 
             case HORIZONTAL:
-                while(!getSymbole(i,j-1).equals(SYMBOLES.NULL) && getSymbole(i,j-1).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    j--; longeurAlignement++;
+                while(!getSymbole(i,j-1).equals(SYMBOLES.NULL) && getSymbole(i,j-1).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i);
+                    casesGagnantes.add(j-1);
+                    j--; longueurAlignement++;
                 }
-                while(!getSymbole(i,j+1).equals(SYMBOLES.NULL) && getSymbole(i,j+1).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    j++; longeurAlignement++;
+                while(!getSymbole(i,j+1).equals(SYMBOLES.NULL) && getSymbole(i,j+1).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i);
+                    casesGagnantes.add(j+1);
+                    j++; longueurAlignement++;
                 }
 
             case DIAGONALE_DESCANDANTE:
-                while(!getSymbole(i-1,j-1).equals(SYMBOLES.NULL) && getSymbole(i-1,j-1).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    i--; j--; longeurAlignement++;
+                while(!getSymbole(i-1,j-1).equals(SYMBOLES.NULL) && getSymbole(i-1,j-1).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i-1);
+                    casesGagnantes.add(j-1);
+                    i--; j--; longueurAlignement++;
                 }
-                while(!getSymbole(i+1,j+1).equals(SYMBOLES.NULL) && getSymbole(i+1,j+1).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    i++; j++; longeurAlignement++;
+                while(!getSymbole(i+1,j+1).equals(SYMBOLES.NULL) && getSymbole(i+1,j+1).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i+1);
+                    casesGagnantes.add(j+1);
+                    i++; j++; longueurAlignement++;
                 }
 
             case DIAGONALE_MONTANTE:
-                while(!getSymbole(i-1,j+1).equals(SYMBOLES.NULL) && getSymbole(i-1,j+1).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    i--; j++; longeurAlignement++;
+                while(!getSymbole(i-1,j+1).equals(SYMBOLES.NULL) && getSymbole(i-1,j+1).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i-1);
+                    casesGagnantes.add(j+1);
+                    i--; j++; longueurAlignement++;
                 }
-                while(!getSymbole(i+1,j-1).equals(SYMBOLES.NULL) && getSymbole(i+1,j-1).equals(SYMBOLESCaseDepart) && longeurAlignement<nombreGagnant) {
-                    i++; j--; longeurAlignement++;
+                while(!getSymbole(i+1,j-1).equals(SYMBOLES.NULL) && getSymbole(i+1,j-1).equals(symboleCaseDepart) && longueurAlignement<nombreGagnant) {
+                    casesGagnantes.add(i+1);
+                    casesGagnantes.add(j-1);
+                    i++; j--; longueurAlignement++;
                 }
         }
-        return longeurAlignement == nombreGagnant;
+
+        if (longueurAlignement == nombreGagnant) return casesGagnantes; else return null;
     }
 }
 

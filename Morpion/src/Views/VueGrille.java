@@ -25,6 +25,8 @@ public class VueGrille extends Vue {
         private JButton cases[][];
         private JLabel hautGrilleLabel;
         private ArrayList<String> pseudos = new ArrayList<>();
+        private JButton btnAnnuler;
+
         public VueGrille(int tailleGrille, ArrayList<String> pseudos){
             // Stockage des pseudos
             this.pseudos = pseudos;
@@ -112,7 +114,7 @@ public class VueGrille extends Vue {
                 // On ajoute le bouton au tableau de bouton
                 cases[i/tailleGrille][i%tailleGrille] = btn;
 
-                btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*5));
+                btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*3));
                 btn.setPreferredSize(new Dimension(500/tailleGrille,500/tailleGrille));
                 centreGrillePanel.add(btn);
 
@@ -146,12 +148,24 @@ public class VueGrille extends Vue {
                 }
             });
 
+            //===============
             //Bouton annuler
-            JButton btnAnnuler = new JButton("Revenir en arrière");
+            btnAnnuler = new JButton("Revenir en arrière");
             btnAnnuler.setFont(regular);
             btnAnnuler.setPreferredSize(new Dimension(200,35));
             basGrillePanel.add(btnAnnuler);
+            btnAnnuler.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setChanged();
+                    notifyObservers(MESSAGES.ANNULER_COUP);
+                    clearChanged();
+                }
+            });
+            // Désactivé de base
+            btnAnnuler.setEnabled(false);
 
+            //=================
             //Bouton information
             JButton btnInformation = new JButton("Information");
             btnInformation.setFont(regular);
@@ -164,10 +178,16 @@ public class VueGrille extends Vue {
         window.setVisible(b);
     }
 
-    public void updateVue(int j, int i, SYMBOLES symbole, int joueurActif){
+    public void updateVue(int j, int i, SYMBOLES symbole, int joueurActif, boolean onCoche){
             cases[j][i].setText(symbole.toString());
-            cases[j][i].setEnabled(false);
             hautGrilleLabel.setText("C'est à " + pseudos.get((joueurActif+1)%pseudos.size()) + " de jouer !");
+
+            // S'il s'agit d'un cochage de case on désactive le bouton sinon on le ractive.
+            if(onCoche) cases[j][i].setEnabled(false); else cases[j][i].setEnabled(true);
+    }
+
+    public JButton getBtnAnnuler(){
+            return btnAnnuler;
     }
 
     public void finalize(){};

@@ -23,8 +23,9 @@ public class ControleurPartieRapide extends Controleur {
     private Grille grille;
     private ArrayList<Joueur>joueurs = new ArrayList<>();
 
-    // Joueur Actif
+    // Infos sur la partie
     private int joueurActif = 0;
+    private int dernierCoup[] = new int[2];
 
     public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
         setControleurPrincipale(controleurPrincipale);
@@ -50,6 +51,7 @@ public class ControleurPartieRapide extends Controleur {
             setVueGrille(new VueGrille(tailleGrille, pseudos));
             getVueGrille().ajouterObservateur(this);
 
+            // Lancement de la partie
             lancerPartie();
         }
 
@@ -63,26 +65,55 @@ public class ControleurPartieRapide extends Controleur {
             fermerVue(getVueGrille());
             getVueGrille().finalize();
             resetPartie();
+        }
 
+        if (arg == MESSAGES.ANNULER_COUP){
+            // On annule le dernier coup sur la vue
+            vueGrille.updateVue(dernierCoup[0], dernierCoup[1], SYMBOLES.VIDE, joueurActif%joueurs.size(), false);
 
+            // Et sur le modèle
+            grille.getCases()[dernierCoup[0]][dernierCoup[1]].setEtat(SYMBOLES.VIDE);
+
+            // On redonne la main au joueur précédent
+            joueurActif--;
+
+            // On ne peut plus annuler de coup désormais
+            vueGrille.getBtnAnnuler().setEnabled(false);
         }
 
         // ===================
-        // COCHE
+        // COCHAGE D'UNE CASE
 
-        // On vérifie si le message reçu est bien de type MESSAGE_COCHE
+        // On vérifie si le message reçu est bien de type MESSAGE_COCHE (cela signifie que la joueur a coché une case)
         if(arg instanceof MESSAGE_COCHE) {
             MESSAGE_COCHE m = (MESSAGE_COCHE)arg;
 
             // Update Vue Grille
-            vueGrille.updateVue(m.getJ(), m.getI(), joueurs.get(joueurActif%joueurs.size()).getSymbole(), joueurActif%joueurs.size());
+            vueGrille.updateVue(m.getJ(), m.getI(), joueurs.get(joueurActif%joueurs.size()).getSymbole(), joueurActif%joueurs.size(), true);
 
             // Update modèle grille
             grille.getCases()[m.getJ()][m.getI()].setEtat(joueurs.get(joueurActif%joueurs.size()).getSymbole());
 
+            // Récupération du coup
+            dernierCoup[0] = m.getJ();
+            dernierCoup[1] = m.getI();
+
+            // On passe au joueur suivant
             joueurActif++;
-            // =====
-            // DEBUG CONSOLE ETAT GRILLE
+
+            // Il est désormais possible d'annuler le coup
+            vueGrille.getBtnAnnuler().setEnabled(true);
+
+            // On vérifie que le coup est gagnant
+            if (!getGrille().casesGagnantes(alignementGagnant).isEmpty()){
+                System.out.print("GAGNANT !!!!!!!!!!!");
+            }
+
+
+
+
+            // ==================================
+            // DEBUG CONSOLE ETAT GRILLE MODELE
             for(int i = 0; i < grille.getN(); i++){
                 for(int j = 0; j < grille.getN(); j++){
                     if(grille.getCases()[i][j].getEtat() == SYMBOLES.VIDE){
@@ -93,7 +124,7 @@ public class ControleurPartieRapide extends Controleur {
                 }
                 System.out.println();
             }
-
+            System.out.println("================");
         }
     }
 
@@ -102,6 +133,8 @@ public class ControleurPartieRapide extends Controleur {
         grille = new Grille(tailleGrille);
         joueurs.add(new Joueur(pseudos.get(0), SYMBOLES.CROIX));
         joueurs.add(new Joueur(pseudos.get(1), SYMBOLES.ROND));
+
+        // Affichage de la vue
         ouvrirVue(vueGrille);
         fermerVue(vueOptionPartieRapide);
     }

@@ -22,8 +22,11 @@ public class ControleurTournoi extends Controleur{
     public ControleurTournoi(Controleur.ControleurPrincipale controleurPrincipale){
         setControleurPrincipale(controleurPrincipale);
 
-        setVueOptionTournoi(controleurPrincipale.getVueOptionTournoi());
+        setVueOptionTournoi(new VueOptionTournoi());
         getVueOptionTournoi().ajouterObservateur(this);
+
+        ouvrirVue(getVueOptionTournoi());
+        fermerVue(controleurPrincipale.getVueMenu());
     }
 
     @Override

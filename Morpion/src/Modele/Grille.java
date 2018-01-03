@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import Enum.SYMBOLES;
 import Enum.DIRECTION;
 
-/**
- *
- * @author souliern
- */
 public class Grille {
     private int n; // Grille de n*n cases
     private Case cases[][];

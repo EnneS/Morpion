@@ -9,6 +9,9 @@ public class ControleurPrincipale extends Controleur {
     private VueMenu vueMenu = new VueMenu();
     private VueRegle vueRegle;
 
+    protected ControleurPartieRapide controleurPartieRapide;
+    protected ControleurTournoi controleurTournoi;
+
     private Boolean controleurPartieRapideExiste = false;
     private Boolean controleurTournoiExiste = false;
 
@@ -30,6 +33,8 @@ public class ControleurPrincipale extends Controleur {
             if (!controleurPartieRapideExiste){
                 ControleurPartieRapide controleurPartieRapide = new ControleurPartieRapide(this);
                 controleurPartieRapideExiste = true;
+            } else {
+                ouvrirVue(controleurPartieRapide.getVueOptionPartieRapide());
             }
         }
 
@@ -38,6 +43,8 @@ public class ControleurPrincipale extends Controleur {
             if (!controleurTournoiExiste){
                 ControleurTournoi controleurTournoi = new ControleurTournoi(this);
                 controleurTournoiExiste = true;
+            } else {
+                ouvrirVue(controleurTournoi.getVueOptionTournoi());
             }
         }
 
@@ -59,7 +66,6 @@ public class ControleurPrincipale extends Controleur {
         if (arg == MESSAGES.QUITTER) {
             fermerVue(getVueMenu());
         }
-
 
     }
 

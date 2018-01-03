@@ -64,15 +64,11 @@ public class Grille {
 
 
     public ArrayList<Integer> verifierAlignement(int j, int i, int nombreGagnant, int directionX, int directionY) {
-
         int longueurAlignement = 1;
         SYMBOLES symboleCaseDepart = cases[j][i].getEtat();
         ArrayList<Integer> casesGagnantes = new ArrayList<>();
 
         casesGagnantes.add(j); casesGagnantes.add(i);
-
-        System.out.println("Case actuelle : " + j + " | " + i);
-        System.out.println("direction X : " + directionX + " direction Y : " + directionY);
 
         int nextX = i + directionX;
         int nextY = j + directionY;
@@ -96,19 +92,7 @@ public class Grille {
             nextY = nextY - directionY;
         }
 
-        System.out.print("Cases trouvées : | ");
-        int a = 0;
-        while(a < casesGagnantes.size()){
-            System.out.print(casesGagnantes.get(a) + " | " + casesGagnantes.get(a+1) + " | ");
-            a = a+2;
-        }
-
-        System.out.println();
-        System.out.println("=====================");
-
-        if (longueurAlignement >= nombreGagnant) return casesGagnantes;
-        else return new ArrayList<>();
-
+        if (longueurAlignement >= nombreGagnant) return casesGagnantes; else return new ArrayList<>();
     }
 
 

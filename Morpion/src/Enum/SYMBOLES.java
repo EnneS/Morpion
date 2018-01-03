@@ -12,9 +12,8 @@ package Enum;
 public enum SYMBOLES {
     ROND("O"),
     CROIX("X"),
-    VIDE(""),
-    NULL("");
-    
+    VIDE("");
+
     private String name;
     
     SYMBOLES(String name){

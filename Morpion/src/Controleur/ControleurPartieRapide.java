@@ -48,7 +48,7 @@ public class ControleurPartieRapide extends Controleur {
             pseudos = ((VueOptionPartieRapide) o).getPseudos();
 
             // Création de la vue Grille
-            setVueGrille(new VueGrille(tailleGrille, pseudos));
+            setVueGrille(new VueGrille(tailleGrille, pseudos.get(0), pseudos.get(1)));
             getVueGrille().ajouterObservateur(this);
 
             // Lancement de la partie

@@ -27,10 +27,12 @@ public class VueGrille extends Vue {
         private JLabel hautGrilleLabel;
         private ArrayList<String> pseudos = new ArrayList<>();
         private JButton btnAnnuler;
+        private JLabel nomJoueurGauche;
+        private JLabel nomJoueurDroite;
 
-        public VueGrille(int tailleGrille, ArrayList<String> pseudos){
+        public VueGrille(int tailleGrille, String joueur1, String joueur2){
             // Stockage des pseudos
-            this.pseudos = pseudos;
+            pseudos.add(joueur1); pseudos.add(joueur2);
 
             //caracteristiques fenetre
             window = new JFrame();
@@ -68,7 +70,7 @@ public class VueGrille extends Vue {
             symboleJoueurGauche.setFont(bold);
             infoJoueurGauche.add(symboleJoueurGauche);
 
-            JLabel nomJoueurGauche = new JLabel(pseudos.get(0),SwingConstants.CENTER);
+            nomJoueurGauche = new JLabel(pseudos.get(0),SwingConstants.CENTER);
             nomJoueurGauche.setFont(regular2);
             infoJoueurGauche.add(nomJoueurGauche);
 
@@ -83,7 +85,7 @@ public class VueGrille extends Vue {
             symboleJoueurDroite.setFont(bold);
             infoJoueurDroite.add(symboleJoueurDroite);
 
-            JLabel nomJoueurDroite = new JLabel(pseudos.get(1),SwingConstants.CENTER);
+            nomJoueurDroite = new JLabel(pseudos.get(1),SwingConstants.CENTER);
             nomJoueurDroite.setFont(regular2);
             infoJoueurDroite.add(nomJoueurDroite);
 
@@ -110,7 +112,7 @@ public class VueGrille extends Vue {
 
             for (int i = 0; i < tailleGrille*tailleGrille ; i++){
 
-                JButton btn = new  JButton(SYMBOLES.NULL.toString());
+                JButton btn = new  JButton(SYMBOLES.VIDE.toString());
 
                 // On ajoute le bouton au tableau de bouton
                 cases[i/tailleGrille][i%tailleGrille] = btn;
@@ -195,7 +197,6 @@ public class VueGrille extends Vue {
             if(!casesGagnantes.isEmpty()) {
                 // Mise en surbrillance
                 int i = 0;
-                System.out.println(casesGagnantes.size());
                 while (i < casesGagnantes.size()) {
                     cases[casesGagnantes.get(i)][casesGagnantes.get(i + 1)].setBackground(Color.RED);
                     i += 2;
@@ -215,6 +216,20 @@ public class VueGrille extends Vue {
 
     public void finalize(){};
 
+    public void nextPartie(String joueur1, String joueur2){
+        pseudos.clear();
+        pseudos.add(joueur1); pseudos.add(joueur2);
+        nomJoueurGauche.setText(joueur1);
+        nomJoueurDroite.setText(joueur2);
+        hautGrilleLabel.setText("C'est à " + pseudos.get(0) + " de jouer :");
 
+        for(int i = 0; i < cases.length; i++){
+            for (int j = 0; j < cases.length; j++){
+                cases[i][j].setEnabled(true);
+                cases[i][j].setText("");
+                cases[i][j].setBackground(Color.WHITE);
+            }
+        }
+    }
 }
 

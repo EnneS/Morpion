@@ -1,6 +1,8 @@
 package Controleur;
 import Views.*;
 import Enum.MESSAGES;
+
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class ControleurPartieRapide extends Controleur {
@@ -12,6 +14,7 @@ public class ControleurPartieRapide extends Controleur {
     //options de jeu
     private int tailleGrille;
     private int alignementGagnant;
+    private ArrayList<String> pseudos;
 
 
     public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
@@ -28,14 +31,16 @@ public class ControleurPartieRapide extends Controleur {
 
             //récupérations options
             tailleGrille = ((VueOptionPartieRapide) o).getTailleGrilleSelectionne();
-            alignementGagnant = ((VueOptionPartieRapide) o ).getLongeurAlignementSelectionnee();
+            alignementGagnant = ((VueOptionPartieRapide) o).getLongeurAlignementSelectionnee();
+            pseudos = ((VueOptionPartieRapide) o).getPseudos();
 
-            setVueGrille(new VueGrille(tailleGrille));
+            setVueGrille(new VueGrille(tailleGrille, pseudos));
             getVueGrille().ajouterObservateur(this);
 
             ouvrirVue(vueGrille);
             fermerVue(vueOptionPartieRapide);
 
+            lancerPartie();
         }
 
         if (arg == MESSAGES.QUITTER){
@@ -49,6 +54,10 @@ public class ControleurPartieRapide extends Controleur {
             getVueGrille().finalize();
         }
 
+    }
+
+    public void lancerPartie(){
+        // déroulement partie à implémenter
     }
 
     public VueOptionPartieRapide getVueOptionPartieRapide() {

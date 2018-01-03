@@ -3,6 +3,7 @@ package Controleur;
 import Views.VueGrille;
 import Views.VueOptionTournoi;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import Enum.MESSAGES;
 
@@ -11,6 +12,12 @@ public class ControleurTournoi extends Controleur{
     private ControleurPrincipale controleurPrincipale;
     private VueOptionTournoi vueOptionTournoi;
     private VueGrille vueGrille;
+
+    //options de jeu
+    private int tailleGrille;
+    private int alignementGagnant;
+    private ArrayList<String> pseudos;
+    private int nombreJoueur;
 
     public ControleurTournoi(ControleurPrincipale controleurPrincipale){
         setControleurPrincipale(controleurPrincipale);
@@ -23,8 +30,19 @@ public class ControleurTournoi extends Controleur{
     public void update(Observable o, Object arg) {
 
         if (arg == MESSAGES.LANCER_PARTIE){
+
+            //récupérations options
+            tailleGrille = ((VueOptionTournoi) o).getTailleGrilleSelectionne();
+            alignementGagnant = ((VueOptionTournoi) o).getLongeurAlignementSelectionnee();
+            nombreJoueur = ((VueOptionTournoi) o).getNombreJoueur();
+
+            setVueGrille(new VueGrille(tailleGrille, pseudos));
+            getVueGrille().ajouterObservateur(this);
+
             ouvrirVue(vueGrille);
             fermerVue(vueOptionTournoi);
+
+            lancerTournoi();
         }
 
         if (arg == MESSAGES.QUITTER){
@@ -32,8 +50,17 @@ public class ControleurTournoi extends Controleur{
             fermerVue(getVueOptionTournoi());
         }
 
+        if (arg == MESSAGES.QUITTER_PARTIE){
+            ouvrirVue(controleurPrincipale.getVueMenu());
+            fermerVue(getVueGrille());
+            getVueGrille().finalize();
+        }
+
+    }
 
 
+    public void lancerTournoi(){
+        // déroulement tournoi à implémenter
     }
 
     public ControleurPrincipale getControleurPrincipale() {

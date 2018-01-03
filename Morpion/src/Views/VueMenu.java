@@ -26,15 +26,11 @@ public class VueMenu extends Vue {
         window.setTitle("Jeu du Morpion");
         window.setResizable(false);
 
-        /* public void paintComponent(Graphics graphics){
-            graphics.drawString("Jeu de morpion",10,20);
-        } */
         JPanel mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel);
 
         JPanel hautPanel = new JPanel();
         mainPanel.add(hautPanel, BorderLayout.NORTH);
-
 
         JPanel centrePanel = new JPanel(new GridLayout(3,3));
         mainPanel.add(centrePanel, BorderLayout.CENTER);

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import Enum.*;
 
 public class VueOptionPartieRapide extends Vue{
@@ -14,9 +16,10 @@ public class VueOptionPartieRapide extends Vue{
     private Boolean etat = true;
     private JButton memoire;
     private Boolean btn3x3Selectionne = true;
-    private Boolean btn6x6Selectionne = false;
-    private Boolean btn9X9Selectionne = false;
+    private Boolean btn6x6Selectionne, btn9X9Selectionne = false;
     private JButton btn3, btn6, btn9;
+    private JTextField pseudo1;
+    private JTextField pseudo2;
 
     //Fonts
     private Font regular = new Font("Euphemia UCAS",0,14);
@@ -60,7 +63,8 @@ public class VueOptionPartieRapide extends Vue{
             titrePanel.add(panel);
         }
 
-        //construction panel choixGrille
+
+        //construction panel choixGrille (utilisation gridbaglayout pour les marges)
         JPanel choixGrillePanel = new JPanel(new GridLayout(3,1));
         mainPanel.add(choixGrillePanel);
 
@@ -144,14 +148,14 @@ public class VueOptionPartieRapide extends Vue{
                         memoire = btn9;
                     }
                     //affichage des tailles personnalisés uniquement
-                    getTaillesGrille().setVisible(true);
+                    getTaillesGrillePossible().setVisible(true);
                     btn3.setEnabled(false); btn6.setEnabled(false); btn9.setEnabled(false);
                     etat = false;
                     //maj choix bouton
                     boutonSelectionne(btnPerso);
                 } else {
                     //affichage des tailles rapides uniquement
-                    getTaillesGrille().setVisible(false);
+                    getTaillesGrillePossible().setVisible(false);
                     btn3.setEnabled(true); btn6.setEnabled(true); btn9.setEnabled(true);
                     etat = true;
                     //restaure le dernier choix rapide
@@ -161,8 +165,8 @@ public class VueOptionPartieRapide extends Vue{
             }
         });
 
-        selectionChoixGrillePanel.add(getTaillesGrille());
-        getTaillesGrille().setVisible(false);
+        selectionChoixGrillePanel.add(getTaillesGrillePossible());
+        getTaillesGrillePossible().setVisible(false);
 
         JPanel panel2 = new JPanel();
         selectionChoixGrillePanel.add(panel2);
@@ -173,11 +177,11 @@ public class VueOptionPartieRapide extends Vue{
         choixGrillePanel.add(panel3);
 
 
-        //Construction panel nombreJoueur
+        //construction panel nombreJoueur
         JPanel joueurInfoPanel = new JPanel(new GridLayout(3,6));
         mainPanel.add(joueurInfoPanel);
 
-        JLabel texteNomJoueurLabel = new JLabel("Veuillez entrez les pseudos des joueurs");
+        JLabel texteNomJoueurLabel = new JLabel("Veuillez entrez les pseudos des joueurs (optionnel)");
         texteNomJoueurLabel.setFont(regular);
         joueurInfoPanel.add(texteNomJoueurLabel);
 
@@ -185,7 +189,7 @@ public class VueOptionPartieRapide extends Vue{
         joueurInfoPanel.add(gb1);
 
         GridBagConstraints gc1 = new GridBagConstraints();
-        gc1.insets = new Insets(0,0,0,66);
+        gc1.insets = new Insets(0,10,0,0);
         gb1.add(texteNomJoueurLabel,gc1);
 
         JLabel texteSymboleJoueurLabel = new JLabel("Symbole associé");
@@ -195,17 +199,10 @@ public class VueOptionPartieRapide extends Vue{
         JPanel inputPanel1 = new JPanel(new GridLayout(1,3));
         JPanel label4 = new JPanel();
         inputPanel1.add(label4);
-        JTextField nomJoueur1 = new JTextField();
-        nomJoueur1.setFont(italic);
-        nomJoueur1.setText("Nom du joueur n°1");
-        inputPanel1.add(nomJoueur1);
-
-        nomJoueur1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
+        pseudo1 = new JTextField();
+        pseudo1.setFont(italic);
+        pseudo1.setText("Joueur 1");
+        inputPanel1.add(pseudo1);
 
         JPanel label5 = new JPanel();
         inputPanel1.add(label5);
@@ -218,10 +215,11 @@ public class VueOptionPartieRapide extends Vue{
         JPanel inputPanel2 = new JPanel(new GridLayout(1,3));
         JPanel label6 = new JPanel();
         inputPanel2.add(label6);
-        JTextField nomJoueur2 = new JTextField();
-        nomJoueur2.setFont(italic);
-        nomJoueur2.setText("Nom du joueur n°2");
-        inputPanel2.add(nomJoueur2);
+        pseudo2 = new JTextField();
+        pseudo2.setFont(italic);
+        pseudo2.setText("Joueur 2");
+        inputPanel2.add(pseudo2);
+
         JPanel label7 = new JPanel();
         inputPanel2.add(label7);
         joueurInfoPanel.add(inputPanel2);
@@ -254,7 +252,8 @@ public class VueOptionPartieRapide extends Vue{
         choixAlignementGrille.add(panel70);
 
         choixAlignementGrille.add(getLongeurAlignementPossible());
-        getTaillesGrille().addActionListener(new ActionListener() {
+        setLongeurAlignementPossibles();
+        getTaillesGrillePossible().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setLongeurAlignementPossibles();
@@ -265,6 +264,7 @@ public class VueOptionPartieRapide extends Vue{
             JPanel panel8 = new JPanel();
             choixAlignementGrille.add(panel8);
         }
+
 
         //construction panel sortie
         JPanel sortiePanel = new JPanel(new GridLayout(3,7));
@@ -314,34 +314,9 @@ public class VueOptionPartieRapide extends Vue{
         mainPanel.add(sortiePanel);
     }
 
+
     public void setVisible(Boolean b) {
         window.setVisible(b);
-    }
-
-    public int getTailleGrilleSelectionne(){
-        int taille = 0;
-        System.out.println("lol");
-        if (etat){
-            if (btn3x3Selectionne){
-                taille = 3;
-            } else if (btn6x6Selectionne){
-                taille = 6;
-            } else {
-                taille = 9;
-            }
-        } else {
-            if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.QUATRE){
-                taille = 4;
-            } else if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.CINQ){
-                taille = 5;
-            } else if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.SEPT){
-                taille = 7;
-            } else if (getTaillesGrille().getSelectedItem() == TAILLE_GRILLE.HUIT){
-                taille = 8;
-            }
-        }
-        return taille;
-
     }
 
     public void boutonSelectionne(JButton btn) {
@@ -353,12 +328,41 @@ public class VueOptionPartieRapide extends Vue{
 
     }
 
-    public JComboBox getTaillesGrille() {
+    public JComboBox getTaillesGrillePossible() {
         return taillesGrille;
+    }
+
+    public int getTailleGrilleSelectionne(){
+        int taille = 0;
+        if (etat){
+            if (btn3x3Selectionne){
+                taille = 3;
+            } else if (btn6x6Selectionne){
+                taille = 6;
+            } else {
+                taille = 9;
+            }
+        } else {
+            if (getTaillesGrillePossible().getSelectedItem() == TAILLE_GRILLE.QUATRE){
+                taille = 4;
+            } else if (getTaillesGrillePossible().getSelectedItem() == TAILLE_GRILLE.CINQ){
+                taille = 5;
+            } else if (getTaillesGrillePossible().getSelectedItem() == TAILLE_GRILLE.SEPT){
+                taille = 7;
+            } else if (getTaillesGrillePossible().getSelectedItem() == TAILLE_GRILLE.HUIT){
+                taille = 8;
+            }
+        }
+        return taille;
+
     }
 
     public JComboBox getLongeurAlignementPossible() {
         return longeurAlignementPossible;
+    }
+
+    public int getLongeurAlignementSelectionnee(){
+        return longeurAlignementPossible.getSelectedIndex()+3;
     }
 
     public void setLongeurAlignementPossibles() {
@@ -371,8 +375,11 @@ public class VueOptionPartieRapide extends Vue{
         longeurAlignementPossible.setFont(regular);
     }
 
-    public int getLongeurAlignementSelectionnee(){
-        return longeurAlignementPossible.getSelectedIndex()+3;
+    public ArrayList getPseudos(){
+        ArrayList<String> pseudos = new ArrayList<>();
+        pseudos.add(pseudo1.getText());
+        pseudos.add(pseudo2.getText());
+        return pseudos;
     }
 
 }

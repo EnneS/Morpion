@@ -6,6 +6,7 @@ import Enum.SYMBOLES;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class VueGrille extends Vue {
@@ -20,7 +21,7 @@ public class VueGrille extends Vue {
         private Font italic = new Font("Euphemia UCAS", 2,15);
         private Font impact = new Font("Impact",1,60);
 
-        public VueGrille(int tailleGrille){
+        public VueGrille(int tailleGrille, ArrayList<String> pseudos){
 
             //caracteristiques fenetre
             window = new JFrame();
@@ -58,7 +59,7 @@ public class VueGrille extends Vue {
             symboleJoueurGauche.setFont(bold);
             infoJoueurGauche.add(symboleJoueurGauche);
 
-            JLabel nomJoueurGauche = new JLabel("Nathan",SwingConstants.CENTER);
+            JLabel nomJoueurGauche = new JLabel(pseudos.get(0),SwingConstants.CENTER);
             nomJoueurGauche.setFont(regular2);
             infoJoueurGauche.add(nomJoueurGauche);
 
@@ -73,7 +74,7 @@ public class VueGrille extends Vue {
             symboleJoueurDroite.setFont(bold);
             infoJoueurDroite.add(symboleJoueurDroite);
 
-            JLabel nomJoueurDroite = new JLabel("Théophile",SwingConstants.CENTER);
+            JLabel nomJoueurDroite = new JLabel(pseudos.get(1),SwingConstants.CENTER);
             nomJoueurDroite.setFont(regular2);
             infoJoueurDroite.add(nomJoueurDroite);
 
@@ -93,8 +94,6 @@ public class VueGrille extends Vue {
             JPanel centreGrillePanel = new JPanel(new GridLayout(tailleGrille,tailleGrille));
             grillePanel.add(centreGrillePanel, BorderLayout.CENTER);
 
-            //centreGrillePanel.setBackground(Color.WHITE);
-
             for (int i = 0; i < tailleGrille*tailleGrille ; i++){
                 JButton btn = new  JButton(SYMBOLES.NULL.toString());
                 btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*5));
@@ -104,10 +103,8 @@ public class VueGrille extends Vue {
 
             JPanel basGrillePanel = new JPanel();
             grillePanel.add(basGrillePanel, BorderLayout.SOUTH);
-            //basGrillePanel.setBackground(Color.WHITE);
 
             //Bouton quitter
-
             JButton btnQuitter = new JButton("Quitter la partie");
             btnQuitter.setFont(regular);
             btnQuitter.setPreferredSize(new Dimension(200,35));
@@ -123,14 +120,12 @@ public class VueGrille extends Vue {
             });
 
             //Bouton annuler
-
             JButton btnAnnuler = new JButton("Revenir en arrière");
             btnAnnuler.setFont(regular);
             btnAnnuler.setPreferredSize(new Dimension(200,35));
             basGrillePanel.add(btnAnnuler);
 
             //Bouton information
-
             JButton btnInformation = new JButton("Information");
             btnInformation.setFont(regular);
             btnInformation.setPreferredSize(new Dimension(200,35));

@@ -45,7 +45,7 @@ public class Grille {
         }
     }
 
-    public ArrayList<Integer> casesGagnantes(int nombreGagnant){
+    public ArrayList<Integer> getCasesGagnantes(int nombreGagnant){
 
         ArrayList<Integer> casesGagnantes = new ArrayList<>();
         int i = 0;

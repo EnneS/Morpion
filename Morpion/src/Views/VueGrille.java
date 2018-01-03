@@ -7,6 +7,7 @@ import Enum.MESSAGE_COCHE;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.swing.*;
 
@@ -188,6 +189,15 @@ public class VueGrille extends Vue {
 
     public JButton getBtnAnnuler(){
             return btnAnnuler;
+    }
+
+    public void highlightGagnant(ArrayList<Integer> casesGagnantes){
+            int i = 0;
+            System.out.println(casesGagnantes.size());
+            while(i<casesGagnantes.size()){
+                System.out.println(casesGagnantes.get(i));
+                i++;
+            }
     }
 
     public void finalize(){};

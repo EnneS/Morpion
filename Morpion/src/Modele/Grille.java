@@ -39,26 +39,23 @@ public class Grille {
 
     public SYMBOLES getSymbole(int i, int j){
         if (i<0 || i>=getN() || j<0 || j>=getN()){
-            return SYMBOLES.NULL;
+            return null;
         } else {
             return cases[i][j].getEtat();
         }
     }
 
-    public ArrayList<Integer> getCasesGagnantes(int nombreGagnant){
+    public ArrayList<Integer> getCasesGagnantes(int i, int j, int nombreGagnant){
 
         ArrayList<Integer> casesGagnantes = new ArrayList<>();
 
-        for (int i=0; i<getN(); i++){
-            for (int j=0; j<getN(); j++){
-                if (cases[i][j].getEtat() != SYMBOLES.VIDE){
-                    for (DIRECTION DIRECTION : DIRECTION.values()){
-                        System.out.println("==========================================");
-                        if (verifierAlignement(i,j, DIRECTION,nombreGagnant) != null){
-                            casesGagnantes.addAll(verifierAlignement(i,j, DIRECTION, nombreGagnant));
-                        }
-                    }
-
+        casesGagnantes.addAll(verifierAlignement(i, j, nombreGagnant, 1, 0)); // Horizontal
+        if (casesGagnantes.isEmpty()) {
+            casesGagnantes.addAll(verifierAlignement(i, j, nombreGagnant, 0, 1)); // Vertical
+            if(casesGagnantes.isEmpty()) {
+                casesGagnantes.addAll(verifierAlignement(i, j, nombreGagnant, 1, 1)); // Diagonale droite
+                if(casesGagnantes.isEmpty()) {
+                    casesGagnantes.addAll(verifierAlignement(i, j, nombreGagnant, -1, 1)); // Diagonale gauche
                 }
             }
         }
@@ -66,13 +63,57 @@ public class Grille {
     }
 
 
-    public ArrayList<Integer> verifierAlignement(int i, int j, DIRECTION direction, int nombreGagnant){
+    public ArrayList<Integer> verifierAlignement(int i, int j, int nombreGagnant, int directionX, int directionY) {
 
-        int longueurAlignement = 0;
+        int longueurAlignement = 1;
         SYMBOLES symboleCaseDepart = cases[i][j].getEtat();
-        //System.out.println("Symbole case départ : "+symboleCaseDepart);
         ArrayList<Integer> casesGagnantes = new ArrayList<>();
 
+        System.out.println("Case actuelle : " + i + " | " + j);
+        System.out.println("direction X : " + directionX + " direction Y : " + directionY);
+
+        int nextX = i + directionX;
+        int nextY = j + directionY;
+        SYMBOLES nextSymbole = getSymbole(nextY, nextX);
+
+        while (symboleCaseDepart == nextSymbole) {
+            casesGagnantes.add(j + directionX);
+            casesGagnantes.add(i + directionY);
+            longueurAlignement++;
+
+            nextX = nextX + directionX;
+            nextY = nextY + directionY;
+            nextSymbole = getSymbole(nextY, nextX);
+        }
+
+        while (symboleCaseDepart == nextSymbole) {
+            casesGagnantes.add(j + directionX);
+            casesGagnantes.add(i + directionY);
+            longueurAlignement++;
+
+
+            nextX = nextX - directionX;
+            nextY = nextY - directionY;
+            nextSymbole = getSymbole(nextY, nextX);
+        }
+
+        System.out.print("Cases trouvées :" + i + " | " + j + " | ");
+        int a = 0;
+        while(a < casesGagnantes.size()){
+            System.out.print(casesGagnantes.get(a) + " | " + casesGagnantes.get(a+1) + " | ");
+            a = a+2;
+        }
+
+        System.out.println();
+        System.out.println("=====================");
+
+        if (longueurAlignement >= nombreGagnant) return casesGagnantes;
+        else return new ArrayList<>();
+
+    }
+
+
+        /*
         if (direction.equals(DIRECTION.VERTICAL)) {
 
             System.out.println("V : i=" + i + " et j=" + j);
@@ -137,9 +178,10 @@ public class Grille {
                 i++; j--; longueurAlignement++;
             }
         }
-
+        System.out.println("LONGUEUR ALIGN " + longueurAlignement);
         if (longueurAlignement == nombreGagnant) return casesGagnantes; else return null;
-    }
+        */
+
 }
 
 

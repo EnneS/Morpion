@@ -137,7 +137,7 @@ public class ControleurPartieRapide extends Controleur {
             }
         }
 
-        if (arg == MESSAGES.INFORMATIONSPARTIERAPIDE) {
+        if (arg == MESSAGES.INFORMATION) {
 
             if (!vueInformationExiste) {
                 setVueInformationPartieRapide(new VueInformationPartieRapide());

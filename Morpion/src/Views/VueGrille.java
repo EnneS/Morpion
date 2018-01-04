@@ -182,7 +182,7 @@ public class VueGrille extends Vue {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     setChanged();
-                    notifyObservers(MESSAGES.INFORMATIONSPARTIERAPIDE);
+                    notifyObservers(MESSAGES.INFORMATION);
                     System.out.println("lel");
                     clearChanged();
                 }

@@ -30,7 +30,6 @@ public class ControleurTournoi extends Controleur{
     private int joueurActif = 0;
     private int dernierCoup[] = new int[2];
     private ArrayList<Integer> casesGagnantes = new ArrayList<>();
-    private int numRoundEnCour = 0;
 
     // Infos sur le tournoi
     private int indexJoueurEnLice = 0;
@@ -62,7 +61,7 @@ public class ControleurTournoi extends Controleur{
             nombreJoueur = ((VueOptionTournoi) o).getNombreJoueur();
 
             //on créer la vueInformation
-            setVueInformationTournoi(new VueInformationTournoi(nombreJoueur, numRoundEnCour));
+            setVueInformationTournoi(new VueInformationTournoi(nombreJoueur));
             getVueInformationTournoi().ajouterObservateur(this);
 
             // Lancement du tournoi
@@ -149,10 +148,8 @@ public class ControleurTournoi extends Controleur{
         // Qualification du joueur gagnant (soit joueurActif-1 parmis ceux qui jouaient !)
         joueursNext.add(joueursJouant.get((joueurActif - 1) % joueursJouant.size()));
 
-
-        System.out.println("next game");
+        // On actualise la vue information
         vueInformationTournoi.updateVue(joueursJouant,joueursNext);
-
 
         // =================
         // RESET DE LA PARTIE
@@ -184,9 +181,6 @@ public class ControleurTournoi extends Controleur{
     }
 
     public void nextRound(){
-        // Compteur de round
-        numRoundEnCour++;
-
         // S'il y a plus d'un qualifié
         if(joueursNext.size() > 1) {
             // ================

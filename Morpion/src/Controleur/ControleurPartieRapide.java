@@ -102,7 +102,6 @@ public class ControleurPartieRapide extends Controleur {
             MESSAGE_COCHE m = (MESSAGE_COCHE) arg;
 
             // Update Vue Grille
-            System.out.println(joueurActif);
             vueGrille.updateVue(m.getJ(), m.getI(), joueurs.get(joueurActif % joueurs.size()).getSymbole(), joueurActif % joueurs.size(), true);
 
             // Update modèle grille

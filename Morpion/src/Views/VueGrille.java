@@ -174,7 +174,6 @@ public class VueGrille extends Vue {
                 public void actionPerformed(ActionEvent e) {
                     setChanged();
                     notifyObservers(MESSAGES.INFORMATION);
-                    System.out.println("lel");
                     clearChanged();
                 }
             });

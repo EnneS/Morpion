@@ -17,7 +17,7 @@ public class VueInformationTournoi extends Vue {
     private ArrayList<JLabel> JLabels = new ArrayList<>();
     private int indexJLabels = 0;
 
-    public VueInformationTournoi(int nbJoueur, int numRoundEnCour){
+    public VueInformationTournoi(int nbJoueur){
 
         //paramètres fenêtre
         window = new JFrame();
@@ -81,8 +81,6 @@ public class VueInformationTournoi extends Vue {
             }
 
             //construction des différents pannels selon le round
-
-            System.out.println(nbRows+" et "+nbCols);
             JPanel panel = new JPanel(new GridLayout(nbRows,nbCols));
 
             int niveauTournoi = (int) Math.pow(2,i-1);
@@ -105,7 +103,7 @@ public class VueInformationTournoi extends Vue {
                 jLabel.setFont(regular);
                 JLabels.add(jLabel);
                 panel.add(jLabel);
-                System.out.println("nbCases : "+nbCase);
+                jLabel.setHorizontalAlignment(0);
             }
 
         }
@@ -152,11 +150,6 @@ public class VueInformationTournoi extends Vue {
     }
 
     public void updateVue(ArrayList<Joueur> joueursJouant, ArrayList<Joueur> joueurGagnant ){
-
-
-        System.out.println(indexJLabels + " et nombre label " +JLabels.size());
-        System.out.println("gagnant :"+joueurGagnant.get(joueurGagnant.size()-1));
-
         if (indexJLabels < JLabels.size()-1){
             JLabels.get(indexJLabels+1).setText("Match en cour !");
         }

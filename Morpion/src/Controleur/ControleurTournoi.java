@@ -5,6 +5,8 @@ import Enum.MESSAGE_COCHE;
 import Modele.Grille;
 import Modele.Joueur;
 import Views.VueGrille;
+import Views.VueInformationPartieRapide;
+import Views.VueInformationTournoi;
 import Views.VueOptionTournoi;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class ControleurTournoi extends Controleur{
     private ControleurPrincipale controleurPrincipale;
     private VueOptionTournoi vueOptionTournoi;
     private VueGrille vueGrille;
+    private VueInformationTournoi vueInformationTournoi;
 
     //options de jeu
     private int tailleGrille;
@@ -27,6 +30,7 @@ public class ControleurTournoi extends Controleur{
     private int joueurActif = 0;
     private int dernierCoup[] = new int[2];
     private ArrayList<Integer> casesGagnantes = new ArrayList<>();
+    private int numRoundEnCour = 0;
 
     // Infos sur le tournoi
     private int indexJoueurEnLice = 0;
@@ -57,6 +61,10 @@ public class ControleurTournoi extends Controleur{
             pseudos = ((VueOptionTournoi) o).getPseudos();
             nombreJoueur = ((VueOptionTournoi) o).getNombreJoueur();
 
+            //on créer la vueInformation
+            setVueInformationTournoi(new VueInformationTournoi(nombreJoueur, numRoundEnCour));
+            getVueInformationTournoi().ajouterObservateur(this);
+
             // Lancement du tournoi
             lancerTournoi();
         }
@@ -74,6 +82,8 @@ public class ControleurTournoi extends Controleur{
             getVueGrille().finalize();
             // Remise à 0 des paramètres du tournois
             resetTournoi();
+            //Destruction de la vue Information
+            getVueInformationTournoi().finalize();
         }
 
         if (arg == MESSAGES.REJOUER){
@@ -125,11 +135,24 @@ public class ControleurTournoi extends Controleur{
                 vueGrille.matchFini(true);
             }
         }
+
+        if (arg == MESSAGES.INFORMATION) {
+            ouvrirVue(getVueInformationTournoi());
+        }
+
+        if (arg == MESSAGES.QUITTER_INFORMATION) {
+            fermerVue(getVueInformationTournoi());
+        }
     }
 
     public void nextPartie(){
         // Qualification du joueur gagnant (soit joueurActif-1 parmis ceux qui jouaient !)
         joueursNext.add(joueursJouant.get((joueurActif - 1) % joueursJouant.size()));
+
+
+        System.out.println("next game");
+        vueInformationTournoi.updateVue(joueursJouant,joueursNext);
+
 
         // =================
         // RESET DE LA PARTIE
@@ -156,9 +179,14 @@ public class ControleurTournoi extends Controleur{
             // Sinon on passe au round suivant ! (joueurs en lice épuisés)
             nextRound();
         }
+
+
     }
 
     public void nextRound(){
+        // Compteur de round
+        numRoundEnCour++;
+
         // S'il y a plus d'un qualifié
         if(joueursNext.size() > 1) {
             // ================
@@ -261,5 +289,13 @@ public class ControleurTournoi extends Controleur{
 
     public Grille getGrille(){
         return grille;
+    }
+
+    public VueInformationTournoi getVueInformationTournoi() {
+        return vueInformationTournoi;
+    }
+
+    public void setVueInformationTournoi(VueInformationTournoi vueInformationTournoi) {
+        this.vueInformationTournoi = vueInformationTournoi;
     }
 }

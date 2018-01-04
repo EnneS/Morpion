@@ -16,15 +16,6 @@ import javax.swing.plaf.synth.SynthTextAreaUI;
 public class VueGrille extends Vue {
 
         private final JFrame window;
-
-        //Fonts
-        private Font regular = new Font("Euphemia UCAS",0,14);
-        private Font regular2 = new Font("Euphemia UCAS", 0, 20);
-        private Font bold = new Font("Euphemia UCAS", 1, 40);
-        private Font semiBold2 = new Font("Euphemia UCAS",1,14);
-        private Font italic = new Font("Euphemia UCAS", 2,15);
-        private Font impact = new Font("Impact",1,60);
-
         private JButton cases[][];
         private JLabel hautGrilleLabel;
         private ArrayList<String> pseudos = new ArrayList<>();

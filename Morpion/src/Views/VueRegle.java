@@ -20,8 +20,11 @@ public class VueRegle extends Vue{
     private final JFrame window;
     CardLayout cl = new CardLayout();
     JPanel onglet = new JPanel();
+
     //Liste des onglets avec un nom associé
     String[] listeOnglets = {"RegleMorpion", "RegleTournoi"};
+
+
     public VueRegle() {
 
         window = new JFrame();

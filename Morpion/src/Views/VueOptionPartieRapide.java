@@ -21,13 +21,6 @@ public class VueOptionPartieRapide extends Vue{
     private JTextField pseudo1;
     private JTextField pseudo2;
 
-    //Fonts
-    private Font regular = new Font("Euphemia UCAS",0,14);
-    private Font bold = new Font("Euphemia UCAS", 1, 26);
-    private Font semiBold = new Font("Euphemia UCAS", 1, 20);
-    private Font semiBold2 = new Font("Euphemia UCAS",1,14);
-    private Font italic = new Font("Euphemia UCAS", 2,13);
-
     public VueOptionPartieRapide(){
 
         //paramètres fenêtre

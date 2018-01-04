@@ -9,13 +9,6 @@ import Enum.MESSAGES;
 public class VueMenu extends Vue {
 
     private final JFrame window;
-    JButton btnPartieRapide;
-    /*private final JButton btnTournoi;
-    private final JButton btnFermer;
-    private final JButton btnRegles; */
-
-    //Font
-    private Font regular = new Font("Euphemia UCAS",0,15);
 
     public VueMenu() {
         window = new JFrame();

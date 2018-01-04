@@ -24,12 +24,6 @@ public class VueOptionTournoi extends Vue {
     private Boolean btn32Selectionne = false;
     private JButton btn3, btn4, btn6, btn8, btn9, btn16, btn32;
 
-    //Fonts
-    private Font regular = new Font("Euphemia UCAS",0,14);
-    private Font bold = new Font("Euphemia UCAS", 1, 26);
-    private Font semiBold = new Font("Euphemia UCAS", 1, 20);
-    private Font semiBold2 = new Font("Euphemia UCAS",1,14);
-
     public VueOptionTournoi(){
 
         //paramètres fenêtre

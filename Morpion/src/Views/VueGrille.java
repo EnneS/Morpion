@@ -17,7 +17,7 @@ public class VueGrille extends Vue {
 
         //Fonts
         private Font regular = new Font("Euphemia UCAS",0,14);
-        private Font regular2 = new Font("Euphemia UCAS", 0, 20);
+        private Font regular2 = new Font("Euphemia UCAS", 2, 25);
         private Font bold = new Font("Euphemia UCAS", 1, 40);
         private Font semiBold2 = new Font("Euphemia UCAS",1,14);
         private Font italic = new Font("Euphemia UCAS", 2,15);
@@ -193,8 +193,9 @@ public class VueGrille extends Vue {
             return btnAnnuler;
     }
 
-    public void highlightGagnant(ArrayList<Integer> casesGagnantes){
+    public void highlightGagnant(ArrayList<Integer> casesGagnantes, int indexJoueur){
             if(!casesGagnantes.isEmpty()) {
+
                 // Mise en surbrillance
                 int i = 0;
                 while (i < casesGagnantes.size()) {
@@ -211,6 +212,8 @@ public class VueGrille extends Vue {
 
                 // On ne peut pas non plus revenir en arrière !
                 getBtnAnnuler().setEnabled(false);
+
+                hautGrilleLabel.setText(pseudos.get(indexJoueur)+ " a gagné ! Bravo !");
             }
     }
 

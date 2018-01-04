@@ -112,7 +112,7 @@ public class ControleurTournoi extends Controleur{
             // Si le coup est gagnant alors on le met en évidence
             casesGagnantes = getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant);
             if (!casesGagnantes.isEmpty()){
-                vueGrille.highlightGagnant(casesGagnantes);
+               // vueGrille.highlightGagnant(casesGagnantes);
                 nextPartie();
             }
         }

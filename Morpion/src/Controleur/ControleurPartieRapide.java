@@ -98,15 +98,14 @@ public class ControleurPartieRapide extends Controleur {
             dernierCoup[0] = m.getJ();
             dernierCoup[1] = m.getI();
 
+            // Si le coup est gagnant alors on le met en évidence
+            vueGrille.highlightGagnant(getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant),joueurActif%joueurs.size());
+
             // On passe au joueur suivant
             joueurActif++;
 
             // Il est désormais possible d'annuler le coup
             vueGrille.getBtnAnnuler().setEnabled(true);
-
-            // Si le coup est gagnant alors on le met en évidence
-            vueGrille.highlightGagnant(getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant));
-
 
 
             // ==================================

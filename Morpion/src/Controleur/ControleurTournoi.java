@@ -148,7 +148,7 @@ public class ControleurTournoi extends Controleur{
         // Qualification du joueur gagnant (soit joueurActif-1 parmis ceux qui jouaient !)
         joueursNext.add(joueursJouant.get((joueurActif - 1) % joueursJouant.size()));
 
-        // On actualise la vue information
+        // Affichage du gagnant dans la vue information
         vueInformationTournoi.updateVue(joueursJouant,joueursNext);
 
         // =================
@@ -176,8 +176,6 @@ public class ControleurTournoi extends Controleur{
             // Sinon on passe au round suivant ! (joueurs en lice épuisés)
             nextRound();
         }
-
-
     }
 
     public void nextRound(){
@@ -197,6 +195,8 @@ public class ControleurTournoi extends Controleur{
                 joueursEnLice.get(i).setSYMBOLES(symbole);
             }
 
+            // Affichage de tout les joueurs en lice pour le round actuel
+            vueInformationTournoi.updateVue(joueursEnLice);
             // ================
             // DEBUT DE LA PREMIERE PARTIE DU ROUND
             joueursJouant.clear(); // On remplace les joueurs en train de jouer par les suivants
@@ -217,6 +217,9 @@ public class ControleurTournoi extends Controleur{
             Joueur joueur = new Joueur(pseudos.get(i), symbole);
             joueursEnLice.add(joueur);
         }
+
+        // Affichage de tout les joueurs en lice pour le round actuel
+        vueInformationTournoi.updateVue(joueursEnLice);
 
         // Les joueurs jouant sont les 2 premiers de ceux en lice
         joueursJouant.add(joueursEnLice.get(indexJoueurEnLice)); joueursJouant.add(joueursEnLice.get(indexJoueurEnLice +1));

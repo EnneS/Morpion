@@ -99,7 +99,7 @@ public class VueInformationTournoi extends Vue {
 
             for (int nbCase=0; nbCase<nbRows*nbCols;nbCase++){
                 JLabel jLabel = new JLabel();
-                jLabel.setText("Match à venir");
+                jLabel.setText("-");
                 jLabel.setFont(regular);
                 JLabels.add(jLabel);
                 panel.add(jLabel);
@@ -107,9 +107,6 @@ public class VueInformationTournoi extends Vue {
             }
 
         }
-
-        JLabels.get(indexJLabels).setText("Match en cour !");
-
 
         //construction panel sortie
         JPanel sortiePanel = new JPanel(new GridLayout(3,3));
@@ -150,16 +147,18 @@ public class VueInformationTournoi extends Vue {
     }
 
     public void updateVue(ArrayList<Joueur> joueursJouant, ArrayList<Joueur> joueurGagnant ){
-        if (indexJLabels < JLabels.size()-1){
-            JLabels.get(indexJLabels+1).setText("Match en cour !");
-        }
-
+        // On actualise la gagnant du match joué
         JLabels.get(indexJLabels).setText(joueursJouant.get(0).getNom()+" VS " +joueursJouant.get(1).getNom()+" : "+joueurGagnant.get((joueurGagnant.size()-1)).getNom());
 
-        if (indexJLabels < JLabels.size()-1){
-            indexJLabels++;
-        }
-
+        // On passe au prochain match
+        indexJLabels++;
     }
 
+    public void updateVue(ArrayList<Joueur> joueursEnLice){
+        int i = 0 ;
+        while(i < joueursEnLice.size() - 1){ // -1 car le dernier match est affiché grâce à l'avant dernier joueur
+            JLabels.get((i/2)+indexJLabels).setText(joueursEnLice.get(i).getNom() + " VS " + joueursEnLice.get(i+1).getNom());
+            i += 2; // On augmente de 2 car une partie est constituée de 2 joueurs..
+        }
+    }
 }

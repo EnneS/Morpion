@@ -314,7 +314,6 @@ public class VueOptionTournoi extends Vue {
             public void actionPerformed(ActionEvent e) {
                 setChanged();
                 notifyObservers(MESSAGES.QUITTER);
-                System.out.println(getTailleGrilleSelectionne());
                 clearChanged();
             }
         });

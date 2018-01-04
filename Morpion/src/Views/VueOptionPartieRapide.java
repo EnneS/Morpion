@@ -282,7 +282,6 @@ public class VueOptionPartieRapide extends Vue{
             public void actionPerformed(ActionEvent e) {
                 setChanged();
                 notifyObservers(MESSAGES.QUITTER);
-                System.out.println(getTailleGrilleSelectionne());
                 clearChanged();
             }
         });

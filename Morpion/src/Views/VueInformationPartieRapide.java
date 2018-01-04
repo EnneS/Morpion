@@ -154,4 +154,9 @@ public class VueInformationPartieRapide extends Vue {
         infoGrille.setText("Taille de la grille : "+tailleGrille);
         infoAlignement.setText("Nombre de symbole à aligner pour gagner : "+longeurGagnante+" symboles");
     }
+
+    public void updateVue(ArrayList pseudos, int partiesGagneesJ1, int partiesGagneesJ2){
+        infoJoueur1.setText(pseudos.get(0)+" a gagné : "+partiesGagneesJ1+" partie(s)");
+        infoJoueur2.setText(pseudos.get(1)+" a gagné : "+partiesGagneesJ2+" partie(s)");
+    }
 }

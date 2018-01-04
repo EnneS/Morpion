@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.plaf.synth.SynthTextAreaUI;
 
 public class VueGrille extends Vue {
 
@@ -37,7 +39,7 @@ public class VueGrille extends Vue {
             //caracteristiques fenetre
             window = new JFrame();
             window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-            window.setSize(1280,720);
+            window.setSize(1050,750);
             Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
             window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
             window.setTitle("Jeu du Morpion");
@@ -62,6 +64,8 @@ public class VueGrille extends Vue {
             mainPanel.add(centrePanel, BorderLayout.CENTER);
 
             //construction panel information (haut de panel principal)
+            Border border = BorderFactory.createLineBorder(Color.BLACK,2);
+
             JPanel infoJoueurGauche = new JPanel(new GridLayout(2,1));
             hautPanel.add(infoJoueurGauche);
 
@@ -87,6 +91,8 @@ public class VueGrille extends Vue {
             nomJoueurDroite = new JLabel(pseudos.get(1),SwingConstants.CENTER);
             nomJoueurDroite.setFont(regular2);
             infoJoueurDroite.add(nomJoueurDroite);
+
+            hautPanel.setBorder(border);
 
             //Construction panel grille (centre de panel principal)
             JPanel grillePanel = new JPanel(new BorderLayout());
@@ -172,6 +178,15 @@ public class VueGrille extends Vue {
             btnInformation.setFont(regular);
             btnInformation.setPreferredSize(new Dimension(200,35));
             basGrillePanel.add(btnInformation, BorderLayout.SOUTH);
+            btnInformation.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setChanged();
+                    notifyObservers(MESSAGES.INFORMATIONSPARTIERAPIDE);
+                    System.out.println("lel");
+                    clearChanged();
+                }
+            });
 
         }
 

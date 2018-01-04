@@ -12,7 +12,10 @@ public class ControleurPartieRapide extends Controleur {
 
     private ControleurPrincipale controleurPrincipale;
     private VueOptionPartieRapide vueOptionPartieRapide;
+    private VueInformationPartieRapide vueInformationPartieRapide;
     private VueGrille vueGrille;
+
+    private Boolean vueInformationExiste = false;
 
     //options de jeu
     private int tailleGrille;
@@ -27,6 +30,8 @@ public class ControleurPartieRapide extends Controleur {
     private int joueurActif = 0;
     private int dernierCoup[] = new int[2];
     private ArrayList<Integer> casesGagnantes = new ArrayList<>();
+    private int partieGagneeJ1 = 0;
+    private int partieGagneeJ2 = 0;
 
     public ControleurPartieRapide(ControleurPrincipale controleurPrincipale) {
         setControleurPrincipale(controleurPrincipale);
@@ -69,6 +74,8 @@ public class ControleurPartieRapide extends Controleur {
             ouvrirVue(getControleurPrincipal().getVueMenu());
             fermerVue(getVueGrille());
             getVueGrille().finalize();
+            getVueInformationPartieRapide().finalize();
+
             quitterPartie();
         }
 
@@ -114,10 +121,36 @@ public class ControleurPartieRapide extends Controleur {
             if (!casesGagnantes.isEmpty()) {
                 vueGrille.highlightGagnant(casesGagnantes, joueurs.get((joueurActif - 1) % joueurs.size()).getNom());
                 vueGrille.matchFini(false);
+
+                // On récupère le nombre de victoire de chaque joueur
+                if (((joueurActif-1)%joueurs.size()) == 0){
+                    partieGagneeJ1++;
+                } else {
+                    partieGagneeJ2++;
+                }
+
             } else if (getGrille().grillePleine()) { // Si le match est rempli et qu'il n'y a pas de gagnant
                 vueGrille.matchFini(true);
             }
         }
+
+        if (arg == MESSAGES.INFORMATIONSPARTIERAPIDE) {
+
+            if (!vueInformationExiste) {
+                setVueInformationPartieRapide(new VueInformationPartieRapide());
+                getVueInformationPartieRapide().ajouterObservateur(this);
+                vueInformationExiste = true;
+            }
+
+            getVueInformationPartieRapide().updateVue(pseudos,partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
+            ouvrirVue(vueInformationPartieRapide);
+        }
+
+        if (arg == MESSAGES.QUITTER_INFORMATION) {
+            fermerVue(vueInformationPartieRapide);
+        }
+
+
     }
 
     public void lancerPartie(){
@@ -178,5 +211,13 @@ public class ControleurPartieRapide extends Controleur {
 
     public Grille getGrille(){
         return grille;
+    }
+
+    public VueInformationPartieRapide getVueInformationPartieRapide() {
+        return vueInformationPartieRapide;
+    }
+
+    public void setVueInformationPartieRapide(VueInformationPartieRapide vueInformationPartieRapide) {
+        this.vueInformationPartieRapide = vueInformationPartieRapide;
     }
 }

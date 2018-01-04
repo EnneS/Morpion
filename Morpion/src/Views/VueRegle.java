@@ -102,7 +102,7 @@ public class VueRegle extends Vue{
         regleTournoi.add(descRegleT, BorderLayout.CENTER);
         for(int i = 0; i < 3; i++){
             if(i == 1){
-                JLabel desc = new JLabel("<html>Le tournoi permet de créer une competition de morpion pour 2*n joueurs. La gestion des matchs est automatisée : il suffit que chaque joueur choississe un numéro et joue quand son tour est venu. De plus, le bouton information situé sous la grille permet de prendre connaissance de l'avancement du tournoi, et si besoins, de rappeler qui a gagner contre qui.</html>");
+                JLabel desc = new JLabel("<html>Le tournoi permet d'organiser une compétition de morpion pour 2*n joueurs. La gestion des matchs est automatisée : chaque joueur est associé à un numéro et joue quand son tour est venu. De plus, le bouton information situé sous la grille permet de prendre connaissance de l'avancement du tournoi, et si besoin, de rappeler qui a gagné contre qui.</html>");
                 desc.setVerticalAlignment(1);
                 desc.setFont(new Font("Euphemia UCAS", desc.getFont().getStyle(), desc.getFont().getSize()));
                 descRegleT.add(desc);

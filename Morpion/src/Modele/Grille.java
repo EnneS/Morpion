@@ -18,7 +18,7 @@ public class Grille {
         cases = new Case[getN()][getN()];
         for (int y = 0; y < n; y++){
             for(int x = 0; x < n; x++){
-                Case carreau = new Case(x,y);
+                Case carreau = new Case();
                 cases[x][y]=carreau;
             }
         }

@@ -8,5 +8,6 @@ public enum MESSAGES {
     QUITTER_PARTIE,
     FERMER_REGLES,
     QUITTER,
-    ANNULER_COUP
+    ANNULER_COUP,
+    REJOUER
 }

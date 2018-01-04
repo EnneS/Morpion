@@ -61,11 +61,15 @@ public class ControleurPartieRapide extends Controleur {
             fermerVue(getVueOptionPartieRapide());
         }
 
+        if (arg == MESSAGES.REJOUER){
+            resetPartie();
+        }
+
         if (arg == MESSAGES.QUITTER_PARTIE){
             ouvrirVue(getControleurPrincipal().getVueMenu());
             fermerVue(getVueGrille());
             getVueGrille().finalize();
-            resetPartie();
+            quitterPartie();
         }
 
         if (arg == MESSAGES.ANNULER_COUP){
@@ -89,6 +93,7 @@ public class ControleurPartieRapide extends Controleur {
             MESSAGE_COCHE m = (MESSAGE_COCHE) arg;
 
             // Update Vue Grille
+            System.out.println(joueurActif);
             vueGrille.updateVue(m.getJ(), m.getI(), joueurs.get(joueurActif % joueurs.size()).getSymbole(), joueurActif % joueurs.size(), true);
 
             // Update modèle grille
@@ -108,11 +113,12 @@ public class ControleurPartieRapide extends Controleur {
             casesGagnantes = getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant);
             if (!casesGagnantes.isEmpty()) {
                 vueGrille.highlightGagnant(casesGagnantes, joueurs.get((joueurActif - 1) % joueurs.size()).getNom());
+                vueGrille.matchFini(false);
             }
 
             // Si le match est nul on le met en évidence
             if(getGrille().grillePleine()){
-                vueGrille.matchNul();
+                vueGrille.matchFini(true);
             }
         }
     }
@@ -129,6 +135,21 @@ public class ControleurPartieRapide extends Controleur {
     }
 
     public void resetPartie(){
+        // Remise à 0 des infos de la partie
+        joueurActif = 0;
+
+        // Remise à 0 de la grille
+        for(int i = 0; i < getGrille().getN(); i++){
+            for (int j = 0; j < getGrille().getN(); j++){
+                getGrille().getCases()[i][j].setEtat(SYMBOLES.VIDE);
+            }
+        }
+
+        // Update de la vue pour recommencer une partie
+        vueGrille.resetPartie();
+    }
+
+    public void quitterPartie(){
         joueurs.clear();
         pseudos.clear();
         joueurActif = 0;

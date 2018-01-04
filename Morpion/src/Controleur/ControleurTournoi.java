@@ -76,6 +76,10 @@ public class ControleurTournoi extends Controleur{
             resetTournoi();
         }
 
+        if (arg == MESSAGES.REJOUER){
+            resetPartie();
+        }
+
         if (arg == MESSAGES.ANNULER_COUP){
             // On annule le dernier coup sur la vue
             vueGrille.updateVue(dernierCoup[0], dernierCoup[1], SYMBOLES.VIDE, joueurActif% joueursJouant.size(), false);
@@ -92,7 +96,6 @@ public class ControleurTournoi extends Controleur{
 
         // ===================
         // COCHAGE D'UNE CASE
-
         // On vérifie si le message reçu est bien de type MESSAGE_COCHE (cela signifie que la joueur a coché une case)
         if(arg instanceof MESSAGE_COCHE) {
             MESSAGE_COCHE m = (MESSAGE_COCHE)arg;
@@ -121,7 +124,7 @@ public class ControleurTournoi extends Controleur{
             }
 
             if(getGrille().grillePleine()){
-                vueGrille.matchNul();
+                vueGrille.matchFini(true);
             }
         }
     }
@@ -158,8 +161,8 @@ public class ControleurTournoi extends Controleur{
     }
 
     public void nextRound(){
+        // S'il y a plus d'un qualifié
         if(joueursNext.size() > 1) {
-
             // ================
             // RESET DU ROUND
             indexJoueurEnLice = 0; // On remet l'index des joueurs en lice à 0
@@ -180,8 +183,8 @@ public class ControleurTournoi extends Controleur{
             joueursJouant.add(joueursEnLice.get(indexJoueurEnLice)); joueursJouant.add(joueursEnLice.get(indexJoueurEnLice +1));
             vueGrille.nextPartie(joueursJouant.get(0).getNom(), joueursJouant.get(1).getNom()); // Update de la vue en fonction des joueurs en train de jouer
 
-        } else {
-            System.out.println(joueursNext.get(0).getNom() + " a gagné le tournoi");
+        } else { // Sinon, nous avons un gagnant
+            vueGrille.getHautGrilleLabel().setText(joueursNext.get(0).getNom() + " a gagné le tournoi !");
         }
     }
 
@@ -215,6 +218,20 @@ public class ControleurTournoi extends Controleur{
         indexJoueurEnLice = 0;
     }
 
+    public void resetPartie(){
+        // Remise à 0 des infos de la partie
+        joueurActif = 0;
+
+        // Remise à 0 de la grille
+        for(int i = 0; i < getGrille().getN(); i++){
+            for (int j = 0; j < getGrille().getN(); j++){
+                getGrille().getCases()[i][j].setEtat(SYMBOLES.VIDE);
+            }
+        }
+
+        // Update de la vue pour recommencer une partie
+        vueGrille.resetPartie();
+    }
     public ControleurPrincipale getControleurPrincipale() {
         return controleurPrincipale;
     }

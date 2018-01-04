@@ -201,19 +201,9 @@ public class VueGrille extends Vue {
 
             // Affichage du nom du gagnant
             hautGrilleLabel.setText(joueurGagnant + " gagne la partie !");
-
-            // Gagner est irréversible...
-            for (i = 0; i < cases.length; i++) {
-                for (int j = 0; j < cases.length; j++) {
-                    cases[i][j].setEnabled(false);
-                }
-            }
-
-            // ...on ne peut pas non plus revenir en arrière !
-            getBtnAnnuler().setEnabled(false);
     }
 
-    public void matchNul(){
+    public void matchFini(boolean matchNul){
             // Désactivation de tout les boutons
             for (int i = 0; i < cases.length; i++) {
                 for (int j = 0; j < cases.length; j++) {
@@ -221,11 +211,22 @@ public class VueGrille extends Vue {
                 }
             }
 
-            // On indique que le match est nul !
-            hautGrilleLabel.setText("Personne ne gagne, match nul !");
+            if(matchNul) {
+                // On indique que le match est nul !
+                hautGrilleLabel.setText("Personne ne gagne, match nul !");
+            }
 
-            // On ne peut pas non plus revenir en arrière
-            getBtnAnnuler().setEnabled(false);
+            // Le bouton annuler devient un bouton rejouer !
+            getBtnAnnuler().setText("Rejouer");
+            getBtnAnnuler().removeActionListener(getBtnAnnuler().getActionListeners()[0]); // Suppression de l'ancien actionListener
+            getBtnAnnuler().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    setChanged();
+                    notifyObservers(MESSAGES.REJOUER);
+                    clearChanged();
+                }
+            });
         }
 
     public void nextPartie(String joueur1, String joueur2){
@@ -238,6 +239,36 @@ public class VueGrille extends Vue {
         nomJoueurDroite.setText(joueur2);
         hautGrilleLabel.setText("C'est à " + pseudos.get(0) + " de jouer :");
 
+        // Remise à 0 de la grille
+        resetGrille();
+
+        getBtnAnnuler().setEnabled(false);
+    }
+
+    public  void resetPartie(){
+            // Remise à 0 de la grille
+         resetGrille();
+
+         // Le bouton rejouer redevient "Revenir en arrière"
+         getBtnAnnuler().setText("Revenir en arrière");
+         getBtnAnnuler().removeActionListener(getBtnAnnuler().getActionListeners()[0]); // Suppression de l'ancien actionListener
+         btnAnnuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChanged();
+                notifyObservers(MESSAGES.ANNULER_COUP);
+                clearChanged();
+            }
+         });
+
+         // Il est désactivé de base
+         getBtnAnnuler().setEnabled(false);
+
+         // On affiche qui doit jouer
+         hautGrilleLabel.setText("C'est à " + pseudos.get(0) + " de jouer :");
+    }
+
+    public void resetGrille(){
         // Update visuel des cases : elles deviennent actives, vides, et blanches de nouveau
         for(int i = 0; i < cases.length; i++){
             for (int j = 0; j < cases.length; j++){
@@ -246,6 +277,10 @@ public class VueGrille extends Vue {
                 cases[i][j].setBackground(Color.WHITE);
             }
         }
+    }
+
+    public JLabel getHautGrilleLabel(){
+            return hautGrilleLabel;
     }
 
     public void finalize(){};

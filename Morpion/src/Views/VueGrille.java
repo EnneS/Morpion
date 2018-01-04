@@ -65,7 +65,6 @@ public class VueGrille extends Vue {
             JPanel infoJoueurGauche = new JPanel(new GridLayout(2,1));
             hautPanel.add(infoJoueurGauche);
 
-            //Font lol = new Font("Euphemia UCAS", Font.BOLD, lol.getSize()*3);
             JLabel symboleJoueurGauche = new JLabel("X",SwingConstants.CENTER);
             symboleJoueurGauche.setFont(bold);
             infoJoueurGauche.add(symboleJoueurGauche);
@@ -90,13 +89,11 @@ public class VueGrille extends Vue {
             infoJoueurDroite.add(nomJoueurDroite);
 
             //Construction panel grille (centre de panel principal)
-
             JPanel grillePanel = new JPanel(new BorderLayout());
             centrePanel.add(grillePanel);
 
             JPanel HautGrillePanel = new JPanel();
             grillePanel.add(HautGrillePanel, BorderLayout.NORTH);
-            //HautGrillePanel.setBackground(Color.WHITE);
 
             hautGrilleLabel = new JLabel("C'est à " + pseudos.get(0) + " de jouer !", SwingConstants.CENTER);
             hautGrilleLabel.setFont(italic);
@@ -107,18 +104,19 @@ public class VueGrille extends Vue {
 
             // ========================================
             // Création de la grille
-
             cases = new JButton[tailleGrille][tailleGrille]; // Tableau de bouton servant à pouvoir les retrouver puis mettre à jour
 
             for (int i = 0; i < tailleGrille*tailleGrille ; i++){
-
+                // Création du bouton (Symbole VIDE)
                 JButton btn = new  JButton(SYMBOLES.VIDE.toString());
 
                 // On ajoute le bouton au tableau de bouton
                 cases[i/tailleGrille][i%tailleGrille] = btn;
 
+                // Personnalisation du bouton
                 btn.setFont(new Font("Euphemia UCAS", btn.getFont().getStyle(), btn.getFont().getSize()*3));
                 btn.setPreferredSize(new Dimension(500/tailleGrille,500/tailleGrille));
+                btn.setBackground(Color.WHITE);
                 centreGrillePanel.add(btn);
 
                 // On créé le message correspondant au bouton avec i%tailleGrille le n° de la colonne et i/tailleGrille le n° de la ligne
@@ -193,43 +191,64 @@ public class VueGrille extends Vue {
             return btnAnnuler;
     }
 
-    public void highlightGagnant(ArrayList<Integer> casesGagnantes){
-            if(!casesGagnantes.isEmpty()) {
-                // Mise en surbrillance
-                int i = 0;
-                while (i < casesGagnantes.size()) {
-                    cases[casesGagnantes.get(i)][casesGagnantes.get(i + 1)].setBackground(Color.RED);
-                    i += 2;
-                }
-
-                // Gagner est irréversible
-                for (i = 0; i < cases.length; i++) {
-                    for (int j = 0; j < cases.length; j++) {
-                        cases[i][j].setEnabled(false);
-                    }
-                }
-
-                // On ne peut pas non plus revenir en arrière !
-                getBtnAnnuler().setEnabled(false);
+    public void highlightGagnant(ArrayList<Integer> casesGagnantes, String joueurGagnant){
+            // Mise en surbrillance des cases gagnantes
+            int i = 0;
+            while (i < casesGagnantes.size()) {
+                cases[casesGagnantes.get(i)][casesGagnantes.get(i + 1)].setBackground(Color.RED);
+                i += 2;
             }
+
+            // Affichage du nom du gagnant
+            hautGrilleLabel.setText(joueurGagnant + " gagne la partie !");
+
+            // Gagner est irréversible...
+            for (i = 0; i < cases.length; i++) {
+                for (int j = 0; j < cases.length; j++) {
+                    cases[i][j].setEnabled(false);
+                }
+            }
+
+            // ...on ne peut pas non plus revenir en arrière !
+            getBtnAnnuler().setEnabled(false);
     }
 
-    public void finalize(){};
+    public void matchNul(){
+            // Désactivation de tout les boutons
+            for (int i = 0; i < cases.length; i++) {
+                for (int j = 0; j < cases.length; j++) {
+                    cases[i][j].setEnabled(false);
+                }
+            }
+
+            // On indique que le match est nul !
+            hautGrilleLabel.setText("Personne ne gagne, match nul !");
+
+            // On ne peut pas non plus revenir en arrière
+            getBtnAnnuler().setEnabled(false);
+        }
 
     public void nextPartie(String joueur1, String joueur2){
+        // Remplacement des pseudos par les nouveaux
         pseudos.clear();
         pseudos.add(joueur1); pseudos.add(joueur2);
+
+        // Update visuel des pseudos
         nomJoueurGauche.setText(joueur1);
         nomJoueurDroite.setText(joueur2);
         hautGrilleLabel.setText("C'est à " + pseudos.get(0) + " de jouer :");
 
+        // Update visuel des cases : elles deviennent actives, vides, et blanches de nouveau
         for(int i = 0; i < cases.length; i++){
             for (int j = 0; j < cases.length; j++){
                 cases[i][j].setEnabled(true);
-                cases[i][j].setText("");
+                cases[i][j].setText(SYMBOLES.VIDE.toString());
                 cases[i][j].setBackground(Color.WHITE);
             }
         }
     }
+
+    public void finalize(){};
+
 }
 

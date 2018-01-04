@@ -51,12 +51,13 @@ public class ControleurTournoi extends Controleur{
     public void update(Observable o, Object arg) {
 
         if (arg == MESSAGES.LANCER_PARTIE){
-            //récupérations options
+            // Récupération des paramètres du tournoi
             tailleGrille = ((VueOptionTournoi) o).getTailleGrilleSelectionne();
             alignementGagnant = ((VueOptionTournoi) o).getLongeurAlignementSelectionnee();
             pseudos = ((VueOptionTournoi) o).getPseudos();
             nombreJoueur = ((VueOptionTournoi) o).getNombreJoueur();
 
+            // Lancement du tournoi
             lancerTournoi();
         }
 
@@ -66,9 +67,12 @@ public class ControleurTournoi extends Controleur{
         }
 
         if (arg == MESSAGES.QUITTER_PARTIE){
+            // Fermeture / Ouverture des vues correspondantes
             ouvrirVue(controleurPrincipale.getVueMenu());
             fermerVue(getVueGrille());
+            // Destruction de la vue Grille
             getVueGrille().finalize();
+            // Remise à 0 des paramètres du tournois
             resetTournoi();
         }
 
@@ -99,11 +103,11 @@ public class ControleurTournoi extends Controleur{
             // Update modèle grille
             grille.getCases()[m.getJ()][m.getI()].setEtat(joueursEnLice.get(joueurActif% joueursJouant.size()).getSymbole());
 
-            // Récupération du coup
+            // Récupération du coup pour pouvoir l'annuler
             dernierCoup[0] = m.getJ();
             dernierCoup[1] = m.getI();
 
-            // On passe au joueur suivant
+            // On passe la main au joueur suivant
             joueurActif++;
 
             // Il est désormais possible d'annuler le coup
@@ -112,7 +116,7 @@ public class ControleurTournoi extends Controleur{
             // Si le coup est gagnant alors on le met en évidence
             casesGagnantes = getGrille().getCasesGagnantes(m.getJ(), m.getI(), alignementGagnant);
             if (!casesGagnantes.isEmpty()){
-                vueGrille.highlightGagnant(casesGagnantes);
+                vueGrille.highlightGagnant(casesGagnantes, joueursJouant.get((joueurActif-1)%joueursJouant.size()).getNom());
                 nextPartie();
             }
         }

@@ -7,7 +7,6 @@ package Modele;
 
 import java.util.ArrayList;
 import Enum.SYMBOLES;
-import Enum.DIRECTION;
 
 public class Grille {
     private int n; // Grille de n*n cases

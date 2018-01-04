@@ -131,7 +131,10 @@ public class ControleurPartieRapide extends Controleur {
                 }
 
                 // Et on actualise la vue information
-                getVueInformationPartieRapide().updateVue(partieGagneeJ1,partieGagneeJ2);
+                if (vueInformationExiste){
+                    getVueInformationPartieRapide().updateVue(partieGagneeJ1,partieGagneeJ2);
+                }
+
             } else if (getGrille().grillePleine()) { // Si le match est rempli et qu'il n'y a pas de gagnant
                 vueGrille.matchFini(true);
             }
@@ -147,6 +150,7 @@ public class ControleurPartieRapide extends Controleur {
             getVueInformationPartieRapide().updateVue(joueurs.get(0).getNom(), joueurs.get(1).getNom(),partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
             ouvrirVue(vueInformationPartieRapide);
         }
+
 
         if (arg == MESSAGES.QUITTER_INFORMATION) {
             fermerVue(vueInformationPartieRapide);

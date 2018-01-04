@@ -55,7 +55,7 @@ public class VueGrille extends Vue {
             mainPanel.add(centrePanel, BorderLayout.CENTER);
 
             //construction panel information (haut de panel principal)
-            Border border = BorderFactory.createLineBorder(Color.BLACK,2);
+            Border border = BorderFactory.createLineBorder(Color.BLACK,5);
 
             JPanel infoJoueurGauche = new JPanel(new GridLayout(2,1));
             hautPanel.add(infoJoueurGauche);

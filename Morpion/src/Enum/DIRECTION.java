@@ -1,9 +1,0 @@
-package Enum;
-
-public enum DIRECTION {
-
-    HORIZONTAL,
-    VERTICAL,
-    DIAGONALE_DESCANDANTE,
-    DIAGONALE_MONTANTE;
-}

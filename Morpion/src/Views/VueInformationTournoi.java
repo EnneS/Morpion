@@ -22,7 +22,7 @@ public class VueInformationTournoi extends Vue {
         //paramètres fenêtre
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setSize(1000,800);
+        window.setSize(1280,720);
         window.setResizable(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);

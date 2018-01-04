@@ -47,7 +47,6 @@ public class ControleurPartieRapide extends Controleur {
     public void update(Observable o, Object arg) {
 
         if (arg == MESSAGES.LANCER_PARTIE){
-
             //récupérations options
             tailleGrille = ((VueOptionPartieRapide) o).getTailleGrilleSelectionne();
             alignementGagnant = ((VueOptionPartieRapide) o).getLongeurAlignementSelectionnee();
@@ -62,6 +61,7 @@ public class ControleurPartieRapide extends Controleur {
         }
 
         if (arg == MESSAGES.QUITTER){
+            System.out.println("pardon?");
             ouvrirVue(getControleurPrincipal().getVueMenu());
             fermerVue(getVueOptionPartieRapide());
         }
@@ -74,9 +74,13 @@ public class ControleurPartieRapide extends Controleur {
             ouvrirVue(getControleurPrincipal().getVueMenu());
             fermerVue(getVueGrille());
             getVueGrille().finalize();
-            getVueInformationPartieRapide().finalize();
 
-            quitterPartie();
+            if(vueInformationExiste) {
+                fermerVue(getVueInformationPartieRapide());
+                getVueInformationPartieRapide().finalize();
+            }
+
+            resetInfos();
         }
 
         if (arg == MESSAGES.ANNULER_COUP){
@@ -130,7 +134,7 @@ public class ControleurPartieRapide extends Controleur {
                 }
 
                 // Et on actualise la vue information
-                getVueInformationPartieRapide().updateVue(pseudos,partieGagneeJ1,partieGagneeJ2);
+                getVueInformationPartieRapide().updateVue(partieGagneeJ1,partieGagneeJ2);
 
             } else if (getGrille().grillePleine()) { // Si le match est rempli et qu'il n'y a pas de gagnant
                 vueGrille.matchFini(true);
@@ -138,14 +142,14 @@ public class ControleurPartieRapide extends Controleur {
         }
 
         if (arg == MESSAGES.INFORMATION) {
-
             if (!vueInformationExiste) {
-                setVueInformationPartieRapide(new VueInformationPartieRapide());
+                setVueInformationPartieRapide(new VueInformationPartieRapide(joueurs.get(0).getNom(), joueurs.get(1).getNom()));
                 getVueInformationPartieRapide().ajouterObservateur(this);
                 vueInformationExiste = true;
-                getVueInformationPartieRapide().updateVue(pseudos,partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
-
             }
+
+            System.out.println(joueurs.get(0).getNom());
+            getVueInformationPartieRapide().updateVue(joueurs.get(0).getNom(), joueurs.get(1).getNom(),partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
             ouvrirVue(vueInformationPartieRapide);
         }
 
@@ -165,6 +169,11 @@ public class ControleurPartieRapide extends Controleur {
         // Affichage de la vue
         ouvrirVue(vueGrille);
         fermerVue(vueOptionPartieRapide);
+
+        // Question pour le professeur : lorsque je lance une partie, la quitte puis enfin relance une partie, la vue Menu du controleur principal s'ouvre...
+        // POURQUOI ?
+        // Cette ligne est donc uniquement là pour régler ce bug. Ca fait pas beau.
+        fermerVue(controleurPrincipale.getVueMenu());
     }
 
     public void resetPartie(){
@@ -182,10 +191,13 @@ public class ControleurPartieRapide extends Controleur {
         vueGrille.resetPartie();
     }
 
-    public void quitterPartie(){
+    public void resetInfos(){
         joueurs.clear();
         pseudos.clear();
         joueurActif = 0;
+        partieGagneeJ1 = 0;
+        partieGagneeJ2 = 0;
+        vueInformationExiste = false;
     }
 
     public VueOptionPartieRapide getVueOptionPartieRapide() {

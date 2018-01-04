@@ -17,6 +17,8 @@ public class VueInformationPartieRapide extends Vue {
     private JLabel infoJoueur2;
     private JLabel infoGrille;
     private JLabel infoAlignement;
+    private String pseudoJ1;
+    private String pseudoJ2;
 
     //Fonts
     private Font regular = new Font("Euphemia UCAS",0,14);
@@ -25,11 +27,13 @@ public class VueInformationPartieRapide extends Vue {
     private Font semiBold2 = new Font("Euphemia UCAS",1,14);
     private Font italic = new Font("Euphemia UCAS", 2,13);
 
-    public VueInformationPartieRapide(){
+    public VueInformationPartieRapide(String pseudoJ1, String pseudoJ2){
+        // Stockage des pseudos
+        this.pseudoJ1 = pseudoJ1;
+        this.pseudoJ2 = pseudoJ2;
 
         //paramètres fenêtre
         window = new JFrame();
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(600,600);
         window.setResizable(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -71,11 +75,11 @@ public class VueInformationPartieRapide extends Vue {
         recapPanel.setBorder(recapBorder);
 
 
-        infoJoueur1 = new JLabel("Joueur 1 n'a pas encore gagné de partie");
+        infoJoueur1 = new JLabel(pseudoJ1+ " n'a pas encore gagné de partie");
         infoJoueur1.setFont(regular);
         recapPanel.add(infoJoueur1);
 
-        infoJoueur2 = new JLabel("Joueur 2 n'a pas encore gagné de partie");
+        infoJoueur2 = new JLabel(pseudoJ2 + " n'a pas encore gagné de partie");
         infoJoueur2.setFont(regular);
         recapPanel.add(infoJoueur2);
 
@@ -144,19 +148,19 @@ public class VueInformationPartieRapide extends Vue {
         window.setVisible(b);
     }
 
-    public void updateVue(ArrayList pseudos, int partiesGagneesJ1, int partiesGagneesJ2, int tailleGrille, int longeurGagnante){
+    public void updateVue(String pseudoJ1, String pseudoJ2, int partiesGagneesJ1, int partiesGagneesJ2, int tailleGrille, int longeurGagnante){
 
         //si les joueurs ont au moins gagnés une partie
         if (partiesGagneesJ1+partiesGagneesJ2 != 0){
-            infoJoueur1.setText(pseudos.get(0)+" a gagné : "+partiesGagneesJ1+" partie(s)");
-            infoJoueur2.setText(pseudos.get(1)+" a gagné : "+partiesGagneesJ2+" partie(s)");
+            infoJoueur1.setText(pseudoJ1 + " a gagné : "+partiesGagneesJ1+" partie(s)");
+            infoJoueur2.setText(pseudoJ2 + " a gagné : "+partiesGagneesJ2+" partie(s)");
         }
         infoGrille.setText("Taille de la grille : "+tailleGrille);
         infoAlignement.setText("Nombre de symbole à aligner pour gagner : "+longeurGagnante+" symboles");
     }
 
-    public void updateVue(ArrayList pseudos, int partiesGagneesJ1, int partiesGagneesJ2){
-        infoJoueur1.setText(pseudos.get(0)+" a gagné : "+partiesGagneesJ1+" partie(s)");
-        infoJoueur2.setText(pseudos.get(1)+" a gagné : "+partiesGagneesJ2+" partie(s)");
+    public void updateVue(int partiesGagneesJ1, int partiesGagneesJ2){
+        infoJoueur1.setText(pseudoJ1 + " a gagné : "+partiesGagneesJ1+" partie(s)");
+        infoJoueur2.setText(pseudoJ2 + " a gagné : "+partiesGagneesJ2+" partie(s)");
     }
 }

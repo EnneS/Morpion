@@ -206,6 +206,11 @@ public class ControleurTournoi extends Controleur{
         // On l'affiche
         ouvrirVue(vueGrille);
         fermerVue(vueOptionTournoi);
+
+        // IDEM : Question pour le professeur : lorsque je lance une partie, la quitte puis enfin relance une partie, la vue Menu du controleur principal s'ouvre...
+        // POURQUOI ?
+        // Cette ligne est donc uniquement là pour régler ce bug. Ca fait pas beau.
+        fermerVue(controleurPrincipale.getVueMenu());
     }
 
     public void resetTournoi(){

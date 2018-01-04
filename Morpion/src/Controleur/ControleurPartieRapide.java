@@ -114,10 +114,7 @@ public class ControleurPartieRapide extends Controleur {
             if (!casesGagnantes.isEmpty()) {
                 vueGrille.highlightGagnant(casesGagnantes, joueurs.get((joueurActif - 1) % joueurs.size()).getNom());
                 vueGrille.matchFini(false);
-            }
-
-            // Si le match est nul on le met en évidence
-            if(getGrille().grillePleine()){
+            } else if (getGrille().grillePleine()) { // Si le match est rempli et qu'il n'y a pas de gagnant
                 vueGrille.matchFini(true);
             }
         }

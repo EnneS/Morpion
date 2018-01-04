@@ -121,9 +121,7 @@ public class ControleurTournoi extends Controleur{
             if (!casesGagnantes.isEmpty()){
                 vueGrille.highlightGagnant(casesGagnantes, joueursJouant.get((joueurActif-1)%joueursJouant.size()).getNom());
                 nextPartie();
-            }
-
-            if(getGrille().grillePleine()){
+            } else if (getGrille().grillePleine()){ // Si le match est rempli et qu'il n'y a pas de gagnant
                 vueGrille.matchFini(true);
             }
         }

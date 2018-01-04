@@ -119,9 +119,12 @@ public class ControleurTournoi extends Controleur{
                 vueGrille.highlightGagnant(casesGagnantes, joueursJouant.get((joueurActif-1)%joueursJouant.size()).getNom());
                 nextPartie();
             }
+
+            if(getGrille().grillePleine()){
+                vueGrille.matchNul();
+            }
         }
     }
-
 
     public void nextPartie(){
         // Qualification du joueur gagnant (soit joueurActif-1 parmis ceux qui jouaient !)

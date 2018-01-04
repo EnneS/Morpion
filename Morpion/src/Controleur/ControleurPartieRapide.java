@@ -61,7 +61,6 @@ public class ControleurPartieRapide extends Controleur {
         }
 
         if (arg == MESSAGES.QUITTER){
-            System.out.println("pardon?");
             ouvrirVue(getControleurPrincipal().getVueMenu());
             fermerVue(getVueOptionPartieRapide());
         }
@@ -79,7 +78,6 @@ public class ControleurPartieRapide extends Controleur {
                 fermerVue(getVueInformationPartieRapide());
                 getVueInformationPartieRapide().finalize();
             }
-
             resetInfos();
         }
 
@@ -134,8 +132,7 @@ public class ControleurPartieRapide extends Controleur {
                 }
 
                 // Et on actualise la vue information
-                getVueInformationPartieRapide().updateVue(joueurs ,partieGagneeJ1,partieGagneeJ2, tailleGrille,alignementGagnant);
-
+                getVueInformationPartieRapide().updateVue(partieGagneeJ1,partieGagneeJ2);
             } else if (getGrille().grillePleine()) { // Si le match est rempli et qu'il n'y a pas de gagnant
                 vueGrille.matchFini(true);
             }
@@ -143,12 +140,12 @@ public class ControleurPartieRapide extends Controleur {
 
         if (arg == MESSAGES.INFORMATION) {
             if (!vueInformationExiste) {
-                setVueInformationPartieRapide(new VueInformationPartieRapide());
+                setVueInformationPartieRapide(new VueInformationPartieRapide(joueurs.get(0).getNom(), joueurs.get(1).getNom()));
                 getVueInformationPartieRapide().ajouterObservateur(this);
                 vueInformationExiste = true;
             }
 
-            getVueInformationPartieRapide().updateVue(pseudos ,partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
+            getVueInformationPartieRapide().updateVue(joueurs.get(0).getNom(), joueurs.get(1).getNom(),partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
             ouvrirVue(vueInformationPartieRapide);
         }
 

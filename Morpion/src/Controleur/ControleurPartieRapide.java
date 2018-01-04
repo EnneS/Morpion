@@ -148,7 +148,7 @@ public class ControleurPartieRapide extends Controleur {
                 vueInformationExiste = true;
             }
 
-            getVueInformationPartieRapide().updateVue(joueurs ,partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
+            getVueInformationPartieRapide().updateVue(pseudos ,partieGagneeJ1,partieGagneeJ2,tailleGrille,alignementGagnant);
             ouvrirVue(vueInformationPartieRapide);
         }
 

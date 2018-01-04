@@ -83,7 +83,7 @@ public class VueRegle extends Vue{
         regleMorpion.add(descRegleM, BorderLayout.CENTER);
         for(int i = 0; i < 3; i++){
             if(i == 1){
-                JLabel desc = new JLabel("<html> Le morpion est un jeu de réflexion se pratiquant à deux joueurs au tour par tour et dont le but est de créer le premier un alignement (horizontal, vertical, diagonal) sur une grille. Les joueurs inscrivent tour à tour leurs symboles (O ou X) sur une grille de taille comprise entre 5x5 et 9x9. Le premier qui parvient à aligner cinq de ses symboles gagne la partie. Alternativement, on peut aussi jouer la partie aux points : les joueurs jouent jusqu'à avoir rempli l'ensemble de la grille et celui qui a le plus de point est déclaré gagnant. </html>");
+                JLabel desc = new JLabel("<html> Le morpion est un jeu de réflexion se pratiquant à deux joueurs au tour par tour et dont le but est de créer le premier un alignement (horizontal, vertical, diagonal) d'un nombre donné de symbole sur une grille. Les joueurs inscrivent tour à tour leurs symboles (O ou X) sur une grille de taille NxN cases. Le premier qui parvient à aligner le nombre de symbole suffisant gagne la partie. De plus, le bouton information situé sous la grillle permet de rappeler les paramètres de jeu séléctionnés et, si plusieurs parties ont été éfféctués, permet de connaître le nombre de partie gagné par chacun des joueurs</html>");
                 desc.setVerticalAlignment(1);
                 desc.setFont(new Font("Euphemia UCAS", desc.getFont().getStyle(), desc.getFont().getSize()));
                 descRegleM.add(desc);
@@ -102,7 +102,7 @@ public class VueRegle extends Vue{
         regleTournoi.add(descRegleT, BorderLayout.CENTER);
         for(int i = 0; i < 3; i++){
             if(i == 1){
-                JLabel desc = new JLabel("<html>Nunc nec neque gravida, vestibulum eros id, vehicula ex. Cras vitae purus neque. Phasellus auctor convallis dui et sodales. Vestibulum fermentum imperdiet neque, in elementum metus feugiat ut. Suspendisse porta sapien vel mauris congue porttitor. Sed eu magna et purus tempor sagittis. Nullam eu mollis dolor. In scelerisque nibh eget placerat consectetur. Sed semper lacinia neque id consectetur.</html>");
+                JLabel desc = new JLabel("<html>Le tournoi permet de créer une competition de morpion pour 2*n joueurs. La gestion des matchs est automatisée : il suffit que chaque joueur choississe un numéro et joue quand son tour est venu. De plus, le bouton information situé sous la grille permet de prendre connaissance de l'avancement du tournoi, et si besoins, de rappeler qui a gagner contre qui.</html>");
                 desc.setVerticalAlignment(1);
                 desc.setFont(new Font("Euphemia UCAS", desc.getFont().getStyle(), desc.getFont().getSize()));
                 descRegleT.add(desc);
